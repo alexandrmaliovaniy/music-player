@@ -1,0 +1,27 @@
+{
+  "name": "music-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js --prefix Server",
+    "client": "npm run start --prefix WebClient",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandrmaliovaniy/music-player.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandrmaliovaniy/music-player/issues"
+  },
+  "homepage": "https://github.com/alexandrmaliovaniy/music-player#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7"
+  }
+}
