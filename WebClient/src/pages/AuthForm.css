@@ -1,0 +1,86 @@
+.authForm .inputField,
+.authForm .inputField label,
+.authForm .inputField input {
+    float: left;
+}
+.authForm .inputField {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.authForm .inputField label {
+    width: 100%;
+    font-size: 18px;
+}
+.authForm .inputField input {
+    width: calc(100% - 60px);
+    height: 40px;
+    border: none;
+    background: transparent;
+    outline: none;
+    border-bottom: 2px solid #fff;
+    font-size: 16px;
+    color: #fff;
+}
+.authForm .inputField input::placeholder {
+    color: #fff;
+    opacity: .5;
+}
+.authForm .inputField .indecator {
+    float: left;
+    width: 60px;
+    height: 30px;
+    margin-top: 10px;
+    text-align: center;
+    border-bottom: 2px solid #fff;
+    color: var(--sky-blue);
+}
+.authForm .inputField .togglePassword {
+    cursor: pointer;
+}
+.authForm .inputField .fieldStatus {
+    float: left;
+    font-size: 14px;
+    margin-top: 5px;
+    color: var(--sky-blue);
+}
+.authForm .submit {
+    float: left;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    color: var(--purple);
+    background: var(--sky-blue);
+    border-radius: 10px;
+    border: none;
+    margin-top: 50px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: .2s;
+}
+.authForm .submit:hover {
+    color: #fff;
+}
+.authForm .submit:active {
+    background: var(--blue);
+    color: var(--purple);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.6);
+}
+.authForm .otherOptions {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+}
+.authForm .otherOptions .option {
+    float: left;
+    width: 50%;
+    
+    text-align: center;
+}
+.authForm .otherOptions .option a {
+    text-decoration: none;
+    color: #fff;
+}
+.authForm .otherOptions a:hover {
+    color: var(--sky-blue);
+    text-decoration: underline;
+}

@@ -3,9 +3,9 @@ import React, {useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye } from "@fortawesome/free-solid-svg-icons";
 
-import './LoginPage.css';
+import './RegistrationPage.css';
 import './AuthForm.css';
-const LoginPage = () => {
+const RegistrationPage = () => {
 
 
     const [passwordView, setPasswordView] = useState(false);
@@ -17,7 +17,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="LoginPage">
+        <div className="RegistrationPage">
             <form className="authForm"
                 onSubmit={SubmitForm}
             >
@@ -60,14 +60,14 @@ const LoginPage = () => {
                 <input 
                     type="submit"
                     className="submit"
-                    value="Sign in"
+                    value="Sign up"
                 />
                 <div className="otherOptions">
                     <div className="option">
                         <a href="/">Forgot password</a>
                     </div>
                     <div className="option">
-                        <a href="/registration">Create account</a>
+                        <a href="/">Create account</a>
                     </div>
                 </div>
             </form>
@@ -75,4 +75,4 @@ const LoginPage = () => {
     );
 }
 
-export default LoginPage;
+export default RegistrationPage;
