@@ -1,27 +1,64 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faEye } from "@fortawesome/free-solid-svg-icons";
+
 import './LoginPage.css';
 const LoginPage = () => {
 
+
+    const [passwordView, setPasswordView] = useState(false);
+
+    const passwordViewMode = passwordView ? "text" : "password";
+
+    const SubmitForm = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className="LoginPage">
-            <form className="loginForm">
+            <form className="loginForm" onSubmit={SubmitForm}>
                 <div className="inputField">
                     <label for="email">Email</label>
                     <div className="inputLine">
-                        <input id="email" placeholder="example@mail.com"/>
-                        <div className="indecator">ok</div>
+                        <input 
+                            id="email"
+                            type="text"
+                            autoComplete="false"
+                            placeholder="example@mail.com"
+                        />
+                        <div className="indecator">
+                            <FontAwesomeIcon icon={faCheck} />
+                        </div>
                     </div>
-                    <div className="fieldStatus"></div>
+                    <div className="fieldStatus">
+                        Perfect!
+                    </div>
                 </div>
                 <div className="inputField">
-                    <label for="password">Email</label>
+                    <label for="password">Password</label>
                     <div className="inputLine">
-                        <input id="password" />
-                        <div className="indecator">v</div>
+                        <input 
+                            id="password"
+                            type={passwordViewMode}
+                        />
+                        <div className="indecator">
+                            <FontAwesomeIcon
+                            icon={faEye}
+                            className="togglePassword"
+                            onClick={()=>setPasswordView(!passwordView)}
+                            />
+                        </div>
                     </div>
-                    <div className="fieldStatus"></div>
+                    <div className="fieldStatus">
+                        Your password is strong!
+                    </div>
                 </div>
-                <input type="submit" value="Sign in" />
+                <input 
+                    type="submit"
+                    className="submit"
+                    value="Sign in"
+                />
             </form>
         </div>
     );

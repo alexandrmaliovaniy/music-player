@@ -1,0 +1,80 @@
+.LoginPage {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.LoginPage .loginForm {
+    width: 400px;
+    color: #fff;
+}
+.LoginPage .loginForm .inputField,
+.LoginPage .loginForm .inputField label,
+.LoginPage .loginForm .inputField input {
+    float: left;
+}
+.LoginPage .loginForm .inputField {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.LoginPage .loginForm .inputField label {
+    width: 100%;
+    font-size: 18px;
+}
+.LoginPage .loginForm .inputField input {
+    width: calc(100% - 60px);
+    height: 40px;
+    border: none;
+    background: transparent;
+    outline: none;
+    border-bottom: 2px solid #fff;
+    font-size: 16px;
+    color: #fff;
+}
+.LoginPage .loginForm .inputField input::placeholder {
+    color: #fff;
+    opacity: .5;
+}
+.LoginPage .loginForm .inputField .indecator {
+    float: left;
+    width: 60px;
+    height: 30px;
+    margin-top: 10px;
+    text-align: center;
+    border-bottom: 2px solid #fff;
+    color: var(--sky-blue);
+}
+.LoginPage .loginForm .inputField .togglePassword {
+    cursor: pointer;
+}
+.LoginPage .loginForm .inputField .fieldStatus {
+    float: left;
+    font-size: 14px;
+    margin-top: 5px;
+    color: var(--sky-blue);
+}
+.LoginPage .loginForm .submit {
+    float: left;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    color: var(--purple);
+    background: var(--sky-blue);
+    border-radius: 10px;
+    border: none;
+    margin-top: 50px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: .2s;
+}
+.LoginPage .loginForm .submit:hover {
+    color: #fff;
+}
+.LoginPage .loginForm .submit:active {
+    background: var(--blue);
+    color: var(--purple);
+}
