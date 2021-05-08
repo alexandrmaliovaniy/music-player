@@ -57,6 +57,25 @@ const RegistrationPage = () => {
                         Your password is strong!
                     </div>
                 </div>
+                <div className="inputField">
+                    <label htmlFor="password">Confirm password</label>
+                    <div className="inputLine">
+                        <input 
+                            id="password"
+                            type={passwordViewMode}
+                        />
+                        <div className="indecator">
+                            <FontAwesomeIcon
+                            icon={faEye}
+                            className="togglePassword"
+                            onClick={()=>setPasswordView(!passwordView)}
+                            />
+                        </div>
+                    </div>
+                    <div className="fieldStatus">
+                        Your password is strong!
+                    </div>
+                </div>
                 <input 
                     type="submit"
                     className="submit"
@@ -64,10 +83,10 @@ const RegistrationPage = () => {
                 />
                 <div className="otherOptions">
                     <div className="option">
-                        <a href="/">Forgot password</a>
+                        <a href="/login">Login in</a>
                     </div>
                     <div className="option">
-                        <a href="/">Create account</a>
+                        <a href="/">Help</a>
                     </div>
                 </div>
             </form>
