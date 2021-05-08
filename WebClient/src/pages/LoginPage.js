@@ -59,6 +59,14 @@ const LoginPage = () => {
                     className="submit"
                     value="Sign in"
                 />
+                <div className="otherOptions">
+                    <div className="option">
+                        <a href="/">Forgot password</a>
+                    </div>
+                    <div className="option">
+                        <a href="/">Create account</a>
+                    </div>
+                </div>
             </form>
         </div>
     );

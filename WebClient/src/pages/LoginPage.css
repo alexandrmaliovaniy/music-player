@@ -77,4 +77,24 @@
 .LoginPage .loginForm .submit:active {
     background: var(--blue);
     color: var(--purple);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.6);
+}
+.LoginPage .loginForm .otherOptions {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+}
+.LoginPage .loginForm .otherOptions .option {
+    float: left;
+    width: 50%;
+    
+    text-align: center;
+}
+.LoginPage .loginForm .otherOptions .option a {
+    text-decoration: none;
+    color: #fff;
+}
+.LoginPage .loginForm .otherOptions a:hover {
+    color: var(--sky-blue);
+    text-decoration: underline;
 }
