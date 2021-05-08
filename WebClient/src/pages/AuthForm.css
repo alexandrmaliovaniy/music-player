@@ -11,31 +11,80 @@
     width: 100%;
     font-size: 18px;
 }
-.authForm .inputField input {
+.authForm .inputField .inputLine {
+    float: left;
+    width: 100%;
+    border-bottom: 2px solid #fff;
+}
+.authForm .inputField .inputLine.no-border {
+    border: none;
+}
+.authForm .inputField .inputLine input {
     width: calc(100% - 60px);
     height: 40px;
     border: none;
     background: transparent;
     outline: none;
-    border-bottom: 2px solid #fff;
     font-size: 16px;
     color: #fff;
 }
-.authForm .inputField input::placeholder {
+.authForm .inputField .inputLine input::placeholder {
     color: #fff;
     opacity: .5;
 }
-.authForm .inputField .indecator {
+.authForm .inputField .inputLine .indecator {
     float: left;
     width: 60px;
     height: 30px;
     margin-top: 10px;
     text-align: center;
-    border-bottom: 2px solid #fff;
     color: var(--sky-blue);
 }
-.authForm .inputField .togglePassword {
+.authForm .inputField .inputLine .togglePassword {
     cursor: pointer;
+}
+.authForm .inputField .inputLine .inputDate {
+    float: left;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.authForm .inputField .inputLine .inputDate .column {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: var(--sky-blue);
+    margin-top: 10px;
+}
+.authForm .inputField .inputLine .inputDate .column input,
+.authForm .inputField .inputLine .inputDate .column select  {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 5px;
+    height: 40px;
+    border: none;
+    background: #ccc;
+}
+.authForm .inputField .inputLine .inputDate .column select {
+    padding-left: 10px;
+}
+.authForm .inputField .inputLine .inputDate .column input {
+    text-align: center;
+    color: var(--purple);
+}
+.authForm .inputField .inputLine .inputDate .column input:focus {
+    background: #fff;
+}
+.authForm .inputField .inputLine .inputDate .column select:focus {
+    background: #fff;
+}
+.authForm .inputField .inputLine .inputDate .column input::placeholder {
+    color: var(--purple);
+}
+.authForm .inputField .inputLine .inputDate .column select {
+    width: 150px;
 }
 .authForm .inputField .fieldStatus {
     float: left;

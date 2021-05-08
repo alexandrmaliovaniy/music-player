@@ -27,7 +27,7 @@ const LoginPage = () => {
                         <input 
                             id="email"
                             type="text"
-                            autoComplete="false"
+                            autocomplete="off"
                             placeholder="example@mail.com"
                         />
                         <div className="indecator">
