@@ -17,7 +17,7 @@ router.post("/login", async(req, res) => {
 
 router.post("/registration", async(req, res) => {
     try {
-        const {email, username, password} = req.body;
+        const {email, username, password, birthday} = req.body;
 
         const uniqueMail = await User.findOne({email});
         if (uniqueMail) return res.status(400).json({email: "This email is already registered!"});
@@ -30,6 +30,7 @@ router.post("/registration", async(req, res) => {
         const newUser = new User({
             email,
             username,
+            birthday,
             password: hashedPassword
         });
         await newUser.save();
@@ -39,8 +40,8 @@ router.post("/registration", async(req, res) => {
                 id: newUser.id,
                 username: newUser.username
             },
-            config.get('secret'),
-            {expiresIn: ''}
+            config.get('jwtSecret'),
+            {expiresIn: '1h'}
         )
 
         res.status(200).json({token, id: newUser.id, username: newUser.username});
@@ -49,4 +50,5 @@ router.post("/registration", async(req, res) => {
         throw e
     }
 
-}); 
+});
+module.exports = router;

@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useFormError } from '../hooks/useFormError';
+import { useFormError } from '../hooks/formError.hook';
+import { useHttp } from '../hooks/http.hook';
 
 import './RegistrationPage.css';
 import './AuthForm.css';
 const RegistrationPage = () => {
 
+    const {loading, request} = useHttp();
 
     const [passwordView, setPasswordView] = useState(false);
     const [formInput, setFormInput] = useState({
@@ -90,6 +92,15 @@ const RegistrationPage = () => {
         e.preventDefault();
         try {
             if (!IsComplete()) return;
+
+            const loginData = await request('/api/auth/registration', 'POST', {
+                email: formInput.email,
+                username: formInput.username,
+                password: formInput.password,
+                birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
+            })
+            console.log(loginData);
+
         } catch(e) {
             console.log(e);
         }
@@ -242,7 +253,8 @@ const RegistrationPage = () => {
                 <input 
                     type="submit"
                     className="submit"
-                    value="Sign up"
+                    value={loading ? "Processing..." : "Sign up"}
+                    disabled={loading}
                 />
                 <div className="otherOptions">
                     <div className="option">

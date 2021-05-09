@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useFormError } from '../hooks/useFormError';
+import { useFormError } from '../hooks/formError.hook';
 
 import './LoginPage.css';
 import './AuthForm.css';
