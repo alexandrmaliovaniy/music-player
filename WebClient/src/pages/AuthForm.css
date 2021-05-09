@@ -40,6 +40,12 @@
     text-align: center;
     color: var(--sky-blue);
 }
+.authForm .inputField .inputLine .indecator .successIcon {
+    color: var(--sky-blue);
+}
+.authForm .inputField .inputLine .indecator .errorIcon {
+    color: var(--red);
+}
 .authForm .inputField .inputLine .togglePassword {
     cursor: pointer;
 }
@@ -90,6 +96,12 @@
     float: left;
     font-size: 14px;
     margin-top: 5px;
+    
+}
+.authForm .inputField .fieldStatus .errorMessage {
+    color: var(--red);
+}
+.authForm .inputField .fieldStatus .successMessage {
     color: var(--sky-blue);
 }
 .authForm .submit {

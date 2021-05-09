@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useFormError } from '../hooks/useFormError';
 
 import './RegistrationPage.css';
 import './AuthForm.css';
@@ -20,19 +21,76 @@ const RegistrationPage = () => {
     });
 
 
+    const {Validate, fieldStatus, IsComplete} = useFormError({
+        email: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        date: ""
+    });
+
+    const ValidateEmail = (e) => {
+        Validate.Email(e.target.name, e.target.value);
+    }
+    const ValidateUsername = (e) => {
+        Validate.Username(e.target.name, e.target.value);
+    }
+    const ValidatePassword = (e) => {
+        Validate.Password(e.target.name, e.target.value);
+    }
+    const ValidateConfirmPassword = (e) => {
+        Validate.ConfirmPassword(e.target.name, e.target.value, formInput.password);
+    }
+    const ValidateDate = () => {
+        Validate.Date("date", formInput.dayField, formInput.monthField, formInput.yearField);
+    }
+
     const Input = (e) => {
-        console.log({...formInput, [e.target.name]: e.target.value});
         setFormInput({...formInput, [e.target.name]: e.target.value})
     }
 
-
-
-
     const passwordViewMode = passwordView ? "text" : "password";
+    const errorMessages = {
+        email: fieldStatus.email === "" ? "" : 
+        fieldStatus.email ? <div className="successMessage">Perfect!</div> :
+        <div className="errorMessage">Wrong email format</div>,
 
+        username: fieldStatus.username === "" ? "" : 
+        fieldStatus.username ? <div className="successMessage">Well, at least you can remember that</div> :
+        <div className="errorMessage">Error: make sure you use A-z 0-9 - symbols</div>,
+
+        password: fieldStatus.password === "" ? "" : 
+        fieldStatus.password ? <div className="successMessage">Done!</div> :
+        <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>,
+
+        confirmPassword: fieldStatus.confirmPassword === "" ? "" : 
+        fieldStatus.confirmPassword ? <div className="successMessage">Matched!</div> :
+        <div className="errorMessage">Error: passwords are different!</div>,
+
+        date: fieldStatus.date === "" ? "" : 
+        fieldStatus.date ? <div className="successMessage">OK!</div> :
+        <div className="errorMessage">Error: input all fields!</div>,
+        
+    }
+
+    const errorIcons = {
+        email: fieldStatus.email === "" ? "" : 
+        fieldStatus.email ? 
+        <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />,
+
+        username: fieldStatus.username === "" ? "" : 
+        fieldStatus.username ? 
+        <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />
+    }
+
+    
     const SubmitForm = (e) => {
         e.preventDefault();
+        console.log(IsComplete());
     }
+
 
     return (
         <div className="RegistrationPage">
@@ -48,13 +106,14 @@ const RegistrationPage = () => {
                             autoComplete="off"
                             placeholder="example@mail.com"
                             onChange={Input}
+                            onBlur={ValidateEmail}
                         />
                         <div className="indecator">
-                            <FontAwesomeIcon icon={faCheck} />
+                            {errorIcons.email}
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Perfect!
+                        {errorMessages.email}
                     </div>
                 </div>
                 <div className="inputField">
@@ -65,14 +124,17 @@ const RegistrationPage = () => {
                             type="text"
                             autoComplete="off"
                             placeholder="user name"
+                            minLength="3"
+                            maxLength="36"
                             onChange={Input}
+                            onBlur={ValidateUsername}
                         />
                         <div className="indecator">
-                            <FontAwesomeIcon icon={faCheck} />
+                            {errorIcons.username}
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Perfect!
+                        {errorMessages.username}
                     </div>
                 </div>
                 <div className="inputField">
@@ -82,6 +144,7 @@ const RegistrationPage = () => {
                             name="password"
                             type={passwordViewMode}
                             onChange={Input}
+                            onBlur={ValidatePassword}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
@@ -92,7 +155,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Your password is strong!
+                        {errorMessages.password}
                     </div>
                 </div>
                 <div className="inputField">
@@ -102,6 +165,7 @@ const RegistrationPage = () => {
                             name="confirmPassword"
                             type={passwordViewMode}
                             onChange={Input}
+                            onBlur={ValidateConfirmPassword}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
@@ -112,7 +176,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Your password is strong!
+                        {errorMessages.confirmPassword}
                     </div>
                 </div>
                 <div className="inputField">
@@ -129,12 +193,14 @@ const RegistrationPage = () => {
                                     pattern="[0-9]"
                                     autoComplete="off"
                                     onChange={Input}
+                                    onBlur={ValidateDate}
                                     required
                                 />
                             </div>
                             <div className="column month">
                                 <label htmlFor="monthField">Month</label>
-                                <select name="monthField" onChange={Input}>
+                                <select name="monthField" onChange={Input} onBlur={ValidateDate} defaultValue="-1">
+                                    <option value="-1" disabled>Month</option>
                                     <option value="0">January</option>
                                     <option value="1">February</option>
                                     <option value="2">March</option>
@@ -159,13 +225,14 @@ const RegistrationPage = () => {
                                     pattern="[0-9]{4}"
                                     autoComplete="off"
                                     onChange={Input}
+                                    onBlur={ValidateDate}
                                     required
                                 />
                             </div>
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Your password is strong!
+                        {errorMessages.date}
                     </div>
                 </div>
                 <input 

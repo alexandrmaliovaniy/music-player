@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useFormError } from '../hooks/useFormError';
 
 import './LoginPage.css';
 import './AuthForm.css';
@@ -16,16 +17,47 @@ const LoginPage = () => {
         password: "",
     });
 
+    const {Validate, fieldStatus, IsComplete} = useFormError({
+        email: "",
+        password: ""
+    });
+
+
+    const ValidateEmail = (e) => {
+        Validate.Email(e.target.name, e.target.value);
+    }
+    const ValidatePassword = (e) => {
+        Validate.Password(e.target.name, e.target.value);
+    }
 
     const Input = (e) => {
         setFormInput({...formInput, [e.target.name]: e.target.value})
     }
-
     const passwordViewMode = passwordView ? "text" : "password";
+    const errorMessages = {
+        email: fieldStatus.email === "" ? "" : 
+        fieldStatus.email ? <div className="successMessage">Perfect!</div> :
+        <div className="errorMessage">Wrong email format</div>,
 
+        password: fieldStatus.password === "" ? "" : 
+        fieldStatus.password ? <div className="successMessage">Done!</div> :
+        <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>,  
+    }
+
+    const errorIcons = {
+        email: fieldStatus.email === "" ? "" : 
+        fieldStatus.email ? 
+        <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />
+    }
+
+    
     const SubmitForm = (e) => {
         e.preventDefault();
+        console.log(IsComplete());
     }
+
+
 
     return (
         <div className="LoginPage">
@@ -41,13 +73,14 @@ const LoginPage = () => {
                             autoComplete="off"
                             placeholder="example@mail.com"
                             onChange={Input}
+                            onBlur={ValidateEmail}
                         />
                         <div className="indecator">
-                            <FontAwesomeIcon icon={faCheck} />
+                            {errorIcons.email}
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Perfect!
+                        {errorMessages.email}
                     </div>
                 </div>
                 <div className="inputField">
@@ -57,6 +90,7 @@ const LoginPage = () => {
                             name="password"
                             type={passwordViewMode}
                             onChange={Input}
+                            onBlur={ValidatePassword}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
@@ -67,7 +101,7 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        Your password is strong!
+                        {errorMessages.password}
                     </div>
                 </div>
                 <input 
