@@ -86,9 +86,13 @@ const RegistrationPage = () => {
     }
 
     
-    const SubmitForm = (e) => {
+    const SubmitForm = async(e) => {
         e.preventDefault();
-        console.log(IsComplete());
+        try {
+            if (!IsComplete()) return;
+        } catch(e) {
+            console.log(e);
+        }
     }
 
 
