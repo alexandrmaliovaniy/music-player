@@ -9,6 +9,24 @@ const RegistrationPage = () => {
 
 
     const [passwordView, setPasswordView] = useState(false);
+    const [formInput, setFormInput] = useState({
+        email: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+        dayField: "",
+        monthField: "",
+        yearField: "", 
+    });
+
+
+    const Input = (e) => {
+        console.log({...formInput, [e.target.name]: e.target.value});
+        setFormInput({...formInput, [e.target.name]: e.target.value})
+    }
+
+
+
 
     const passwordViewMode = passwordView ? "text" : "password";
 
@@ -25,10 +43,29 @@ const RegistrationPage = () => {
                     <label htmlFor="email">Email</label>
                     <div className="inputLine">
                         <input 
-                            id="email"
+                            name="email"
                             type="text"
-                            autocomplete="off"
+                            autoComplete="off"
                             placeholder="example@mail.com"
+                            onChange={Input}
+                        />
+                        <div className="indecator">
+                            <FontAwesomeIcon icon={faCheck} />
+                        </div>
+                    </div>
+                    <div className="fieldStatus">
+                        Perfect!
+                    </div>
+                </div>
+                <div className="inputField">
+                    <label htmlFor="username">Username</label>
+                    <div className="inputLine">
+                        <input 
+                            name="username"
+                            type="text"
+                            autoComplete="off"
+                            placeholder="user name"
+                            onChange={Input}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon icon={faCheck} />
@@ -42,8 +79,9 @@ const RegistrationPage = () => {
                     <label htmlFor="password">Password</label>
                     <div className="inputLine">
                         <input 
-                            id="password"
+                            name="password"
                             type={passwordViewMode}
+                            onChange={Input}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
@@ -58,11 +96,12 @@ const RegistrationPage = () => {
                     </div>
                 </div>
                 <div className="inputField">
-                    <label htmlFor="password">Confirm password</label>
+                    <label htmlFor="confirmPassword">Confirm password</label>
                     <div className="inputLine">
                         <input 
-                            id="password"
+                            name="confirmPassword"
                             type={passwordViewMode}
+                            onChange={Input}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
@@ -83,18 +122,19 @@ const RegistrationPage = () => {
                             <div className="column day">
                                 <label htmlFor="dayField">Day</label>
                                 <input
-                                    id="dayField"
+                                    name="dayField"
                                     type="text"
                                     placeholder="DD"
                                     maxLength="2"
                                     pattern="[0-9]"
-                                    autocomplete="off"
+                                    autoComplete="off"
+                                    onChange={Input}
                                     required
                                 />
                             </div>
                             <div className="column month">
                                 <label htmlFor="monthField">Month</label>
-                                <select id="monthField">
+                                <select name="monthField" onChange={Input}>
                                     <option value="0">January</option>
                                     <option value="1">February</option>
                                     <option value="2">March</option>
@@ -112,12 +152,13 @@ const RegistrationPage = () => {
                             <div className="column year">
                                 <label htmlFor="yearField">Year</label>
                                 <input
-                                    id="yearField"
+                                    name="yearField"
                                     type="text"
                                     placeholder="YYYY"
                                     maxLength="4"
                                     pattern="[0-9]{4}"
-                                    autocomplete="off"
+                                    autoComplete="off"
+                                    onChange={Input}
                                     required
                                 />
                             </div>

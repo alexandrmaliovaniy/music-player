@@ -10,6 +10,17 @@ const LoginPage = () => {
 
     const [passwordView, setPasswordView] = useState(false);
 
+
+    const [formInput, setFormInput] = useState({
+        email: "",
+        password: "",
+    });
+
+
+    const Input = (e) => {
+        setFormInput({...formInput, [e.target.name]: e.target.value})
+    }
+
     const passwordViewMode = passwordView ? "text" : "password";
 
     const SubmitForm = (e) => {
@@ -25,10 +36,11 @@ const LoginPage = () => {
                     <label htmlFor="email">Email</label>
                     <div className="inputLine">
                         <input 
-                            id="email"
+                            name="email"
                             type="text"
-                            autocomplete="off"
+                            autoComplete="off"
                             placeholder="example@mail.com"
+                            onChange={Input}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon icon={faCheck} />
@@ -42,8 +54,9 @@ const LoginPage = () => {
                     <label htmlFor="password">Password</label>
                     <div className="inputLine">
                         <input 
-                            id="password"
+                            name="password"
                             type={passwordViewMode}
+                            onChange={Input}
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
