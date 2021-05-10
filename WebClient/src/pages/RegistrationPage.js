@@ -92,9 +92,10 @@ const RegistrationPage = () => {
                 password: formInput.password,
                 birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
+
+            
+
         } catch(e) {
-            console.log(e);
-            console.log({...fieldStatus, ...e});
             setFieldStatus({...fieldStatus, ...e})            
         }
     }
