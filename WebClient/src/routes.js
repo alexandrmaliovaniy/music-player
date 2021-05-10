@@ -4,13 +4,16 @@ import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 
 export const useRoutes = (isAuth) => {
-    // if (isAuth) {
-    //     return (
-    //         <Switch>
-
-    //         </Switch>
-    //     );
-    // }
+    if (isAuth) {
+        return (
+            <Switch>
+                <Route path="/home">
+                    <div>Home</div>
+                </Route>
+                <Redirect to="/home" />
+            </Switch>
+        );
+    }
 
     return (
         <Switch>

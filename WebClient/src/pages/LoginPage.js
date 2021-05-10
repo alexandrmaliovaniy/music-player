@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
 import { useHttp } from '../hooks/http.hook';
+import { AuthContext } from '../context/AuthContext';
 
 import './LoginPage.css';
 import './AuthForm.css';
 const LoginPage = () => {
 
     const {loading, request} = useHttp();
-
+    const {login} = useContext(AuthContext);
     const [passwordView, setPasswordView] = useState(false);
 
 
@@ -58,7 +59,7 @@ const LoginPage = () => {
                 email: formInput.email,
                 password: formInput.password
             });
-            console.log(loginData);
+            login(loginData.token, loginData.id, loginData.username);
         } catch(e) {
             setFieldStatus({...fieldStatus, ...e})
         }

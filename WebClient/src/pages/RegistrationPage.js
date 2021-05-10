@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
 import { useHttp } from '../hooks/http.hook';
+import { AuthContext } from '../context/AuthContext';
 
 import './RegistrationPage.css';
 import './AuthForm.css';
 const RegistrationPage = () => {
 
     const {loading, request} = useHttp();
-
+    const {login} = useContext(AuthContext);
     const [passwordView, setPasswordView] = useState(false);
     const [formInput, setFormInput] = useState({
         email: "",
@@ -92,9 +93,7 @@ const RegistrationPage = () => {
                 password: formInput.password,
                 birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
-
-
-
+            login(loginData.token, loginData.id, loginData.username);
         } catch(e) {
             setFieldStatus({...fieldStatus, ...e})            
         }

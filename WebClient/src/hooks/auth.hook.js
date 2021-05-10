@@ -18,7 +18,7 @@ export function useAuth() {
             setToken(jwtToken);
             setUserId(id);
             setUsername(username);
-            localStorage.setItem(storageName, JSON.stringify({token: jwtToken, userId: id, userLogin: userLogin}))
+            localStorage.setItem(storageName, JSON.stringify({token: jwtToken, id: id, username: username}))
         } catch(e) {
             console.log(e);
             // if (e.message === "Authorization error") {
