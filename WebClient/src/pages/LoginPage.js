@@ -17,36 +17,32 @@ const LoginPage = () => {
         password: "",
     });
 
-    const {Validate, fieldStatus, IsComplete} = useFormError({
-        email: "",
-        password: ""
+    const {Validate, fieldStatus, IsComplete, GetError} = useFormError({
+        email: {},
+        password: {}
     });
 
 
     const ValidateEmail = (e) => {
-        Validate.Email(e.target.name, e.target.value);
+        Validate.Email(e.target.name, e.target.value, (valid) => {
+            return valid ? "Perfect!" : "Wrong email format!";
+        });
     }
     const ValidatePassword = (e) => {
-        Validate.Password(e.target.name, e.target.value);
+        Validate.Password(e.target.name, e.target.value, (valid) => {
+            return valid ? "Done!":
+            "Error: make sure your password contains at leas one capital letter and digit";
+        });
     }
 
     const Input = (e) => {
         setFormInput({...formInput, [e.target.name]: e.target.value})
     }
     const passwordViewMode = passwordView ? "text" : "password";
-    const errorMessages = {
-        email: fieldStatus.email === "" ? "" : 
-        fieldStatus.email ? <div className="successMessage">Perfect!</div> :
-        <div className="errorMessage">Wrong email format</div>,
-
-        password: fieldStatus.password === "" ? "" : 
-        fieldStatus.password ? <div className="successMessage">Done!</div> :
-        <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>,  
-    }
 
     const errorIcons = {
-        email: fieldStatus.email === "" ? "" : 
-        fieldStatus.email ? 
+        email: fieldStatus.email?.status === undefined ? "" : 
+        fieldStatus.email.status ? 
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
         <FontAwesomeIcon icon={faTimes} className="errorIcon" />
     }
@@ -80,7 +76,7 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.email}
+                        {GetError("email")}
                     </div>
                 </div>
                 <div className="inputField">
@@ -101,7 +97,7 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.password}
+                        {GetError("password")}
                     </div>
                 </div>
                 <input 

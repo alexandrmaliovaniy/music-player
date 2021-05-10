@@ -24,11 +24,11 @@ const RegistrationPage = () => {
 
 
     const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError} = useFormError({
-        email: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
-        date: ""
+        email: {},
+        username: {},
+        password: {},
+        confirmPassword: {},
+        date: {}
     });
 
     const ValidateEmail = (e) => {
@@ -71,13 +71,13 @@ const RegistrationPage = () => {
     const passwordViewMode = passwordView ? "text" : "password";
 
     const errorIcons = {
-        email: fieldStatus.email === "" ? "" : 
-        fieldStatus.email ? 
+        email: fieldStatus.email?.status === undefined ? "" : 
+        fieldStatus.email.status ? 
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
         <FontAwesomeIcon icon={faTimes} className="errorIcon" />,
 
-        username: fieldStatus.username === "" ? "" : 
-        fieldStatus.username ? 
+        username: fieldStatus.username?.status === undefined ? "" : 
+        fieldStatus.username.status ? 
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
         <FontAwesomeIcon icon={faTimes} className="errorIcon" />
     }
