@@ -4,7 +4,8 @@ export const useFormError = (errorFields) => {
     const [fieldStatus, setFieldStatus] = useState(errorFields);
     const IsComplete = () => {
         for (let index in fieldStatus) {
-            if (!fieldStatus[index]) return false;
+            if (fieldStatus[index]?.serverSide) continue;
+            if (!fieldStatus[index].status) return false;
         }
         return true;
     }

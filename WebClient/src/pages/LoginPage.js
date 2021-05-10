@@ -3,11 +3,13 @@ import React, {useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
+import { useHttp } from '../hooks/http.hook';
 
 import './LoginPage.css';
 import './AuthForm.css';
 const LoginPage = () => {
 
+    const {loading, request} = useHttp();
 
     const [passwordView, setPasswordView] = useState(false);
 
@@ -17,7 +19,7 @@ const LoginPage = () => {
         password: "",
     });
 
-    const {Validate, fieldStatus, IsComplete, GetError} = useFormError({
+    const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError} = useFormError({
         email: {},
         password: {}
     });
@@ -48,9 +50,19 @@ const LoginPage = () => {
     }
 
     
-    const SubmitForm = (e) => {
+    const SubmitForm = async(e) => {
         e.preventDefault();
-        console.log(IsComplete());
+        if (!IsComplete()) return;
+        try {
+            const loginData = await request("/api/auth/login", "POST", {
+                email: formInput.email,
+                password: formInput.password
+            });
+            console.log(loginData);
+        } catch(e) {
+            setFieldStatus({...fieldStatus, ...e})
+        }
+        
     }
 
 
@@ -103,7 +115,8 @@ const LoginPage = () => {
                 <input 
                     type="submit"
                     className="submit"
-                    value="Sign in"
+                    value={loading ? "Processing..." : "Sign in"}
+                    disabled={loading}
                 />
                 <div className="otherOptions">
                     <div className="option">

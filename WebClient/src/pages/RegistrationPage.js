@@ -93,7 +93,7 @@ const RegistrationPage = () => {
                 birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
 
-            
+
 
         } catch(e) {
             setFieldStatus({...fieldStatus, ...e})            
@@ -199,7 +199,7 @@ const RegistrationPage = () => {
                                     type="text"
                                     placeholder="DD"
                                     maxLength="2"
-                                    pattern="[0-9]"
+                                    pattern="[0-9].{0,2}"
                                     autoComplete="off"
                                     onChange={Input}
                                     onBlur={ValidateDate}

@@ -13,7 +13,8 @@ router.post("/login", async(req, res) => {
     const {email, password} = req.body;
     const error = {password: {
         status: false,
-        text: "Wrong email or password."
+        text: "Wrong email or password.",
+        serverSide: true
     }};
     const user = await User.findOne({email});
     if (!user) return res.status(400).json(error);
@@ -33,10 +34,10 @@ router.post("/registration", async(req, res) => {
         const {email, username, password, birthday} = req.body;
 
         const uniqueMail = await User.findOne({email});
-        if (uniqueMail) return res.status(400).json({email: {status: false, text: "This email is already registered!"}});
+        if (uniqueMail) return res.status(400).json({email: {status: false, text: "This email is already registered!", serverSide: true}});
 
         const uniqueUsername = await User.findOne({username});
-        if (uniqueUsername) return res.status(400).json({username: {status: false, text: "This name is already taken"}});
+        if (uniqueUsername) return res.status(400).json({username: {status: false, text: "This name is already taken", serverSide: true}});
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
