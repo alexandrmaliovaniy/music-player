@@ -8,32 +8,33 @@ export const useFormError = (errorFields) => {
         }
         return true;
     }
-    const Set = (reg, input, field) => {
-        reg.test()
-        setFieldStatus({...fieldStatus, [field]: reg.test(input)});
+    const Set = (reg, input, field, cb) => {
+        const status = reg.test(input)
+        setFieldStatus({...fieldStatus, [field]: {status: status, text: cb(status)}});
     }
     const Validate = {
-        Email: (fieldName, input) => {
-            Set(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/, input, fieldName);
+        Email: (fieldName, input, cb) => {
+            Set(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/, input, fieldName, cb);
         },
-        Username: (fieldName, input) => {
-            Set(/^[a-zA-Z0-9\s-]+$/, input, fieldName);
+        Username: (fieldName, input, cb) => {
+            Set(/^[a-zA-Z0-9\s-]+$/, input, fieldName, cb);
         },
-        Password: (fieldName, input) => {
-            Set(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, input, fieldName);
+        Password: (fieldName, input, cb) => {
+            Set(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, input, fieldName, cb);
         },
-        ConfirmPassword: (fieldName, input, password) => {
-            setFieldStatus({...fieldStatus, [fieldName]: input === password});
+        ConfirmPassword: (fieldName, input, password, cb) => {
+            const status = input === password;
+            setFieldStatus({...fieldStatus, [fieldName]: {status: status, text: cb(status)}});
         },
-        Date: (fieldName, day, month, year) => {
+        Date: (fieldName, day, month, year, cb) => {
             if (!day || !month || !year) {
-                setFieldStatus({...fieldStatus, [fieldName]: false});
+                setFieldStatus({...fieldStatus, [fieldName]: {status: false, text: cb}});
                 return;
             }
             const date = new Date(Number(year), Number(month), Number(day));
-            setFieldStatus({...fieldStatus, [fieldName]: Date.now() > date.getTime()});
+            const status = Date.now() > date.getTime();
+            setFieldStatus({...fieldStatus, [fieldName]: {status: status, text: cb(status)}});
         }
-        
     }
     return {fieldStatus, setFieldStatus, Validate, IsComplete};
 }

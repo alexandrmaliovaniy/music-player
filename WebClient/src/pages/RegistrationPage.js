@@ -23,7 +23,7 @@ const RegistrationPage = () => {
     });
 
 
-    const {Validate, fieldStatus, IsComplete} = useFormError({
+    const {Validate, fieldStatus, setFieldStatus, IsComplete} = useFormError({
         email: "",
         username: "",
         password: "",
@@ -99,10 +99,10 @@ const RegistrationPage = () => {
                 password: formInput.password,
                 birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
-            console.log(loginData);
 
         } catch(e) {
-            console.log(e);
+            setFieldStatus(Object.assign(fieldStatus, e))
+            
         }
     }
 
