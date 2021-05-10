@@ -3,7 +3,15 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 
-export const useRoutes = () => {
+export const useRoutes = (isAuth) => {
+    // if (isAuth) {
+    //     return (
+    //         <Switch>
+
+    //         </Switch>
+    //     );
+    // }
+
     return (
         <Switch>
             <Route path="/login" exact>
@@ -14,5 +22,5 @@ export const useRoutes = () => {
             </Route>
             <Redirect to="/home"/>
         </Switch>
-    )
+    );
 }
