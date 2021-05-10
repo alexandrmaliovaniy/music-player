@@ -20,10 +20,10 @@ router.post("/registration", async(req, res) => {
         const {email, username, password, birthday} = req.body;
 
         const uniqueMail = await User.findOne({email});
-        if (uniqueMail) return res.status(400).json({email: "This email is already registered!"});
+        if (uniqueMail) return res.status(400).json({email: {status: false, text: "This email is already registered!"}});
 
         const uniqueUsername = await User.findOne({username});
-        if (uniqueUsername) return res.status(400).json({username: "This name is already taken"});
+        if (uniqueUsername) return res.status(400).json({username: {status: false, text: "This name is already taken"}});
 
         const hashedPassword = await bcrypt.hash(password, 12);
 

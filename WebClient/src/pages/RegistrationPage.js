@@ -23,7 +23,7 @@ const RegistrationPage = () => {
     });
 
 
-    const {Validate, fieldStatus, setFieldStatus, IsComplete} = useFormError({
+    const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError} = useFormError({
         email: "",
         username: "",
         password: "",
@@ -33,37 +33,34 @@ const RegistrationPage = () => {
 
     const ValidateEmail = (e) => {
         Validate.Email(e.target.name, e.target.value, (valid) => {
-            return valid ?
-            <div className="successMessage">Perfect!</div> :
-            <div className="errorMessage">Wrong email format</div>
+            return valid ? "Perfect!" : "Wrong email format!"
         });
     }
     const ValidateUsername = (e) => {
         Validate.Username(e.target.name, e.target.value, (valid) => {
-            return valid ?
-            <div className="successMessage">Well, at least you can remember that</div> :
-            <div className="errorMessage">Error: make sure you use A-z 0-9 - symbols</div>
+            return valid ? 
+            "Well, at least you can remember that" : 
+            "Error: make sure you use A-z 0-9 - symbols"
         });
     }
     const ValidatePassword = (e) => {
         Validate.Password(e.target.name, e.target.value, (valid) => {
-            return valid ?
-            <div className="successMessage">Done!</div> :
-            <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>
+            return valid ? "Done!" :
+            "Error: make sure your password contains at leas one capital letter and digit"
         });
     }
     const ValidateConfirmPassword = (e) => {
         Validate.ConfirmPassword(e.target.name, e.target.value, formInput.password, (valid) => {
             return valid ? 
-            <div className="successMessage">Matched!</div> :
-            <div className="errorMessage">Error: passwords are different!</div>
+            "Matched!" :
+            "Error: passwords are different!"
         });
     }
     const ValidateDate = () => {
         Validate.Date("date", formInput.dayField, formInput.monthField, formInput.yearField, (valid) => {
             return valid ?
-            <div className="successMessage">OK!</div> :
-            <div className="errorMessage">Error: input all fields!</div>
+            "OK!" :
+            "Error: input all fields!"
         });
     }
 
@@ -84,8 +81,6 @@ const RegistrationPage = () => {
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
         <FontAwesomeIcon icon={faTimes} className="errorIcon" />
     }
-
-    
     const SubmitForm = async(e) => {
         e.preventDefault();
         try {
@@ -97,10 +92,10 @@ const RegistrationPage = () => {
                 password: formInput.password,
                 birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
-
         } catch(e) {
-            setFieldStatus(Object.assign(fieldStatus, e))
-            
+            console.log(e);
+            console.log({...fieldStatus, ...e});
+            setFieldStatus({...fieldStatus, ...e})            
         }
     }
 
@@ -126,7 +121,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {fieldStatus.email.text}
+                        {GetError("email")}
                     </div>
                 </div>
                 <div className="inputField">
@@ -147,7 +142,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {fieldStatus.username.text}
+                        {GetError("username")}
                     </div>
                 </div>
                 <div className="inputField">
@@ -168,7 +163,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {fieldStatus.password.text}
+                        {GetError("password")}
                     </div>
                 </div>
                 <div className="inputField">
@@ -189,7 +184,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {fieldStatus.confirmPassword.text}
+                        {GetError("confirmPassword")}
                     </div>
                 </div>
                 <div className="inputField">
@@ -245,7 +240,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {fieldStatus.date.text}
+                        {GetError("date")}
                     </div>
                 </div>
                 <input 
