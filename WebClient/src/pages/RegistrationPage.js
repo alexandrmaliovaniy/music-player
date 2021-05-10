@@ -32,19 +32,39 @@ const RegistrationPage = () => {
     });
 
     const ValidateEmail = (e) => {
-        Validate.Email(e.target.name, e.target.value);
+        Validate.Email(e.target.name, e.target.value, (valid) => {
+            return valid ?
+            <div className="successMessage">Perfect!</div> :
+            <div className="errorMessage">Wrong email format</div>
+        });
     }
     const ValidateUsername = (e) => {
-        Validate.Username(e.target.name, e.target.value);
+        Validate.Username(e.target.name, e.target.value, (valid) => {
+            return valid ?
+            <div className="successMessage">Well, at least you can remember that</div> :
+            <div className="errorMessage">Error: make sure you use A-z 0-9 - symbols</div>
+        });
     }
     const ValidatePassword = (e) => {
-        Validate.Password(e.target.name, e.target.value);
+        Validate.Password(e.target.name, e.target.value, (valid) => {
+            return valid ?
+            <div className="successMessage">Done!</div> :
+            <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>
+        });
     }
     const ValidateConfirmPassword = (e) => {
-        Validate.ConfirmPassword(e.target.name, e.target.value, formInput.password);
+        Validate.ConfirmPassword(e.target.name, e.target.value, formInput.password, (valid) => {
+            return valid ? 
+            <div className="successMessage">Matched!</div> :
+            <div className="errorMessage">Error: passwords are different!</div>
+        });
     }
     const ValidateDate = () => {
-        Validate.Date("date", formInput.dayField, formInput.monthField, formInput.yearField);
+        Validate.Date("date", formInput.dayField, formInput.monthField, formInput.yearField, (valid) => {
+            return valid ?
+            <div className="successMessage">OK!</div> :
+            <div className="errorMessage">Error: input all fields!</div>
+        });
     }
 
     const Input = (e) => {
@@ -52,28 +72,6 @@ const RegistrationPage = () => {
     }
 
     const passwordViewMode = passwordView ? "text" : "password";
-    const errorMessages = {
-        email: fieldStatus.email === "" ? "" : 
-        fieldStatus.email ? <div className="successMessage">Perfect!</div> :
-        <div className="errorMessage">Wrong email format</div>,
-
-        username: fieldStatus.username === "" ? "" : 
-        fieldStatus.username ? <div className="successMessage">Well, at least you can remember that</div> :
-        <div className="errorMessage">Error: make sure you use A-z 0-9 - symbols</div>,
-
-        password: fieldStatus.password === "" ? "" : 
-        fieldStatus.password ? <div className="successMessage">Done!</div> :
-        <div className="errorMessage">Error: make sure your password contains at leas one capital letter and digit</div>,
-
-        confirmPassword: fieldStatus.confirmPassword === "" ? "" : 
-        fieldStatus.confirmPassword ? <div className="successMessage">Matched!</div> :
-        <div className="errorMessage">Error: passwords are different!</div>,
-
-        date: fieldStatus.date === "" ? "" : 
-        fieldStatus.date ? <div className="successMessage">OK!</div> :
-        <div className="errorMessage">Error: input all fields!</div>,
-        
-    }
 
     const errorIcons = {
         email: fieldStatus.email === "" ? "" : 
@@ -128,7 +126,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.email}
+                        {fieldStatus.email.text}
                     </div>
                 </div>
                 <div className="inputField">
@@ -149,7 +147,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.username}
+                        {fieldStatus.username.text}
                     </div>
                 </div>
                 <div className="inputField">
@@ -170,7 +168,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.password}
+                        {fieldStatus.password.text}
                     </div>
                 </div>
                 <div className="inputField">
@@ -191,7 +189,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.confirmPassword}
+                        {fieldStatus.confirmPassword.text}
                     </div>
                 </div>
                 <div className="inputField">
@@ -247,7 +245,7 @@ const RegistrationPage = () => {
                         </div>
                     </div>
                     <div className="fieldStatus">
-                        {errorMessages.date}
+                        {fieldStatus.date.text}
                     </div>
                 </div>
                 <input 

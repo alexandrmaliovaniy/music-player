@@ -8,9 +8,17 @@ export const useFormError = (errorFields) => {
         }
         return true;
     }
+    const GetError = (error) => {
+        const item = fieldStatus[error];
+        if (!item) return null;
+        return <div className={`${item.status ? "success" : "error"}Message`}>{item.text}</div>
+    }
     const Set = (reg, input, field, cb) => {
         const status = reg.test(input)
-        setFieldStatus({...fieldStatus, [field]: {status: status, text: cb(status)}});
+        setFieldStatus({...fieldStatus, [field]: {
+            status: status, 
+            text: cb(status)
+        }});
     }
     const Validate = {
         Email: (fieldName, input, cb) => {
@@ -28,7 +36,7 @@ export const useFormError = (errorFields) => {
         },
         Date: (fieldName, day, month, year, cb) => {
             if (!day || !month || !year) {
-                setFieldStatus({...fieldStatus, [fieldName]: {status: false, text: cb}});
+                setFieldStatus({...fieldStatus, [fieldName]: {status: false, text: cb(false)}});
                 return;
             }
             const date = new Date(Number(year), Number(month), Number(day));
@@ -36,5 +44,5 @@ export const useFormError = (errorFields) => {
             setFieldStatus({...fieldStatus, [fieldName]: {status: status, text: cb(status)}});
         }
     }
-    return {fieldStatus, setFieldStatus, Validate, IsComplete};
+    return {fieldStatus, setFieldStatus, Validate, IsComplete, GetError};
 }
