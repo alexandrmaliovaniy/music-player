@@ -9,6 +9,12 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+#root, html, body, .App {
+	float: left;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
