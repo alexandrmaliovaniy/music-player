@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
 import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
@@ -12,7 +12,6 @@ const RegistrationPage = () => {
 
     const {loading, request} = useHttp();
     const {login} = useContext(AuthContext);
-    const [passwordView, setPasswordView] = useState(false);
     const [formInput, setFormInput] = useState({
         email: "",
         username: "",
@@ -58,8 +57,6 @@ const RegistrationPage = () => {
         setFormInput({...formInput, [e.target.name]: e.target.value})
     }
 
-    const passwordViewMode = passwordView ? "text" : "password";
-
     const errorIcons = {
         email: fieldStatus.email?.status === undefined ? "" : 
         fieldStatus.email.status ? 
@@ -69,6 +66,16 @@ const RegistrationPage = () => {
         username: fieldStatus.username?.status === undefined ? "" : 
         fieldStatus.username.status ? 
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />,
+
+        password: fieldStatus.password?.status === undefined ? "" :
+        fieldStatus.password.status ? 
+        <FontAwesomeIcon icon={faCheck} className="successIcon" /> :
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />,
+
+        confirmPassword: fieldStatus.confirmPassword?.status === undefined ? "":
+        fieldStatus.confirmPassword.status ?
+        <FontAwesomeIcon icon={faCheck} className="successIcon" /> :
         <FontAwesomeIcon icon={faTimes} className="errorIcon" />
     }
     const SubmitForm = async(e) => {
@@ -138,16 +145,12 @@ const RegistrationPage = () => {
                     <div className="inputLine">
                         <input 
                             name="password"
-                            type={passwordViewMode}
+                            type="password"
                             onChange={Input}
                             onBlur={ValidatePassword}
                         />
                         <div className="indecator">
-                            <FontAwesomeIcon
-                            icon={faEye}
-                            className="togglePassword"
-                            onClick={()=>setPasswordView(!passwordView)}
-                            />
+                            {errorIcons.password}
                         </div>
                     </div>
                     <div className="fieldStatus">
@@ -159,16 +162,12 @@ const RegistrationPage = () => {
                     <div className="inputLine">
                         <input 
                             name="confirmPassword"
-                            type={passwordViewMode}
+                            type="password"
                             onChange={Input}
                             onBlur={ValidateConfirmPassword}
                         />
                         <div className="indecator">
-                            <FontAwesomeIcon
-                            icon={faEye}
-                            className="togglePassword"
-                            onClick={()=>setPasswordView(!passwordView)}
-                            />
+                            {errorIcons.confirmPassword}
                         </div>
                     </div>
                     <div className="fieldStatus">

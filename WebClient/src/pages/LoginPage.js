@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faEye, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
 import { useHttp } from '../hooks/http.hook';
 import { AuthContext } from '../context/AuthContext';
@@ -47,7 +47,9 @@ const LoginPage = () => {
         email: fieldStatus.email?.status === undefined ? "" : 
         fieldStatus.email.status ? 
         <FontAwesomeIcon icon={faCheck} className="successIcon" /> : 
-        <FontAwesomeIcon icon={faTimes} className="errorIcon" />
+        <FontAwesomeIcon icon={faTimes} className="errorIcon" />,
+
+        password: passwordView ? faEyeSlash : faEye
     }
 
     
@@ -103,7 +105,7 @@ const LoginPage = () => {
                         />
                         <div className="indecator">
                             <FontAwesomeIcon
-                            icon={faEye}
+                            icon={errorIcons.password}
                             className="togglePassword"
                             onClick={()=>setPasswordView(!passwordView)}
                             />
