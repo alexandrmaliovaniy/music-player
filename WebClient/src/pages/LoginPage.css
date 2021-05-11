@@ -12,3 +12,9 @@
     width: 400px;
     color: #fff;
 }
+
+@media all and (max-width: 550px) {
+    .LoginPage .authForm {
+        width: 300px
+    }
+}
