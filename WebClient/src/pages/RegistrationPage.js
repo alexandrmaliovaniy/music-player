@@ -18,9 +18,6 @@ const RegistrationPage = () => {
         username: "",
         password: "",
         confirmPassword: "",
-        dayField: "",
-        monthField: "",
-        yearField: "", 
     });
 
 
@@ -29,7 +26,6 @@ const RegistrationPage = () => {
         username: {},
         password: {},
         confirmPassword: {},
-        date: {}
     });
 
     const ValidateEmail = (e) => {
@@ -55,13 +51,6 @@ const RegistrationPage = () => {
             return valid ? 
             "Matched!" :
             "Error: passwords are different!"
-        });
-    }
-    const ValidateDate = () => {
-        Validate.Date("date", formInput.dayField, formInput.monthField, formInput.yearField, (valid) => {
-            return valid ?
-            "OK!" :
-            "Error: input all fields!"
         });
     }
 
@@ -91,7 +80,6 @@ const RegistrationPage = () => {
                 email: formInput.email,
                 username: formInput.username,
                 password: formInput.password,
-                birthday: (new Date(Number(formInput.yearField), Number(formInput.monthField), Number(formInput.dayField))).getTime()
             })
             login(loginData.token, loginData.id, loginData.username);
         } catch(e) {
@@ -185,62 +173,6 @@ const RegistrationPage = () => {
                     </div>
                     <div className="fieldStatus">
                         {GetError("confirmPassword")}
-                    </div>
-                </div>
-                <div className="inputField">
-                    <label htmlFor="password">What's your birthday?</label>
-                    <div className="inputLine no-border">
-                        <div className="inputDate">
-                            <div className="column day">
-                                <label htmlFor="dayField">Day</label>
-                                <input
-                                    name="dayField"
-                                    type="text"
-                                    placeholder="DD"
-                                    maxLength="2"
-                                    pattern="[0-9].{0,2}"
-                                    autoComplete="off"
-                                    onChange={Input}
-                                    onBlur={ValidateDate}
-                                    required
-                                />
-                            </div>
-                            <div className="column month">
-                                <label htmlFor="monthField">Month</label>
-                                <select name="monthField" onChange={Input} onBlur={ValidateDate} defaultValue="-1">
-                                    <option value="-1" disabled>Month</option>
-                                    <option value="0">January</option>
-                                    <option value="1">February</option>
-                                    <option value="2">March</option>
-                                    <option value="3">April</option>
-                                    <option value="4">May</option>
-                                    <option value="5">June</option>
-                                    <option value="6">July</option>
-                                    <option value="7">August</option>
-                                    <option value="8">September</option>
-                                    <option value="9">October</option>
-                                    <option value="10">November</option>
-                                    <option value="11">December</option>
-                                </select>
-                            </div>
-                            <div className="column year">
-                                <label htmlFor="yearField">Year</label>
-                                <input
-                                    name="yearField"
-                                    type="text"
-                                    placeholder="YYYY"
-                                    maxLength="4"
-                                    pattern="[0-9]{4}"
-                                    autoComplete="off"
-                                    onChange={Input}
-                                    onBlur={ValidateDate}
-                                    required
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="fieldStatus">
-                        {GetError("date")}
                     </div>
                 </div>
                 <input 
