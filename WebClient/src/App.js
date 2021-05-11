@@ -12,7 +12,6 @@ function App() {
 	const routes = useRoutes(isAuth);
 
 	if (!ready) return (<Preloader />);
-
 	return (
 		<AuthContext.Provider value={{
 			token,id,username,login,logout,isAuth

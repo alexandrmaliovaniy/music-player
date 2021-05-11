@@ -1,21 +1,33 @@
 import React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route, Redirect, Link} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
-
+import Sidebar from './components/Sidebar/Sidebar';
+import MusicPlayer from './components/Player/MusicPlayer';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
         return (
-            <Switch>
-                <Route path="/home">
-                    <div>Home</div>
-                </Route>
-                <Redirect to="/home" />
-            </Switch>
+            <div className="wrapper">
+                <div className="userInterface">
+                    <div className="sideBarContainer">
+                        <Sidebar />
+                    </div>
+                    <div className="mainContainer">
+                        <Switch>
+                            <Route path="/home">
+                                <div>Home</div>
+                            </Route>
+                            <Redirect to="/home" />
+                        </Switch>
+                    </div>
+                </div>
+                <div className="musicPlayerContainer">
+                    <MusicPlayer />
+                </div>
+            </div>
         );
     }
-
     return (
         <Switch>
             <Route path="/login" exact>
