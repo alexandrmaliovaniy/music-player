@@ -31,7 +31,7 @@ router.post("/login", async(req, res) => {
 
 router.post("/registration", async(req, res) => {
     try {
-        const {email, username, password, birthday} = req.body;
+        const {email, username, password} = req.body;
 
         const uniqueMail = await User.findOne({email});
         if (uniqueMail) return res.status(400).json({email: {status: false, text: "This email is already registered!", serverSide: true}});
@@ -44,7 +44,6 @@ router.post("/registration", async(req, res) => {
         const newUser = new User({
             email,
             username,
-            birthday,
             password: hashedPassword
         });
         await newUser.save();
