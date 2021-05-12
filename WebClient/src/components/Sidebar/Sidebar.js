@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faHome, faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faHome, faPlus, faSearch, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import './Sidebar.css';
 
 
@@ -27,10 +27,12 @@ const SideBar = () => {
                     favorite songs
                 </li>
             </ul>
-
-            <div className="playlists">
-                
-            </div>
+            <ul className="playlists">
+                <li className="playlist">
+                    Play list
+                    <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
+                </li>
+            </ul>
         </div>
     )
 }

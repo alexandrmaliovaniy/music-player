@@ -8,17 +8,18 @@
 }
 
 .Sidebar .navBar,
-.Sidebar .userOptions {
+.Sidebar .userOptions,
+.Sidebar .playlists {
     float: left;
     width: 100%;
     list-style: none;
     margin-top: 100px;
+    color: #ddd;
 }
 .Sidebar .navBar .menuItem {
     float: left;
     width: 100%;
     height: 40px;
-    color: #ddd;
     border-radius: 5px;
     font-size: 20px;
     font-weight: 100;
@@ -56,7 +57,6 @@
     float: left;
     width: 100%;
     height: 30px;
-    color: #ddd;
     font-weight: 100;
     padding-left: 20px;
     line-height: 28px;
@@ -73,4 +73,25 @@
     margin-top: 10px;
     margin-right: 18px;
     margin-left: 3px;
+}
+
+.Sidebar .playlists {
+    margin-top: 50px;
+}
+.Sidebar .playlists .playlist {
+    padding-left: 20px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.Sidebar .playlists .playlist:hover .playlistIcon {
+    opacity: 1;
+}
+.Sidebar .playlists .playlist .playlistIcon {
+    opacity: 0;
+    float: right;
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    transition: .5s;
 }
