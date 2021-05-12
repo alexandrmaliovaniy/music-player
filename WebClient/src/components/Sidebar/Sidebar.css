@@ -1,0 +1,76 @@
+.Sidebar {
+    float: left;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.Sidebar .navBar,
+.Sidebar .userOptions {
+    float: left;
+    width: 100%;
+    list-style: none;
+    margin-top: 100px;
+}
+.Sidebar .navBar .menuItem {
+    float: left;
+    width: 100%;
+    height: 40px;
+    color: #ddd;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 38px;
+    padding-left: 20px;
+    cursor: pointer;
+    transition: .5s;
+}
+.Sidebar .navBar .activeMenuItem {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    text-shadow: 0px 0px 5px #fff;
+}
+.Sidebar .navBar .menuItem:hover {
+    color: #fff;
+    text-shadow: 0px 0px 5px #fff;
+}
+.Sidebar .navBar .menuItem .menuIcon {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.Sidebar .userOptions {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.Sidebar .userOptions .userOptionItem {
+    float: left;
+    width: 100%;
+    height: 30px;
+    color: #ddd;
+    font-weight: 100;
+    padding-left: 20px;
+    line-height: 28px;
+    transition: .5s;
+}
+.Sidebar .userOptions .userOptionItem:hover {
+    color: #fff;
+    text-shadow: 0px 0px 5px #fff;
+}
+.Sidebar .userOptions .userOptionItem .userOptionIcon {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin-top: 10px;
+    margin-right: 18px;
+    margin-left: 3px;
+}
