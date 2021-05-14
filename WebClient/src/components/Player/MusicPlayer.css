@@ -1,0 +1,153 @@
+.MusicPlayer {
+    float: left;
+    width: 100%;
+    height: 100%;
+    background: var(--player-bg);
+    border-top: 2px solid #333;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.MusicPlayer .audioInfo,
+.MusicPlayer .playerControl,
+.MusicPlayer .audioControl {
+    height: 100%;
+    width: 100%;
+}
+
+.MusicPlayer .audioInfo {
+    display: flex;
+    align-items: center;
+}
+.MusicPlayer .audioInfo .audioData {
+    margin-left: 20px;
+    color: #fff;
+}
+.MusicPlayer .audioInfo .audioData .audioName,
+.MusicPlayer .audioInfo .audioData .audioAuthor {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+.MusicPlayer .audioInfo .audioData .audioName {
+    font-size: 18px;
+    font-weight: 400;
+}
+.MusicPlayer .audioInfo .audioData .audioName:hover {
+    text-decoration: underline;
+}
+.MusicPlayer .audioInfo .audioData .audioAuthor {
+    font-size: 12px;
+    font-weight: 100;
+}
+.MusicPlayer .audioInfo .audioData .audioAuthor:hover {
+    text-decoration: underline;
+}
+.MusicPlayer .playerControl {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 500px;
+}
+.MusicPlayer .playerControl .controllButtons {
+    float: left;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 15px;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+.MusicPlayer .playerControl .controllButtons div {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--player-progress);
+    transition: .2s;
+    font-size: 14px;
+}
+.MusicPlayer .playerControl .controllButtons div:hover {
+    color: #fff;
+}
+.MusicPlayer .playerControl .controllButtons .play {
+    background: #fff;
+    border-radius: 50%;
+    padding-left: 4px;
+    color: var(--player-bg);
+}
+.MusicPlayer .playerControl .timeline {
+    float: left;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer {
+    width: 100%;
+    height: 12px;
+    display: flex;
+    align-items: center;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer .timeProgression {
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+    background: var(--player-progress-bg);
+    overflow: hidden;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer .timeProgression .progressLine {
+    float: left;
+    width: 63%;
+    height: 100%;
+    border-radius: 10px;
+    background: var(--player-progress);
+}
+.MusicPlayer .playerControl .timeline .currentTime,
+.MusicPlayer .playerControl .timeline .audioLength {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 40px;
+    margin-top: -3px;
+    font-size: 12px;
+    text-align: center;
+    color: rgb(179, 179, 179);
+}
+.MusicPlayer .audioControl {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: #fff;
+}
+.MusicPlayer .audioControl .controlIcons {
+    margin-right: 25px;
+}
+.MusicPlayer .audioControl .volumeControlContainer {
+    width: 120px;
+    height: 12px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.MusicPlayer .audioControl .volumeControlContainer .valumeIcon {
+    
+}
+
+.MusicPlayer .audioControl .volumeControlContainer .valumeControl {
+    width: 100%;
+    height: 4px;
+    background: var(--player-progress-bg);
+    margin-left: 10px;
+    border-radius: 10px;
+}
+.MusicPlayer .audioControl .volumeControlContainer .valumeControl .valumeLevel {
+    width: 63%;
+    height: 100%;
+    background: var(--player-progress);
+    border-radius: 10px;
+}

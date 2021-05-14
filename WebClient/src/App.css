@@ -6,6 +6,9 @@ body {
     overflow-y: auto;
     --player-height: 100px;
     --sidebar-width: 250px;
+    --player-bg: #181818;
+    --player-progress: #b3b3b3;
+    --player-progress-bg: #535353;
 }
 
 .App .wrapper {
