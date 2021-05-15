@@ -1,0 +1,21 @@
+.playlistContainer {
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 100px;
+}
+.playlistContainer .playlistSectionTitle {
+    float: left;
+    width: 100%;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.playlistSection {
+    float: left;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
