@@ -5,6 +5,7 @@ import RegistrationPage from './pages/RegistrationPage';
 import Sidebar from './components/Sidebar/Sidebar';
 import MusicPlayer from './components/Player/MusicPlayer';
 import Home from './pages/Home';
+import Search from './pages/Search';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -17,7 +18,7 @@ export const useRoutes = (isAuth) => {
                     <div className="mainContainer">
                         <Switch>
                             <Route path="/home" component={Home} />
-                            <Route path="/search" component={Home} />
+                            <Route path="/search" component={Search} />
                         </Switch>
                     </div>
                 </div>
