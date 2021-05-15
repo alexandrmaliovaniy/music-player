@@ -6,7 +6,15 @@ const Playlist = () => {
             <div className="playlistSectionTitle">
                 Playlist title
             </div>
-            <PlaylistItem />
+            <div className="playlistSection">
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+            </div>
         </div>
     );
 }
