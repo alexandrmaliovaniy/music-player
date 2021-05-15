@@ -27,6 +27,8 @@
     padding-left: 20px;
     cursor: pointer;
     transition: .5s;
+    color: #ddd;
+    text-decoration: none;
 }
 .Sidebar .navBar .activeMenuItem {
     background: var(--blue);
@@ -61,6 +63,8 @@
     padding-left: 20px;
     line-height: 28px;
     transition: .5s;
+    text-decoration: none;
+    color: #ddd;
 }
 .Sidebar .userOptions .userOptionItem:hover {
     color: #fff;
@@ -83,6 +87,8 @@
     height: 30px;
     line-height: 30px;
     cursor: pointer;
+    text-decoration: none;
+    color: #ddd;
 }
 .Sidebar .playlists .playlist:hover .playlistIcon {
     opacity: 1;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Redirect, Link} from 'react-router-dom';
+import {Switch, Route, Redirect, Link, Router} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -16,10 +16,8 @@ export const useRoutes = (isAuth) => {
                     </div>
                     <div className="mainContainer">
                         <Switch>
-                            <Route path="/home">
-                                <Home />
-                            </Route>
-                            <Redirect to="/home" />
+                            <Route path="/home" component={Home} />
+                            <Route path="/search" component={Home} />
                         </Switch>
                     </div>
                 </div>

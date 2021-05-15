@@ -21,16 +21,17 @@
     float: left;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
 }
 .Home .playlistSection .playlistItem {
     float: left;
-    background: #333;
+    background: #222;
     transition: .3s;
+    border-radius: 5px;
 }
 .Home .playlistSection .playlistItem:hover {
-    background: #444;
+    background: #333;
 }
 .Home .playlistSection .playlistItem:hover .playlistDisplay .playlistButton {
     bottom: 12px;
@@ -47,6 +48,7 @@
     height: auto;
     background: #fff;
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 .Home .playlistSection .playlistItem .playlistDisplay .playlistButton {
     position: absolute;
