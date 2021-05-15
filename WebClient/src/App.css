@@ -9,6 +9,7 @@ body {
     --player-bg: #181818;
     --player-progress: #b3b3b3;
     --player-progress-bg: #535353;
+    --main-bg: #111;
 }
 
 .App .wrapper {
@@ -31,7 +32,8 @@ body {
     float: left;
     width: calc(100% - var(--sidebar-width));
     height: 100%;
-    overflow-y: auto;
+    overflow: hidden;
+    background: var(--main-bg);
 }
 
 .App .wrapper .musicPlayerContainer {
