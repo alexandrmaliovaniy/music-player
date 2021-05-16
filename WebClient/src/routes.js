@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import MusicPlayer from './components/Player/MusicPlayer';
 import Home from './pages/Home';
 import Search from './pages/Search';
+import NotFound from './pages/NotFound';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -19,6 +20,8 @@ export const useRoutes = (isAuth) => {
                         <Switch>
                             <Route path="/home" component={Home} />
                             <Route path="/search" component={Search} />
+                            <Route path="/404" component={NotFound} />
+                            <Redirect to="/404"/>
                         </Switch>
                     </div>
                 </div>

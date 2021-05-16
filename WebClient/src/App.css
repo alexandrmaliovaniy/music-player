@@ -1,7 +1,6 @@
 body {
     background: var(--purple);
 }
-
 .App {
     overflow-y: auto;
     --player-height: 100px;
@@ -11,7 +10,6 @@ body {
     --player-progress-bg: #535353;
     --main-bg: #111;
 }
-
 .App .wrapper {
     float: left;
     width: 100%;
