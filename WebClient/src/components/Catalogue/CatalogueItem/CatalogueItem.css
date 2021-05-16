@@ -1,31 +1,32 @@
-.playlistSection .playlistItem {
+.CatalogueItem {
     float: left;
     background: #222;
     transition: .3s;
     border-radius: 5px;
 }
-.playlistSection .playlistItem:hover {
+.CatalogueItem:hover {
     background: #333;
 }
-.playlistSection .playlistItem:hover .playlistDisplay .playlistButton {
+.CatalogueItem:hover .catalogueItemDisplay .catalogueItemButton {
     bottom: 12px;
     opacity: 1;
 }
-.playlistSection .playlistItem .playlistDisplay {
+.CatalogueItem .catalogueItemDisplay {
     position: relative;
     float: left;
     width: 100%;
     padding: 15px 15px 0px 15px;
     z-index: 0;
 }
-.playlistSection .playlistItem .playlistDisplay .playlistImg {
-    width: 100%;
+.CatalogueItem .catalogueItemDisplay .catalogueItemImg {
+    width: 200px;
+    max-width: 100%;
     height: auto;
-    background: #fff;
+    background: #444;
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
-.playlistSection .playlistItem .playlistDisplay .playlistButton {
+.CatalogueItem .catalogueItemDisplay .catalogueItemButton {
     position: absolute;
     right: 7px;
     bottom: 0px;
@@ -44,7 +45,7 @@
     font-size: 12px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
-.playlistSection .playlistItem .playlistDescription {
+.CatalogueItem .catalogueItemDescription {
     float: left;
     width: 100%;
     height: 80px;
@@ -54,10 +55,10 @@
     flex-direction: column;
     justify-content: center;
 }
-.playlistSection .playlistItem .playlistDescription .playlistName {
+.CatalogueItem .catalogueItemDescription .catalogueItemName {
     font-weight: 600;
 }
-.playlistSection .playlistItem .playlistDescription .playlistAuthor {
+.CatalogueItem .catalogueItemDescription .catalogueItemAuthor {
     font-weight: 100;
     font-size: 14px;
     margin-top: 5px;

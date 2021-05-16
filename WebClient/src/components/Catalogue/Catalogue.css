@@ -1,45 +1,45 @@
-.playlistContainer {
+.CatalogueContainer {
     float: left;
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 100px;
 }
-.playlistContainer .playlistSectionTitle {
+.CatalogueContainer .catalogueTitle {
     float: left;
     width: 100%;
     font-size: 24px;
     color: #fff;
     margin-bottom: 20px;
 }
-.playlistContainer .playlistSection {
+.CatalogueContainer .catalogueList {
     float: left;
     width: 100%;
     display: grid;
     gap: 20px;
 }
 @media all {
-    .playlistSection {
+    .catalogueList {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
 @media all and (max-width: 1600px) {
-    .playlistSection {
+    .catalogueList {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }
 @media all and (max-width: 1366px) {
-    .playlistSection {
+    .catalogueList {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
 @media all and (max-width: 1024px) {
-    .playlistSection {
+    .catalogueList {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
 @media all and (max-width: 900px) {
-    .playlistSection {
+    .catalogueList {
         grid-template-columns: 1fr 1fr;
     }
 }
