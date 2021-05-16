@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, Router, BrowserRouter} from 'react-router-dom'
 import { CurrentPageContext } from '../../context/CurrentPageContext';
-import { faHeart, faHome, faPlus, faSearch, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faHeart, faHome, faPlus, faSearch, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import './Sidebar.css';
 
 
@@ -36,6 +36,10 @@ const SideBar = () => {
                 <Link to="/" className="userOptionItem">
                     <FontAwesomeIcon icon={faHeart} className="userOptionIcon" />
                     favorite songs
+                </Link>
+                <Link to="/" className="userOptionItem">
+                    <FontAwesomeIcon icon={faDownload} className="userOptionIcon" />
+                    downloads
                 </Link>
             </div>
             <div className="playlists">

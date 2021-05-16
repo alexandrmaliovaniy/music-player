@@ -19,10 +19,13 @@ const Catalogue = ({name, list}) => {
 Catalogue.propTypes = {
     name: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        author: PropTypes.string,
-        image: PropTypes.string
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        author: PropTypes.shape({
+            id: PropTypes.string,
+            name: PropTypes.string
+        }).isRequired,
+    image: PropTypes.string.isRequired
     })).isRequired
 }
 

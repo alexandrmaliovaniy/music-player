@@ -1,9 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
 import './CatalogueItem.css';
 const CatalogueItem = ({id, name, author, image}) => {
+
+    const history = useHistory();
+
     return (
         <Link to="/search" className="CatalogueItem">
             <div className="catalogueItemDisplay">
@@ -22,9 +25,13 @@ const CatalogueItem = ({id, name, author, image}) => {
                 <div className="catalogueItemName">
                     {name}
                 </div>
-                <Link to="/" className="catalogueItemAuthor">
+                <div className="catalogueItemAuthor" onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    history.push('/404');
+                }}>
                     {author.name}
-                </Link>
+                </div>
             </div>
         </Link>
     );
