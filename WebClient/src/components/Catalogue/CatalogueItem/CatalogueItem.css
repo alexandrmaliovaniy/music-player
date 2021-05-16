@@ -3,6 +3,7 @@
     background: #222;
     transition: .3s;
     border-radius: 5px;
+    cursor: pointer;
 }
 .CatalogueItem:hover {
     background: #333;
@@ -62,4 +63,9 @@
     font-weight: 100;
     font-size: 14px;
     margin-top: 5px;
+    text-decoration: none;
+    color: #fff;
+}
+.CatalogueItem .catalogueItemDescription .catalogueItemAuthor:hover {
+    text-decoration: underline;
 }
