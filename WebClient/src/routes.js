@@ -42,7 +42,7 @@ export const useRoutes = (isAuth) => {
             <Route path="/registration" exact>
                 <RegistrationPage />
             </Route>
-            <Redirect to="/home"/>
+            <Redirect to="/login"/>
         </Switch>
     );
 }

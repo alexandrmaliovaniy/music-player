@@ -13,7 +13,7 @@ function App() {
 	const isAuth = !!token;
 	const routes = useRoutes(isAuth);
 
-	const [currentPage, setCurrentPage] = useState(0);
+	const [currentPage, setCurrentPage] = useState(null);
 
 	if (!ready) return (<Preloader />);
 	return (
