@@ -7,6 +7,7 @@ import MusicPlayer from './components/Player/MusicPlayer';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
+import Header from './components/Header/Header';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -17,6 +18,7 @@ export const useRoutes = (isAuth) => {
                         <Sidebar />
                     </div>
                     <div className="mainContainer">
+                        <Header />
                         <Switch>
                             <Route path="/home" component={Home} />
                             <Route path="/search" component={Search} />
