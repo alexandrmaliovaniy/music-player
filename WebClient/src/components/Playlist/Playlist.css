@@ -12,30 +12,29 @@
     color: #fff;
     margin-bottom: 20px;
 }
-.playlistSection {
+.playlistContainer .playlistSection {
     float: left;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
 }
-
-@media all and (max-device-width: 1600px) {
+@media all and (max-width: 1600px) {
     .playlistSection {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }
-@media all and (max-device-width: 1366px) {
+@media all and (max-width: 1366px) {
     .playlistSection {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
-@media all and (max-device-width: 1024px) {
+@media all and (max-width: 1024px) {
     .playlistSection {
         grid-template-columns: 1fr 1fr 1fr;
     }
 }
-@media all and (max-device-width: 900px) {
+@media all and (max-width: 900px) {
     .playlistSection {
         grid-template-columns: 1fr 1fr;
     }

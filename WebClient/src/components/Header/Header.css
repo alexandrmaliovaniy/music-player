@@ -4,6 +4,9 @@
     height: 60px;
     display: flex;
     align-items: center;
+    background: #111;
+    border-bottom: 1px solid #333;
+    z-index: 1;
 }
 
 .Header .navigation {

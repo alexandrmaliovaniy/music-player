@@ -16,6 +16,7 @@
     float: left;
     width: 100%;
     padding: 15px 15px 0px 15px;
+    z-index: 0;
 }
 .playlistSection .playlistItem .playlistDisplay .playlistImg {
     width: 100%;

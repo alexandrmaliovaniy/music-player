@@ -29,17 +29,17 @@ const SideBar = () => {
             </div>
 
             <div className="userOptions">
-                <Link className="userOptionItem activeUserOptionItem">
+                <Link to="/" className="userOptionItem activeUserOptionItem">
                     <FontAwesomeIcon icon={faPlus} className="userOptionIcon" />
                     create new playlist
                 </Link>
-                <Link className="userOptionItem">
+                <Link to="/" className="userOptionItem">
                     <FontAwesomeIcon icon={faHeart} className="userOptionIcon" />
                     favorite songs
                 </Link>
             </div>
             <div className="playlists">
-                <Link className="playlist">
+                <Link to="/" className="playlist">
                     Play list
                     <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
                 </Link>

@@ -20,6 +20,7 @@ export const useRoutes = (isAuth) => {
                     <div className="mainContainer">
                         <Header />
                         <Switch>
+                            <Route exact path="/" component={Home} />
                             <Route path="/home" component={Home} />
                             <Route path="/search" component={Search} />
                             <Route path="/404" component={NotFound} />
