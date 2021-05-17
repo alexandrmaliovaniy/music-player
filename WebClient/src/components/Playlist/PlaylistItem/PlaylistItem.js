@@ -18,7 +18,7 @@ const PlaylistItem = ({id, order, name, author, listenCount, length}) => {
                 <Link to="/" className="itemAuthor">{author.name}</Link>
             </div>
             <div className="listenCount">
-                {listenCount}
+                {String(listenCount).replace(/(.)(?=(\d{3})+$)/g,'$1 ')}
             </div>
             <div className="itemLength">
                 {length}
