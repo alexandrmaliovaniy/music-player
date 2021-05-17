@@ -1,0 +1,11 @@
+.PlaylistPage {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.PlaylistPage .songsList {
+    float: left;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}

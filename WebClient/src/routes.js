@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Header from './components/Header/Header';
+import PlaylistPage from './pages/PlaylistPage';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -19,13 +20,16 @@ export const useRoutes = (isAuth) => {
                     </div>
                     <div className="mainContainer">
                         <Header />
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <Route path="/home" component={Home} />
-                            <Route path="/search" component={Search} />
-                            <Route path="/404" component={NotFound} />
-                            <Redirect to="/404"/>
-                        </Switch>
+                        <div className="mainContent">
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <Route path="/home" component={Home} />
+                                <Route path="/search" component={Search} />
+                                <Route path="/playlist/:id" component={PlaylistPage} />
+                                <Route path="/404" component={NotFound} />
+                                <Redirect to="/404"/>
+                            </Switch>
+                        </div>
                     </div>
                 </div>
                 <div className="musicPlayerContainer">

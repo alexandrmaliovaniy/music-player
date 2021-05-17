@@ -1,0 +1,18 @@
+.Playlist {
+    float: left;
+    width: 100%;
+    color: #fff;
+}
+.Playlist .playlistTableHead {
+    float: left;
+    width: 100%;
+    display: grid;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    grid-template-columns: 60px 2fr 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+}

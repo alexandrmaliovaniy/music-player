@@ -8,7 +8,7 @@ const CatalogueItem = ({id, name, author, image}) => {
     const history = useHistory();
 
     return (
-        <Link to="/search" className="CatalogueItem">
+        <Link to={`/playlist/${id}`} className="CatalogueItem">
             <div className="catalogueItemDisplay">
                 <img
                 className="catalogueItemImg"
