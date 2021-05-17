@@ -3,7 +3,10 @@
     width: 100%;
     height: 100%;
     padding-bottom: 20px;
-    background: #090909;
+    /* background: #090909; */
+    background: #080808;
+background: linear-gradient(to top, #080808, #111111);
+    overflow: hidden;
 }
 .PlaylistBanner .playlistBannerInfo {
     float: left;
@@ -18,6 +21,8 @@
     float: left;
     max-width: 200px;
     height: auto;
+    border-radius: 5px;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 1);
 }
 .PlaylistBanner .playlistBannerInfo .playlistBannerDescription {
     float: left;
