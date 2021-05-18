@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import '../Catalogue/CatalogueBanner.css';
-const PlaylistBanner = ({id, image, name, description}) => {
+const CatalogueBanner = ({id, image, name, description}) => {
     return (
-        <div className="PlaylistBanner">
-            <div className="playlistBannerInfo">
+        <div className="CatalogueBanner">
+            <div className="CatalogueBannerInfo">
                 <img
                 width="200"
                 height="200"
-                className="playlistBannerPreviev"
+                className="CatalogueBannerPreviev"
                 src={image} />
-                <div className="playlistBannerDescription">
-                    <div className="playlistBannerName">
+                <div className="CatalogueBannerDescription">
+                    <div className="CatalogueBannerName">
                         {name}
                     </div>
-                    <div className="playlistBannerDetails">
+                    <div className="CatalogueBannerDetails">
                         {description}
                     </div>
                 </div>
@@ -22,11 +22,11 @@ const PlaylistBanner = ({id, image, name, description}) => {
     )
 }
 
-PlaylistBanner.propTypes = {
+CatalogueBanner.propTypes = {
     id: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired
 }
 
-export default PlaylistBanner;
+export default CatalogueBanner;

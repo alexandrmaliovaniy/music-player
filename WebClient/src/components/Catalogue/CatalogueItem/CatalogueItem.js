@@ -28,7 +28,7 @@ const CatalogueItem = ({id, name, author, image}) => {
                 <div className="catalogueItemAuthor" onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    history.push('/404');
+                    history.push(`/author/${id}`);
                 }}>
                     {author.name}
                 </div>
