@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import Playlist from '../components/Playlist/Playlist';
-import PlaylistBanner from '../components/Playlist/PlaylistBanner';
+import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
 import {CurrentPageContext} from '../context/CurrentPageContext';
 import './PlaylistPage.css';
 
@@ -143,7 +143,7 @@ const PlaylistPage = () => {
     return (
         <div className="PlaylistPage">
             <div className="bannerPlaceholder">
-                <PlaylistBanner name={data.name} image={data.image} description={data.description}  />
+                <CatalogueBanner name={data.name} image={data.image} description={data.description}  />
             </div>
             <div className="songsList">
                 <Playlist list={data.list} />

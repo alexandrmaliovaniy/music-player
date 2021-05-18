@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './PlaylistBanner.css';
+import '../Catalogue/CatalogueBanner.css';
 const PlaylistBanner = ({id, image, name, description}) => {
     return (
         <div className="PlaylistBanner">
