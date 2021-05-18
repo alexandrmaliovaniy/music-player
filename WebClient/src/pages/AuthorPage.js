@@ -8,7 +8,7 @@ const AuthorPage = () => {
 
     const [artist] = useState({
         id: '0',
-        image: "",
+        image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F79%2Fec%2F14%2F79ec145d48cbc5a5de09c69bd5fbc118.jpg&f=1&nofb=1",
         name: "Artist name",
         description: "some description"
     })
@@ -18,119 +18,35 @@ const AuthorPage = () => {
         {
             id: "0",
             name: "Burn",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
+            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcovers3.img-themusic-world.info%2F000%2F13%2F13748.jpg&f=1&nofb=1",
             listenCount: 110000,
             length: "4:27"
         },
         {
             id: "1",
             name: "Just Like You",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
+            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.laut.de%2FThree-Days-Grace%2FAlben%2FHuman-95994%2Fthree-days-grace-human-160698.jpg&f=1&nofb=1",
             listenCount: 3310000,
             length: "3:06"
         },
         {
             id: "2",
             name: "I hate everythink about you",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
+            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.laut.de%2FThree-Days-Grace%2FAlben%2FHuman-95994%2Fthree-days-grace-human-160698.jpg&f=1&nofb=1",
             listenCount: 110000,
             length: "0:27"
         },
         {
             id: "3",
             name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
+            image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F8%2F8a%2FOutsider.jpg&f=1&nofb=1",
             listenCount: 120,
             length: "44:27"
         },
         {
             id: "3",
             name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },{
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            author: {
-                id: "0",
-                name: "Three days grace"
-            },
+            image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F8%2F8a%2FOutsider.jpg&f=1&nofb=1",
             listenCount: 120,
             length: "44:27"
         }
