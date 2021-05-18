@@ -9,6 +9,7 @@ import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Header from './components/Header/Header';
 import PlaylistPage from './pages/PlaylistPage';
+import AuthorPage from './pages/AuthorPage';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -26,6 +27,7 @@ export const useRoutes = (isAuth) => {
                                 <Route path="/home" component={Home} />
                                 <Route path="/search" component={Search} />
                                 <Route path="/playlist/:id" component={PlaylistPage} />
+                                <Route path="/author/:id" component={AuthorPage} />
                                 <Route path="/404" component={NotFound} />
                                 <Redirect to="/404"/>
                             </Switch>
