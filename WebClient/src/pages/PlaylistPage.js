@@ -3,6 +3,7 @@ import Playlist from '../components/Playlist/Playlist';
 import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
 import {CurrentPageContext} from '../context/CurrentPageContext';
 import './PlaylistPage.css';
+import CataloguePlay from '../components/Catalogue/CataloguePlay';
 
 const PlaylistPage = () => {
 
@@ -145,6 +146,7 @@ const PlaylistPage = () => {
             <div className="bannerPlaceholder">
                 <CatalogueBanner name={data.name} image={data.image} description={data.description}  />
             </div>
+            <CataloguePlay />
             <div className="songsList">
                 <Playlist list={data.list} />
             </div>

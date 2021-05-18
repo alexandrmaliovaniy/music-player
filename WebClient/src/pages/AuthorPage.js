@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Catalogue from '../components/Catalogue/Catalogue';
 import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
+import CataloguePlay from '../components/Catalogue/CataloguePlay';
 import Playlist from '../components/Playlist/Playlist';
 import './AuthorPage.css';
 
@@ -83,6 +84,7 @@ const AuthorPage = () => {
             <div className="authorBanner">
                 <CatalogueBanner {...artist} />
             </div>
+            <CataloguePlay />
             <div className="authorPopular">
                 <div className="authorPopularTitle">
                     Popular Songs
