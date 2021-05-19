@@ -91,7 +91,7 @@ const AuthorPage = () => {
             <div className="authorBanner">
                 <CatalogueBanner {...artist} />
             </div>
-            <CataloguePlay />
+            <CataloguePlay artistId={artist.id} />
             <div className="authorPopular">
                 <div className="authorPopularTitle">
                     Popular Songs

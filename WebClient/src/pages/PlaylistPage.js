@@ -146,7 +146,7 @@ const PlaylistPage = () => {
             <div className="bannerPlaceholder">
                 <CatalogueBanner name={data.name} image={data.image} description={data.description}  />
             </div>
-            <CataloguePlay />
+            <CataloguePlay playlistId={data.id} />
             <div className="songsList">
                 <Playlist list={data.list} />
             </div>
