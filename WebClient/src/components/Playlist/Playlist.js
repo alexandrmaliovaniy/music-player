@@ -23,7 +23,6 @@ const Playlist = ({list}) => {
 Playlist.protoTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
-        order: PropTypes.number.isRequired,
         name: PropTypes.string,
         author: {
             id: PropTypes.string.isRequired,
