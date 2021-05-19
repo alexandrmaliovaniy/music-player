@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Catalogue from '../components/Catalogue/Catalogue';
 import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
 import CataloguePlay from '../components/Catalogue/CataloguePlay';
 import Playlist from '../components/Playlist/Playlist';
+import { CurrentPageContext } from '../context/CurrentPageContext';
 import './AuthorPage.css';
 
 const AuthorPage = () => {
+
+    const {setCurrentPage} = useContext(CurrentPageContext);
+
+    useEffect(() => {
+        setCurrentPage(null);
+    }, [])
 
     const [artist] = useState({
         id: '0',
