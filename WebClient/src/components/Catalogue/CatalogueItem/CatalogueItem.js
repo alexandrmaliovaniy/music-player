@@ -3,12 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
 import './CatalogueItem.css';
-const CatalogueItem = ({id, name, author, image}) => {
+const CatalogueItem = ({_id, name, author, image}) => {
 
     const history = useHistory();
 
     return (
-        <Link to={`/playlist/${id}`} className="CatalogueItem">
+        <Link to={`/playlist/${_id}`} className="CatalogueItem">
             <div className="catalogueItemDisplay">
                 <img
                 className="catalogueItemImg"
@@ -28,9 +28,13 @@ const CatalogueItem = ({id, name, author, image}) => {
                 <div className="catalogueItemAuthor" onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    history.push(`/author/${id}`);
+                    history.push(`/author/${_id}`);
                 }}>
-                    {author.name}
+                    {
+                    author.map(artist => {
+                        return artist.name
+                    })
+                    }
                 </div>
             </div>
         </Link>
@@ -38,12 +42,12 @@ const CatalogueItem = ({id, name, author, image}) => {
 }
 
 CatalogueItem.propTypes = {
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    author: PropTypes.shape({
-        id: PropTypes.string,
+    author: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
         name: PropTypes.string
-    }).isRequired,
+    }).isRequired).isRequired,
     image: PropTypes.string.isRequired
 }
 

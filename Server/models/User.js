@@ -6,7 +6,7 @@ const schema = new Schema({
     password: {type: String, required: true},
     playlists: [{type: Types.ObjectId, ref: "Playlist"}],
     favorites: [{type: Types.ObjectId, ref: "Song"}],
-    avatar: {type: String},
+    image: {type: String},
     banner: {type: String}
 });
 

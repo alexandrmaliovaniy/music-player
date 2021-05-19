@@ -1,17 +1,36 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom'
 import Catalogue from '../components/Catalogue/Catalogue';
 import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
 import CataloguePlay from '../components/Catalogue/CataloguePlay';
 import Playlist from '../components/Playlist/Playlist';
 import { CurrentPageContext } from '../context/CurrentPageContext';
+import {useHttp} from '../hooks/http.hook';
 import './AuthorPage.css';
 
 const AuthorPage = () => {
+
+    const artistId = useParams().id;
+
+    const {request} = useHttp();
+
+
+    const requestArtist = useCallback(async() => {
+        try {
+            // const artist = await request(`/api/artist/${artistId}`, "GET", null);
+            // console.log(artist);
+
+        } catch (e) {
+            console.log(e);
+        }
+    }, [])
+
 
     const {setCurrentPage} = useContext(CurrentPageContext);
 
     useEffect(() => {
         setCurrentPage(null);
+        requestArtist();
     }, [])
 
     const [artist] = useState({
@@ -67,19 +86,19 @@ const AuthorPage = () => {
             {
                 id: "1",
                 name: "Three Days Grace",
-                author: {
+                author: [{
                     id: "1",
                     name: "Three Days Grace"
-                },
+                }],
                 image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.vinylcollective.com%2Fwp-content%2Fuploads%2F2016%2F09%2Fthreedays.jpg&f=1&nofb=1"
             },
             {
                 id: "2",
                 name: "Outsider",
-                author: {
+                author: [{
                     id: "1",
                     name: "Three Days Grace"
-                },
+                }],
                 image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.smehost.net%2Frcarecordscom-usrcaprod%2Fwp-content%2Fuploads%2F2018%2F01%2FTDG-OUTSIDER-album-artwork-561x561.jpg&f=1&nofb=1"
             }
         ]

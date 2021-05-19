@@ -2,6 +2,7 @@ import CatalogueItem from './CatalogueItem/CatalogueItem';
 import PropTypes from 'prop-types';
 import './Catalogue.css';
 const Catalogue = ({name, list}) => {
+    console.log(list);
     return (
         <div className="CatalogueContainer">
             <div className="catalogueTitle">
@@ -19,12 +20,12 @@ const Catalogue = ({name, list}) => {
 Catalogue.propTypes = {
     name: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        author: PropTypes.shape({
-            id: PropTypes.string,
+        author: PropTypes.arrayOf(PropTypes.shape({
+            _id: PropTypes.string,
             name: PropTypes.string
-        }).isRequired,
+        }).isRequired).isRequired,
     image: PropTypes.string.isRequired
     })).isRequired
 }

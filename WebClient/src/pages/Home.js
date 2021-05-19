@@ -1,43 +1,33 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
+import {useHttp} from '../hooks/http.hook';
 import Catalogue from '../components/Catalogue/Catalogue';
 import { CurrentPageContext } from '../context/CurrentPageContext';
 import './Home.css';
 
 const Home = () => {
+
+    const {request} = useHttp();
+    const [popular, setPopular] = useState([])
+
+    const reqestPopular = useCallback(async() => {
+        try {
+            const popular = await request('/api/playlist/popular', "GET", null);
+            setPopular(popular);
+        } catch (e) {
+            console.log(e);
+        }
+    })
+
     const {setCurrentPage} = useContext(CurrentPageContext);
     useEffect(() => {
         setCurrentPage(0);
+        reqestPopular();
     }, [])
-
-
-    const [catalogue] = useState({
-        name: "Three Days Grace albums",
-        list: [
-            {
-                id: "1",
-                name: "Three Days Grace",
-                author: {
-                    id: "1",
-                    name: "Three Days Grace"
-                },
-                image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcovers3.img-themusic-world.info%2F000%2F13%2F13748.jpg&f=1&nofb=1"
-            },
-            {
-                id: "2",
-                name: "Outsider",
-                author: {
-                    id: "1",
-                    name: "Three Days Grace"
-                },
-                image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.smehost.net%2Frcarecordscom-usrcaprod%2Fwp-content%2Fuploads%2F2018%2F01%2FTDG-OUTSIDER-album-artwork-561x561.jpg&f=1&nofb=1"
-            }
-        ]
-    })
 
 
     return (
         <div className="Home">
-            <Catalogue {...catalogue} />
+            <Catalogue name="Popular" list={popular} />
         </div>
     )
 }
