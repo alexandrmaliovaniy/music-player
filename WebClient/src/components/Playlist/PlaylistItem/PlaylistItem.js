@@ -17,7 +17,7 @@ const PlaylistItem = ({id, order, name, author, listenCount, length, image}) => 
                     <div className="itemName">
                         {name}
                     </div>
-                    {author ? <Link to="/" className="itemAuthor">{author.name}</Link> : ""}
+                    {author ? <Link to={`/author/${id}`} className="itemAuthor">{author.name}</Link> : ""}
                 </div>
                 
             </div>
