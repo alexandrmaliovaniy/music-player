@@ -22,16 +22,23 @@ export const usePlayer = () => {
     const Stop = useCallback(() => {
         currentSong.pause();
     });
-    const LoadSong = useCallback(async(id) => {
+    const RemoveCurrentSong = useCallback(() => {
+        if (!currentSong) return;
+
+    });
+    const PlaySong = useCallback(async(id) => {
         try {
-            const song = request(`/api/song/${id}`, "GET", null);
+            const song = await request(`/api/song/${id}`, "GET", null);
             console.log(song);
+            const a = new Audio("data:audio/wav;base64," + song);
+            a.play();
+            console.log(a);
         } catch (e) {
             console.log(e);
         }
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-        TogglePlayer, Play, Stop, LoadSong
+        TogglePlayer, Play, Stop, PlaySong
     }
 }

@@ -13,7 +13,7 @@ const PlaylistPage = () => {
     const [playlist, setPlaylist] = useState({
         name: "",
         image: "",
-        id: "",
+        _id: "",
         songs: []
     });
     const playlistId = useParams().id;
@@ -37,7 +37,7 @@ const PlaylistPage = () => {
     return (
         <div className="PlaylistPage">
             <div className="bannerPlaceholder">
-                <CatalogueBanner name={playlist.name} image={playlist.image} />
+                <CatalogueBanner _id={playlist._id} name={playlist.name} image={playlist.image} />
             </div>
             <CataloguePlay playlistId={playlist.id} />
             <div className="songsList">

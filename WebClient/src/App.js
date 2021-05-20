@@ -16,18 +16,14 @@ function App() {
 
 	const [currentPage, setCurrentPage] = useState(null);
 
-	const {isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-        TogglePlayer, Play, Stop, LoadSong} = usePlayer();
+	const player = usePlayer();
 
 	if (!ready) return (<Preloader />);
 	return (
 		<AuthContext.Provider value={{
 			token,id,username,login,logout,isAuth
 		}}>
-			<PlayerContext.Provider value={{
-				isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-				TogglePlayer, Play, Stop, LoadSong
-			}} >
+			<PlayerContext.Provider value={player} >
 				<Router>
 					<div className="App">
 						<CurrentPageContext.Provider value={{
@@ -42,5 +38,4 @@ function App() {
 		</AuthContext.Provider>
 	);
 }
-
 export default App;

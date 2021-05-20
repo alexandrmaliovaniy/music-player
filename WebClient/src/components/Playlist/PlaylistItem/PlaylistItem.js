@@ -1,15 +1,20 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import {Link} from 'react-router-dom';
 import './PlaylistItem.css';
+import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({id, order, name, author, listenCount, length, image}) => {
+const PlaylistItem = ({_id, order, name, author, listenCount, length, image}) => {
+
+    const { PlaySong } = useContext(PlayerContext);
+
     return (
         <div className="PlaylistItem">
             <div className="itemOrder">
                 <div className="itemOrderIndex">{order + 1}</div>
-                <FontAwesomeIcon icon={faPlay} className="playItem" />
+                <FontAwesomeIcon icon={faPlay} className="playItem" onClick={()=> PlaySong(_id)} />
             </div>
             <div className="itemDescription">
                 {image ? <img className="itemImage" src={image} /> : ""}
@@ -17,7 +22,7 @@ const PlaylistItem = ({id, order, name, author, listenCount, length, image}) => 
                     <div className="itemName">
                         {name}
                     </div>
-                    {author ? <Link to={`/author/${id}`} className="itemAuthor">{author.name}</Link> : ""}
+                    {author ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.name}</Link> : ""}
                 </div>
                 
             </div>
@@ -32,12 +37,12 @@ const PlaylistItem = ({id, order, name, author, listenCount, length, image}) => 
 }
 
 PlaylistItem.protoTypes = {
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     order: PropTypes.number.isRequired,
     name: PropTypes.string,
     image: PropTypes.string,
     author: {
-        id: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
     },
     listenCount: PropTypes.number.isRequired,

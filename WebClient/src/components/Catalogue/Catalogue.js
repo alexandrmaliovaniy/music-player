@@ -2,7 +2,6 @@ import CatalogueItem from './CatalogueItem/CatalogueItem';
 import PropTypes from 'prop-types';
 import './Catalogue.css';
 const Catalogue = ({name, list}) => {
-    console.log(list);
     return (
         <div className="CatalogueContainer">
             <div className="catalogueTitle">
@@ -10,7 +9,7 @@ const Catalogue = ({name, list}) => {
             </div>
             <div className="catalogueList">
                 {list.map(el => {
-                    return <CatalogueItem {...el} key={el.id} />
+                    return <CatalogueItem {...el} key={el._id} />
                 })}
             </div>
         </div>

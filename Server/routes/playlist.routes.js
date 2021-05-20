@@ -56,6 +56,12 @@ router.get("/:id", async(req, res) => {
                 foreignField: '_id',
                 as: 'songs'
             }
+        },
+        {
+            $project: {
+                "songs.data": 0,
+                "author.image": 0
+            }
         }
     ]);
     res.json(playlist);

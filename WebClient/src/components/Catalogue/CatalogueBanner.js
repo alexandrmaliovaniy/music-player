@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import '../Catalogue/CatalogueBanner.css';
-const CatalogueBanner = ({id, image, name, description}) => {
+const CatalogueBanner = ({_id, image, name, description}) => {
     return (
         <div className="CatalogueBanner">
             <div className="CatalogueBannerInfo">
@@ -23,10 +23,9 @@ const CatalogueBanner = ({id, image, name, description}) => {
 }
 
 CatalogueBanner.propTypes = {
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
 }
 
 export default CatalogueBanner;
