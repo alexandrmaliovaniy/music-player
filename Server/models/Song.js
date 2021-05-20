@@ -5,7 +5,8 @@ const schema = new Schema({
     originalPlaylist: {type: Types.ObjectId},
     author: {type: Types.ObjectId},
     length: {type: Number},
-    listenCount: {type: Number}
+    listenCount: {type: Number},
+    data: {type: String, required: true}
 });
 
 module.exports = model("Song", schema);
