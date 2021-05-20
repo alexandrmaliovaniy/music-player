@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useHttp } from './http.hook';
 
-export const usePalyer = () => {
+export const usePlayer = () => {
     const { request } = useHttp();
     const [isPlaying, setPlaying] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
@@ -30,4 +30,8 @@ export const usePalyer = () => {
             console.log(e);
         }
     });
+    return {
+        isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
+        TogglePlayer, Play, Stop, LoadSong
+    }
 }
