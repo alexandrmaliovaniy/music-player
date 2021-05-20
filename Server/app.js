@@ -12,6 +12,7 @@ app.use("/api/auth/", require('./routes/auth.routes'));
 app.use("/api/artist/", require('./routes/artist.routes'));
 app.use("/api/playlist/", require('./routes/playlist.routes'));
 
+
 const PORT = config.get('port') || 5000;
 
 MongoConnect(config.get("mongo"))
