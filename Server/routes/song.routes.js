@@ -16,7 +16,33 @@ router.get('/:playlistId/:order', async(req, res) => {
             $match: {
                 "originalPlaylist": {$eq: Types.ObjectId(playlistId)}
             }
-        }
+        },
+        {
+            $lookup: {
+                from: 'playlists',
+                localField: 'originalPlaylist',
+                foreignField: '_id',
+                as: 'originalPlaylist'
+            }
+        },
+        {
+            $addFields: {
+                originalPlaylist: {$arrayElemAt: ["$originalPlaylist", 0]}
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'author',
+                foreignField: '_id',
+                as: 'author'
+            }
+        },
+        {
+            $addFields: {
+                author: {$arrayElemAt: ["$author", 0]}
+            }
+        },
     ]);
     if (!songs[order]) return res.status(404).json({message: "song not found"});
     res.json(songs[order]);
