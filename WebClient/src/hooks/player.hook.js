@@ -23,7 +23,12 @@ export const usePlayer = () => {
     const Stop = useCallback(() => {
         audio.pause();
     });
+    const RemoveAudio = useCallback(() => {
+        Stop();
+        setAudio(null);
+    })
     const PlaySong = useCallback(async(playlist, order) => {
+        if (audio) RemoveAudio();
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
         console.log(song);
         const a = new Audio("data:audio/wav;base64," + song.data);

@@ -42,7 +42,7 @@ router.get('/:playlistId/:order', async(req, res) => {
             $addFields: {
                 author: {$arrayElemAt: ["$author", 0]}
             }
-        },
+        }
     ]);
     if (!songs[order]) return res.status(404).json({message: "song not found"});
     res.json(songs[order]);

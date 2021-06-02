@@ -39,7 +39,7 @@ const PlaylistPage = () => {
             <div className="bannerPlaceholder">
                 <CatalogueBanner _id={playlist._id} name={playlist.name} image={playlist.image} />
             </div>
-            <CataloguePlay playlistId={playlist.id} />
+            <CataloguePlay playlistId={playlist._id} />
             <div className="songsList">
                 <Playlist list={playlist.songs} _id={playlist._id} />
             </div>

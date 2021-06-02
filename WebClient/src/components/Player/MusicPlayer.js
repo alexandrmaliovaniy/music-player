@@ -7,16 +7,15 @@ import './MusicPlayer.css';
 const MusicPlayer = () => {
     const {isPlaying, TogglePlayer, currentSong, audio} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
+    
+    function updateAudio() {
+        setTime(audio.currentTime);
+    }
     useEffect(() => {
-        if (audio) {
-            audio.addEventListener("timeupdate", function() {
-                setTime(audio.currentTime);
-            })
-        }
-    }, [audio])
-
-    console.log(currentSong?.author)
-
+        if (!audio) return;
+        audio.addEventListener("timeupdate", updateAudio);
+        return ()=> audio.removeEventListener("timeupdate", updateAudio);
+    }, [audio, updateAudio])
     return (
         <div className="MusicPlayer">
             <div className="audioInfo">
