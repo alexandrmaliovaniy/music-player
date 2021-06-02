@@ -6,7 +6,6 @@ import './MusicPlayer.css';
 
 const MusicPlayer = () => {
     const {isPlaying, TogglePlayer, currentSong, audio} = useContext(PlayerContext);
-    console.log(currentSong)
     const [time, setTime] = useState(0);
     useEffect(() => {
         if (audio) {
@@ -16,13 +15,15 @@ const MusicPlayer = () => {
         }
     }, [audio])
 
+    console.log(currentSong?.author)
+
     return (
         <div className="MusicPlayer">
             <div className="audioInfo">
-                <img className="audioImage" width="56" height="56" alt=""  />
+                <img className="audioImage" width="56" height="56" src={currentSong?.song.originalPlaylist.image || ""}  alt=""  />
                 <div className="audioData">
                     <a href="/" className="audioName" >{currentSong?.song?.name || "Song name"}</a>
-                    <a href="/" className="audioAuthor">Author name</a>
+                    <a href="/" className="audioAuthor">{currentSong?.song?.author?.name || "Author name"}</a>
                 </div>
             </div>
             <div className="playerControl">
