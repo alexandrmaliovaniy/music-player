@@ -6,39 +6,34 @@ export const usePlayer = () => {
     const [isPlaying, setPlaying] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
     const [queue, setQueue] = useState([]);
+    const [audio, setAudio] = useState(null);
 
     const TogglePlayer = useCallback(() => {
-        if (!currentSong) return setPlaying(false);
-        setPlaying(!isPlaying);
+        if (!audio) return;
         if (isPlaying) {
             Stop();
         } else {
             Play();
         }
+        setPlaying(!isPlaying);
     });
     const Play = useCallback(() => {
-        currentSong.play();
+        audio.play();
     });
     const Stop = useCallback(() => {
-        currentSong.pause();
+        audio.pause();
     });
-    const RemoveCurrentSong = useCallback(() => {
-        if (!currentSong) return;
-
-    });
-    const PlaySong = useCallback(async(id) => {
-        try {
-            const song = await request(`/api/song/${id}`, "GET", null);
-            console.log(song);
-            const a = new Audio("data:audio/wav;base64," + song);
-            a.play();
-            console.log(a);
-        } catch (e) {
-            console.log(e);
-        }
+    const PlaySong = useCallback(async(playlist, order) => {
+        let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
+        console.log(song);
+        const a = new Audio("data:audio/wav;base64," + song.data);
+        setCurrentSong({playlist, order, song});
+        setAudio(a);
+        setPlaying(true);
+        a.play();
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-        TogglePlayer, Play, Stop, PlaySong
+        TogglePlayer, Play, Stop, PlaySong, audio
     }
 }

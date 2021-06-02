@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './Playlist.css';
 import { useState } from 'react';
 
-const Playlist = ({list}) => {
+const Playlist = ({_id, list}) => {
     return (
         <div className="Playlist">
             <div className="playlistTableHead">
@@ -15,12 +15,13 @@ const Playlist = ({list}) => {
                 <div className="alignRight"><FontAwesomeIcon icon={faClock} /></div>
             </div>
             {list.map((el, index) => {
-                return <PlaylistItem {...el} key={index} order={index} />
+                return <PlaylistItem {...el} _playlistId={_id} key={index} order={index} />
             })}
         </div>
     )
 }
 Playlist.protoTypes = {
+    _id: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string,

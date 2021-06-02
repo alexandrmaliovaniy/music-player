@@ -41,7 +41,7 @@ const PlaylistPage = () => {
             </div>
             <CataloguePlay playlistId={playlist.id} />
             <div className="songsList">
-                <Playlist list={playlist.songs} />
+                <Playlist list={playlist.songs} _id={playlist._id} />
             </div>
         </div>
     )

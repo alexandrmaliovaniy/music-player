@@ -6,15 +6,15 @@ import {Link} from 'react-router-dom';
 import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({_id, order, name, author, listenCount, length, image}) => {
+const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, image}) => {
 
     const { PlaySong } = useContext(PlayerContext);
 
     return (
         <div className="PlaylistItem">
-            <div className="itemOrder">
+            <div className="itemOrder" onClick={()=> PlaySong(_playlistId, order)}>
                 <div className="itemOrderIndex">{order + 1}</div>
-                <FontAwesomeIcon icon={faPlay} className="playItem" onClick={()=> PlaySong(_id)} />
+                <FontAwesomeIcon icon={faPlay} className="playItem" />
             </div>
             <div className="itemDescription">
                 {image ? <img className="itemImage" src={image} /> : ""}
@@ -37,6 +37,7 @@ const PlaylistItem = ({_id, order, name, author, listenCount, length, image}) =>
 }
 
 PlaylistItem.protoTypes = {
+    _playlistId: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
     order: PropTypes.number.isRequired,
     name: PropTypes.string,

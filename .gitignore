@@ -1,4 +1,5 @@
 node_modules/
+Server/data/
 Server/node_modules/
 Server/config/
 WebClient/node_modules/

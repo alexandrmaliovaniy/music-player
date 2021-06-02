@@ -22,9 +22,7 @@ export const useHttp = () => {
             if (!response.ok) {
                 throw data;
             }
-
             setLoading(false);
-
             return data;
         } catch (e) {
             setLoading(false);
