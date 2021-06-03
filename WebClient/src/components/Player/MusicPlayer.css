@@ -176,7 +176,8 @@
     align-items: center;
 }
 .MusicPlayer .audioControl .volumeControlContainer .valumeIcon {
-    
+    width: 30px;
+    cursor: pointer;
 }
 
 .MusicPlayer .audioControl .volumeControlContainer .valumeControl {

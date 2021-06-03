@@ -8,6 +8,8 @@ export const usePlayer = () => {
     const [queue, setQueue] = useState([]);
     const [audio, setAudio] = useState(new Audio());
     const [loop, setLoop] = useState(false);
+    const [volume, setVolume] = useState(100);
+    const [volumeEnable, setVolumeEnable] = useState(true);
 
     useEffect(() => {
         if (!audio) return;
@@ -25,9 +27,16 @@ export const usePlayer = () => {
         setPlaying(!isPlaying);
     });
     const ToggleLoop = useCallback(() => {
-        console.log(loop)
         setLoop(!loop);
         audio.loop = !loop;
+    });
+    const SetVolume = useCallback((val) => {
+        setVolume(val);
+        audio.volume = val / 100;
+    });
+    const ToggleVolume = useCallback(() => {
+        audio.volume = volumeEnable ? 0 : volume / 100;
+        setVolumeEnable(!volumeEnable);
     })
     const Play = useCallback(() => {
         audio.play();
@@ -64,6 +73,6 @@ export const usePlayer = () => {
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-        TogglePlayer, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
+        TogglePlayer, ToggleVolume, SetVolume, volumeEnable, volume, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
     }
 }

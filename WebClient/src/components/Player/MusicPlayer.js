@@ -1,14 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faListUl, faPause, faPlay, faRandom, faStepBackward, faStepForward, faSyncAlt, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
+import { faListUl, faVolumeMute, faPause, faPlay, faRandom, faStepBackward, faStepForward, faSyncAlt, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
 import {PlayerContext} from '../../context/PlayerContext';
 import {useContext, useEffect, useState, useCallback} from 'react';
 import './MusicPlayer.css';
 
 const MusicPlayer = () => {
-    const {isPlaying, TogglePlayer, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
+    const {isPlaying, TogglePlayer, ToggleVolume, volumeEnable, volume, SetVolume, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
     const [dragging, setDragging] = useState(false);
-    const [volume, setVolume] = useState(50);
 
     const updateAudio = useCallback(() => {
         if (dragging) return;
@@ -29,8 +28,7 @@ const MusicPlayer = () => {
         audio.currentTime = audio.duration * time / 100;
     }
     const ChangeVolume = (e) => {
-        audio.volume = e.target.value / 100;
-        setVolume(e.target.value);
+        SetVolume(e.target.value);
     }
 
 
@@ -83,7 +81,7 @@ const MusicPlayer = () => {
                 <FontAwesomeIcon icon={faListUl} />
                 </div>
                 <div className="volumeControlContainer">
-                    <FontAwesomeIcon icon={faVolumeDown} className="valumeIcon" />
+                    <FontAwesomeIcon icon={volumeEnable || volume == 0 ? faVolumeDown : faVolumeMute} className="valumeIcon" onClick={ToggleVolume}/>
                     <input type="range" className="valumeControl inputRange" min="0" max="100" value={volume} onChange={ChangeVolume}/>
                     {/* <div className="valumeControl">
                         <div className="valumeLevel">
