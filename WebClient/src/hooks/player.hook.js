@@ -7,6 +7,7 @@ export const usePlayer = () => {
     const [currentSong, setCurrentSong] = useState(null);
     const [queue, setQueue] = useState([]);
     const [audio, setAudio] = useState(new Audio());
+    const [loop, setLoop] = useState(false);
 
     useEffect(() => {
         if (!audio) return;
@@ -23,21 +24,35 @@ export const usePlayer = () => {
         }
         setPlaying(!isPlaying);
     });
+    const ToggleLoop = useCallback(() => {
+        console.log(loop)
+        setLoop(!loop);
+        audio.loop = !loop;
+    })
     const Play = useCallback(() => {
         audio.play();
     });
     const Stop = useCallback(() => {
         audio.pause();
     });
-    const LoadNextSong = useCallback(async() => {
+    const LoadPrevSong = useCallback(async() => {
+        Stop();
         setPlaying(false);
-        if (queue.length == 0);
+        // if (queue.length == 0)
         try {
-
-            // await PlaySong(currentSong.playlist, currentSong.order + 1);
-
+            await PlaySong(currentSong.playlist, currentSong.order - 1);
         } catch (e) {
-            console.log(e)
+            await PlaySong(currentSong.playlist, 0);
+        }
+    });
+    const LoadNextSong = useCallback(async() => {
+        console.log("next song");
+        Stop();
+        setPlaying(false);
+        try {
+            await PlaySong(currentSong.playlist, currentSong.order + 1);
+        } catch (e) {
+            await PlaySong(currentSong.playlist, 0);
         }
     })
     const PlaySong = useCallback(async(playlist, order) => {
@@ -49,6 +64,6 @@ export const usePlayer = () => {
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
-        TogglePlayer, Play, Stop, PlaySong, audio
+        TogglePlayer, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
     }
 }

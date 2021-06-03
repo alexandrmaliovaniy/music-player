@@ -75,6 +75,9 @@
 .MusicPlayer .playerControl .controllButtons div:hover {
     color: #fff;
 }
+.MusicPlayer .playerControl .controllButtons .loop {
+    color: var(--sky-blue);
+}
 .MusicPlayer .playerControl .controllButtons .play {
     background: #fff;
     border-radius: 50%;

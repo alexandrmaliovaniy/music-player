@@ -1,16 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl, faPause, faPlay, faRandom, faStepBackward, faStepForward, faSyncAlt, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
 import {PlayerContext} from '../../context/PlayerContext';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useState, useCallback} from 'react';
 import './MusicPlayer.css';
 
 const MusicPlayer = () => {
-    const {isPlaying, TogglePlayer, currentSong, audio} = useContext(PlayerContext);
+    const {isPlaying, TogglePlayer, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
     
-    function updateAudio() {
+    const updateAudio = useCallback(() => {
         setTime(audio.currentTime);
-    }
+    }, [audio]);
     useEffect(() => {
         if (!audio) return;
         audio.addEventListener("timeupdate", updateAudio);
@@ -30,16 +30,16 @@ const MusicPlayer = () => {
                     <div className="shuffleButton">
                         <FontAwesomeIcon icon={faRandom} />
                     </div>
-                    <div className="backButton">
+                    <div className="backButton" onClick={LoadPrevSong}>
                         <FontAwesomeIcon icon={faStepBackward} />
                     </div>
                     <div className="play" onClick={TogglePlayer}>
                         <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                     </div>
-                    <div className="forwardButton">
+                    <div className="forwardButton" onClick={LoadNextSong}>
                         <FontAwesomeIcon icon={faStepForward} />
                     </div>
-                    <div className="repeatButton">
+                    <div className={`repeatButton ${loop ? "loop" : ""}`} onClick={ToggleLoop}>
                         <FontAwesomeIcon icon={faSyncAlt} />
                     </div>
                 </div>
