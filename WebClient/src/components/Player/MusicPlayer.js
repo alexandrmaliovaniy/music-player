@@ -7,15 +7,26 @@ import './MusicPlayer.css';
 const MusicPlayer = () => {
     const {isPlaying, TogglePlayer, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
-    
+    const [dragging, setDragging] = useState(false);
     const updateAudio = useCallback(() => {
-        setTime(audio.currentTime);
-    }, [audio]);
+        if (dragging) return;
+        setTime(100 * audio?.currentTime / audio?.duration || 0);
+    }, [audio,  dragging]);
     useEffect(() => {
         if (!audio) return;
         audio.addEventListener("timeupdate", updateAudio);
         return ()=> audio.removeEventListener("timeupdate", updateAudio);
     }, [audio, updateAudio])
+
+    const ChangeTime = (e) => {
+        setTime(e.target.value)
+    }
+    const EndDragging = () => {
+        setDragging(false);
+        audio.currentTime = audio.duration * time / 100;
+    }
+
+
     return (
         <div className="MusicPlayer">
             <div className="audioInfo">
@@ -45,15 +56,16 @@ const MusicPlayer = () => {
                 </div>
                 <div className="timeline">
                     <div className="currentTime">
-                        {new Date(time * 1000).toISOString().substr(14, 5)}
+                        {new Date(audio.duration * time * 10).toISOString().substr(14, 5)}
                     </div>
-                    <div className="timelineContainer">
+                    <input type="range" className="timelineContainer" min="0" max="100" value={time} onMouseDown={()=>setDragging(true)} onMouseUp={EndDragging}  onChange={ChangeTime}/>
+                    {/* <div className="timelineContainer">
                         <div className="timeProgression">
                             <div className="progressLine" style={{width: `${(100 * time / audio?.duration) || 0}%`}}>
 
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="audioLength">
                         {currentSong?.song?.length || "0:00"}
                     </div>

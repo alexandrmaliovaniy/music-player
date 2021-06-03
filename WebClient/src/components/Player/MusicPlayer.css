@@ -98,6 +98,40 @@
 .MusicPlayer .playerControl .timeline .timelineContainer {
     width: 100%;
     height: 12px;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer:hover::-moz-range-thumb {
+    opacity: 1;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer:hover::-moz-range-progress {
+    background: var(--sky-blue);
+}
+.MusicPlayer .playerControl .timeline .timelineContainer:focus {
+    outline: none;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer::-moz-range-thumb {
+    width: 5px;
+    height: 5px;
+    border: 3px solid #fff;
+    background: var(--sky-blue);
+    border-radius: 50%;
+    opacity: 0;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer::-moz-range-progress {
+    height: 4px;
+    background: var(--player-progress);
+    border-radius: 5px;
+}
+.MusicPlayer .playerControl .timeline .timelineContainer::-moz-range-track {
+    height: 4px;
+    border-radius: 5px;
+    background: var(--player-progress-bg);
+}
+/* .MusicPlayer .playerControl .timeline .timelineContainer {
+    width: 100%;
+    height: 12px;
     display: flex;
     align-items: center;
 }
@@ -114,7 +148,7 @@
     height: 100%;
     border-radius: 10px;
     background: var(--player-progress);
-}
+} */
 .MusicPlayer .playerControl .timeline .currentTime,
 .MusicPlayer .playerControl .timeline .audioLength {
     flex-grow: 0;
