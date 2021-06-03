@@ -15,7 +15,7 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
 
     const thisPlaying = songId === _id && _playlistId === playlistId;
     return (
-        <div className="PlaylistItem">
+        <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
             <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId, order)}>
                 <div className="itemOrderIndex">{order + 1}</div>
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />

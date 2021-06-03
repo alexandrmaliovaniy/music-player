@@ -6,10 +6,15 @@ import {useContext} from 'react';
 import { PlayerContext } from "../../../context/PlayerContext";
 import './CatalogueItem.css';
 const CatalogueItem = ({_id, name, author, image}) => {
-    const {isPlaying, currentSong} = useContext(PlayerContext);
+    const {isPlaying, currentSong, TogglePlayer, PlaySong} = useContext(PlayerContext);
     const thisPlaying = currentSong?.playlist === _id;
     const history = useHistory();
     
+    const Play = (e) => {
+        e.preventDefault();
+        thisPlaying ? TogglePlayer() : PlaySong(_id, 0)
+    }
+
     return (
         <Link to={`/playlist/${_id}`} className="CatalogueItem">
             <div className="catalogueItemDisplay">
@@ -20,8 +25,8 @@ const CatalogueItem = ({_id, name, author, image}) => {
                 src={image}
                 alt={`Playlist name: ${name}, Author: ${author}`}
                 />
-                <div className="catalogueItemButton" onClick={(e)=>e.preventDefault()}>
-                    <FontAwesomeIcon icon={thisPlaying ? faPause: faPlay} />
+                <div className="catalogueItemButton" onClick={Play}>
+                    <FontAwesomeIcon icon={isPlaying && thisPlaying ? faPause: faPlay} />
                 </div>
             </div>
             <div className="catalogueItemDescription">

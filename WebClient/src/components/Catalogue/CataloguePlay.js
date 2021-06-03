@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 const CataloguePlay = ({artistId, playlistId}) => {
 
-    const {currentSong, isPlaying} = useContext(PlayerContext);
-    console.log(currentSong?.playlist, playlistId);
+    const {currentSong, isPlaying, PlaySong, TogglePlayer } = useContext(PlayerContext);
+    const thisPlaying = currentSong?.playlist === playlistId;
     const button = artistId ?
     <button className="followBtn">
         follow
@@ -20,8 +20,8 @@ const CataloguePlay = ({artistId, playlistId}) => {
 
     return (
         <div className="CataloguePlay">
-            <div className="cataloguePlayBtn">
-                <FontAwesomeIcon icon={isPlaying && currentSong?.playlist === playlistId ? faPause : faPlay}  />
+            <div className="cataloguePlayBtn" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(playlistId, 0) }>
+                <FontAwesomeIcon icon={isPlaying && thisPlaying ? faPause : faPlay}  />
             </div>
             {button}
         </div>

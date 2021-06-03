@@ -12,6 +12,9 @@
     align-items: center;
     cursor: default;
 }
+.itemPlaying {
+    color: var(--sky-blue);
+}
 .PlaylistItem:hover {
     background: rgba(255, 255, 255, 0.2);
 }
