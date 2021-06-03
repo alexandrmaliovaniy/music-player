@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useHttp } from './http.hook';
 
 export const usePlayer = () => {
@@ -6,7 +6,13 @@ export const usePlayer = () => {
     const [isPlaying, setPlaying] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
     const [queue, setQueue] = useState([]);
-    const [audio, setAudio] = useState(null);
+    const [audio, setAudio] = useState(new Audio());
+
+    useEffect(() => {
+        if (!audio) return;
+        audio.addEventListener("ended", LoadNextSong)
+        return audio.removeEventListener("ended", LoadNextSong);
+    }, audio);
 
     const TogglePlayer = useCallback(() => {
         if (!audio) return;
@@ -23,10 +29,6 @@ export const usePlayer = () => {
     const Stop = useCallback(() => {
         audio.pause();
     });
-    const RemoveAudio = useCallback(() => {
-        Stop();
-        setAudio(null);
-    })
     const LoadNextSong = useCallback(async() => {
         setPlaying(false);
         if (queue.length == 0);
@@ -39,13 +41,11 @@ export const usePlayer = () => {
         }
     })
     const PlaySong = useCallback(async(playlist, order) => {
-        if (audio) RemoveAudio();
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
-        const a = new Audio("data:audio/wav;base64," + song.data);
+        audio.src = "data:audio/wav;base64," + song.data;
         setCurrentSong({playlist, order, song});
-        setAudio(a);
         setPlaying(true);
-        a.play();
+        audio.play();
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
