@@ -8,10 +8,13 @@ const MusicPlayer = () => {
     const {isPlaying, TogglePlayer, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
     const [dragging, setDragging] = useState(false);
+    const [volume, setVolume] = useState(50);
+
     const updateAudio = useCallback(() => {
         if (dragging) return;
         setTime(100 * audio?.currentTime / audio?.duration || 0);
     }, [audio,  dragging]);
+
     useEffect(() => {
         if (!audio) return;
         audio.addEventListener("timeupdate", updateAudio);
@@ -24,6 +27,10 @@ const MusicPlayer = () => {
     const EndDragging = () => {
         setDragging(false);
         audio.currentTime = audio.duration * time / 100;
+    }
+    const ChangeVolume = (e) => {
+        audio.volume = e.target.value / 100;
+        setVolume(e.target.value);
     }
 
 
@@ -56,9 +63,9 @@ const MusicPlayer = () => {
                 </div>
                 <div className="timeline">
                     <div className="currentTime">
-                        {new Date(audio.duration * time * 10).toISOString().substr(14, 5)}
+                        {new Date(audio.duration * time * 10 || 0).toISOString().substr(14, 5)}
                     </div>
-                    <input type="range" className="timelineContainer" min="0" max="100" value={time} onMouseDown={()=>setDragging(true)} onMouseUp={EndDragging}  onChange={ChangeTime}/>
+                    <input type="range" className="timelineContainer inputRange" min="0" max="100" value={time} onMouseDown={()=>setDragging(true)} onMouseUp={EndDragging}  onChange={ChangeTime}/>
                     {/* <div className="timelineContainer">
                         <div className="timeProgression">
                             <div className="progressLine" style={{width: `${(100 * time / audio?.duration) || 0}%`}}>
@@ -77,11 +84,12 @@ const MusicPlayer = () => {
                 </div>
                 <div className="volumeControlContainer">
                     <FontAwesomeIcon icon={faVolumeDown} className="valumeIcon" />
-                    <div className="valumeControl">
+                    <input type="range" className="valumeControl inputRange" min="0" max="100" value={volume} onChange={ChangeVolume}/>
+                    {/* <div className="valumeControl">
                         <div className="valumeLevel">
 
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
