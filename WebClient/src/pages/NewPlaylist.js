@@ -4,10 +4,11 @@ import {useContext, useEffect, useState} from 'react';
 import {useFormError} from '../hooks/formError.hook';
 import {CurrentPageContext} from '../context/CurrentPageContext';
 import Playlist from '../components/Playlist/Playlist';
+import UploadSong from '../components/Modal/Song/UploadSong.modal';
 import './NewPlaylist.css';
 const NewPlaylist = () => {
     const {setCurrentPage} = useContext(CurrentPageContext);
-
+    const [modal, setModal] = useState(false);
     const [formInput, setFormInput] = useState({
         image: null,
         name: "",
@@ -53,9 +54,10 @@ const NewPlaylist = () => {
                 <input type="text" className="playlistName" placeholder="Playlist name" />
             </div>
             <Playlist list={formInput.songs} />
-            <div className="newSong">
+            <div className="newSong" onClick={()=>setModal(true)}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
+            {modal ? <UploadSong /> : ""}
         </div>
     )
 }
