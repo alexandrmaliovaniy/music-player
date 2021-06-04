@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Post = require('../models/Playlist');
 const Playlist = require('../models/Playlist');
+const auth = require('../middleware/auth.middleware');
+const Song = require('../models/Song');
 const {Types} = require('mongoose');
 const router = Router();
 
@@ -65,6 +67,48 @@ router.get("/:id", async(req, res) => {
         }
     ]);
     res.json(playlist);
+})
+router.post("/", auth, async(req, res) => {
+    const {id} = req.user;
+    const playlist = new Playlist({
+        name: "",
+        image: "",
+        author: id,
+        songs: []
+    });
+    await playlist.save();
+    await User.updateOne({_id: id}, {$push: {
+        playlists: playlist.id
+    }})
+    res.json({id: playlist.id});
+})
+router.post("/data", auth, async(req, res) => {
+    const {playlistId, name, image} = req.body;
+    try {
+        await Playlist.updateOne({_id: playlistId}, {
+            name, image
+        })
+        res.json({message: "ok"});
+    } catch(e) {
+        res.json(e);
+    }
+})
+router.post("/song", auth, async(req, res) => {
+    const {playlistId, song} = req.body;
+    const {id} = req.user;
+    const newSong = new Song({
+        name: song.name,
+        originalPlaylist: playlistId,
+        author: id,
+        length: song.time,
+        listenCount: 0,
+        data: song.song
+    })
+    newSong.save();
+    await Playlist.updateOne({_id: playlistId}, {$push: {
+        songs: newSong.id
+    }})
+    res.json({message: "ok"});
 })
 
 module.exports = router;

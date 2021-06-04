@@ -66,7 +66,7 @@ export const usePlayer = () => {
     })
     const PlaySong = useCallback(async(playlist, order) => {
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
-        audio.src = "data:audio/wav;base64," + song.data;
+        audio.src = song.data;
         setCurrentSong({playlist, order, song});
         setPlaying(true);
         audio.play();

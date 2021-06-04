@@ -1,14 +1,20 @@
 import { faCross, faDownload, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useCallback, useEffect, useState} from 'react';
+import {useHttp} from '../hooks/http.hook';
+import { useHistory } from 'react-router-dom';
 import {useFormError} from '../hooks/formError.hook';
 import {CurrentPageContext} from '../context/CurrentPageContext';
 import Playlist from '../components/Playlist/Playlist';
 import UploadSong from '../components/Modal/Song/UploadSong.modal';
 import './NewPlaylist.css';
 const NewPlaylist = () => {
+
     const {setCurrentPage} = useContext(CurrentPageContext);
+    const history = useHistory();
+    const {request, GetAuth} = useHttp();
     const [modal, setModal] = useState(false);
+    const [id, setId] = useState(null);
     const [formInput, setFormInput] = useState({
         image: null,
         name: "",
@@ -16,18 +22,17 @@ const NewPlaylist = () => {
     });
 
 
-    const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError} = useFormError({
-        image: {},
-        name: {},
-        songs: {}
-    });
+    // const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError, GetAuth} = useFormError({
+    //     image: {},
+    //     name: {},
+    //     songs: {}
+    // });
 
     const FileUpload = (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
 
         reader.onloadend = () => {
-            console.log(reader.result, e.target)
             setFormInput({
                 ...formInput,
                 [e.target.name]: reader.result
@@ -37,19 +42,23 @@ const NewPlaylist = () => {
     }
 
     const SaveSong = (song) => {
-        console.log(song)
-        const newSongs = [...formInput.songs];
-        newSongs.push({
+        const SongData = {
             id: "",
             name: song.name,
             data: song.song,
             length: song.time,
             listenCount: 0
-        })
+        }
+        const newSongs = [...formInput.songs];
+        newSongs.push(SongData);
         setFormInput({
             ...formInput,
             songs: newSongs
         })
+        request('/api/playlist/song', 'POST', {
+            playlistId: id,
+            song: song
+        }, GetAuth())
     }
 
     const Input = (e) => {
@@ -59,14 +68,42 @@ const NewPlaylist = () => {
         });
     }
 
+
+    const UploadPlaylist = async() => {
+        try {
+            await request('/api/playlist/data', 'POST', {
+                playlistId: id,
+                name: formInput.name,
+                image: formInput.image
+            }, GetAuth());
+            history.push(`/playlist/${id}`);
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         setCurrentPage(2);
-    }, [])
+    }, [setCurrentPage])
+
+    const CreatePlaylist = useCallback(async() => {
+        try {
+            
+            const playlist = await request('/api/playlist/', 'POST', null, GetAuth());
+            setId(playlist.id);
+        } catch(e) {
+            console.log(e);
+        }
+    }, [request])
+    
+    useEffect(() => {
+        CreatePlaylist();
+    }, [request]);
 
     return (
         <div className="NewPlaylist">
             <div className="GeneralData">
-                <label for="ImagePlaceholder" className="playlistImg">
+                <label htmlFor="ImagePlaceholder" className="playlistImg">
                     <img alt="" className="imageView" src={formInput.image} />
                     <div className="uploadDisplay">
                         <FontAwesomeIcon icon={faDownload} className="uploadImage" />
@@ -80,6 +117,7 @@ const NewPlaylist = () => {
             <div className="newSong" onClick={()=>setModal(true)}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
+            <div className="createPlaylist" onClick={UploadPlaylist}>Create</div>
             {modal ? <UploadSong saveSong={SaveSong} setModal={setModal} /> : ""}
         </div>
     )
