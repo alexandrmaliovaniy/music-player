@@ -52,6 +52,13 @@ const NewPlaylist = () => {
         })
     }
 
+    const Input = (e) => {
+        setFormInput({
+            ...formInput,
+            [e.target.name]: e.target.value
+        });
+    }
+
     useEffect(() => {
         setCurrentPage(2);
     }, [])
@@ -67,7 +74,7 @@ const NewPlaylist = () => {
                     </div>
                     <input type="file" name="image" accept="image" id="ImagePlaceholder"  onChange={FileUpload} />
                 </label>
-                <input type="text" className="playlistName" placeholder="Playlist name" />
+                <input type="text" className="playlistName" name="name" placeholder="Playlist name" onChange={Input} />
             </div>
             <Playlist list={formInput.songs} />
             <div className="newSong" onClick={()=>setModal(true)}>
