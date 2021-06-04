@@ -29,7 +29,7 @@ const SideBar = () => {
             </div>
 
             <div className="userOptions">
-                <Link to="/" className="userOptionItem activeUserOptionItem">
+                <Link to="/newplaylist" className={`userOptionItem activeUserOptionItem ${IsActive(2)}`}>
                     <FontAwesomeIcon icon={faPlus} className="userOptionIcon" />
                     create new playlist
                 </Link>

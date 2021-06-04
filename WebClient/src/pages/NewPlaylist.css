@@ -1,0 +1,92 @@
+.NewPlaylist {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.NewPlaylist .GeneralData {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+.NewPlaylist .GeneralData .playlistImg {
+    float: left;
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    background: var(--player-progress-bg);
+    border: 1px solid #ccc;
+    overflow: hidden;
+    cursor: pointer;
+}
+.NewPlaylist .GeneralData .playlistImg:hover .uploadDisplay {
+    transform: scale(1.1, 1.1);
+}
+.NewPlaylist .GeneralData .playlistImg .uploadDisplay {
+    float: left;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: .2s;
+}
+.NewPlaylist .GeneralData .playlistImg .uploadDisplay .uploadImage {
+    font-size: 40px;
+    line-height: 60px;
+}
+.NewPlaylist .GeneralData .playlistImg .uploadDisplay p {
+    /* line-height: 40px; */
+    margin-top: 15px;
+}
+.NewPlaylist .GeneralData .playlistImg .imageView {
+    display: none;
+    float: left;
+    width: 200px;
+    height: 200px;
+    border: none;
+}
+.NewPlaylist .GeneralData .playlistImg .imageView[src] {
+    display: block;
+}
+.NewPlaylist .GeneralData .playlistImg #ImagePlaceholder {
+    visibility: hidden;
+}
+.NewPlaylist .GeneralData .playlistName {
+    float: left;
+    margin-left: 50px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 24px;
+    width: calc(80% - 200px);
+    height: 40px;
+    padding-left: 10px;
+    margin-top: 160px;
+}
+.NewPlaylist .newSong {
+    float: left;
+    margin-top: 25px;
+    width: 40px;
+    height: 40px;
+    margin-left: 50%;
+    transform: translate(-50%, 0) rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: .2s;
+}
+.NewPlaylist .newSong:hover {
+    background: #fff;
+    color: #000;
+    transform: translate(-50%, 0) rotate(45deg) scale(1.1, 1.1);
+}

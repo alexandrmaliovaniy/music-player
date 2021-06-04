@@ -188,7 +188,6 @@
     border-radius: 10px;
 }
 .MusicPlayer .audioControl .volumeControlContainer .valumeControl .valumeLevel {
-    width: 63%;
     height: 100%;
     background: var(--player-progress);
     border-radius: 10px;
