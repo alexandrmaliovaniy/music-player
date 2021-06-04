@@ -23,10 +23,10 @@ const Playlist = ({_id, list}) => {
 Playlist.protoTypes = {
     _id: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string,
         author: {
-            id: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
         }.isRequired,
         listenCount: PropTypes.number.isRequired,

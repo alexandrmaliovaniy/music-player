@@ -12,7 +12,7 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
 
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
-
+    console.log(currentSong?.playlist, _id)
     const thisPlaying = songId === _id && _playlistId === playlistId;
     return (
         <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>

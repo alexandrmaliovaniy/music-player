@@ -36,6 +36,22 @@ const NewPlaylist = () => {
         reader.readAsDataURL(file);
     }
 
+    const SaveSong = (song) => {
+        console.log(song)
+        const newSongs = [...formInput.songs];
+        newSongs.push({
+            id: "",
+            name: song.name,
+            data: song.song,
+            length: song.time,
+            listenCount: 0
+        })
+        setFormInput({
+            ...formInput,
+            songs: newSongs
+        })
+    }
+
     useEffect(() => {
         setCurrentPage(2);
     }, [])
@@ -57,7 +73,7 @@ const NewPlaylist = () => {
             <div className="newSong" onClick={()=>setModal(true)}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
-            {modal ? <UploadSong /> : ""}
+            {modal ? <UploadSong saveSong={SaveSong} setModal={setModal} /> : ""}
         </div>
     )
 }
