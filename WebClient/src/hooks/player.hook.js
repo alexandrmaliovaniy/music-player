@@ -14,8 +14,14 @@ export const usePlayer = () => {
     useEffect(() => {
         if (!audio) return;
         audio.addEventListener("ended", LoadNextSong)
-        return audio.removeEventListener("ended", LoadNextSong);
-    }, audio);
+        audio.addEventListener("pause", Stop);
+        audio.addEventListener("play", Play);
+        return () => {
+            audio.removeEventListener("ended", LoadNextSong);
+            audio.removeEventListener("pause", Stop);
+            audio.removeEventListener("play", Play);
+        }
+    }, [audio]);
 
     const TogglePlayer = useCallback(() => {
         if (!audio) return;
@@ -24,7 +30,6 @@ export const usePlayer = () => {
         } else {
             Play();
         }
-        setPlaying(!isPlaying);
     });
     const ToggleLoop = useCallback(() => {
         setLoop(!loop);
@@ -39,14 +44,15 @@ export const usePlayer = () => {
         setVolumeEnable(!volumeEnable);
     })
     const Play = useCallback(() => {
+        setPlaying(true);
         audio.play();
     });
     const Stop = useCallback(() => {
+        setPlaying(false);
         audio.pause();
     });
     const LoadPrevSong = useCallback(async() => {
         Stop();
-        setPlaying(false);
         // if (queue.length == 0)
         try {
             await PlaySong(currentSong.playlist, currentSong.order - 1);
@@ -55,9 +61,7 @@ export const usePlayer = () => {
         }
     });
     const LoadNextSong = useCallback(async() => {
-        console.log("next song");
         Stop();
-        setPlaying(false);
         try {
             await PlaySong(currentSong.playlist, currentSong.order + 1);
         } catch (e) {
@@ -68,8 +72,7 @@ export const usePlayer = () => {
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
         audio.src = song.data;
         setCurrentSong({playlist, order, song});
-        setPlaying(true);
-        audio.play();
+        Play();
     });
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
