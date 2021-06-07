@@ -14,7 +14,6 @@ const CatalogueItem = ({_id, name, author, image}) => {
         e.preventDefault();
         thisPlaying ? TogglePlayer() : PlaySong(_id, 0)
     }
-
     return (
         <Link to={`/playlist/${_id}`} className="CatalogueItem">
             <div className="catalogueItemDisplay">

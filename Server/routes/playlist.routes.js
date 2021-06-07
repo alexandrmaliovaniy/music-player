@@ -74,7 +74,23 @@ router.get("/:id", async(req, res) => {
                 "songs.data": 0,
                 "author.image": 0
             }
-        }
+        },
+        {
+            $addFields: {
+                songs: {
+                    $function: {
+                        body: function (songs) {
+                            return  songs.map(el => {
+                                el.length = new Date(el.length * 1000 || 0).toISOString().substr(14, 5);
+                                return el;
+                            });
+                        },
+                        args: ["$songs"],
+                        lang: "js"
+                    }
+                }
+            }
+        },
     ]);
     res.json(playlist);
 })
