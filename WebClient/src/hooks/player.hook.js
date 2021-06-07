@@ -23,35 +23,35 @@ export const usePlayer = () => {
         }
     }, [audio]);
 
-    const TogglePlayer = useCallback(() => {
+    const TogglePlayer = () => {
         if (!audio) return;
         if (isPlaying) {
             Stop();
         } else {
             Play();
         }
-    });
-    const ToggleLoop = useCallback(() => {
+    }
+    const ToggleLoop = () => {
         setLoop(!loop);
         audio.loop = !loop;
-    });
-    const SetVolume = useCallback((val) => {
+    }
+    const SetVolume = (val) => {
         setVolume(val);
         audio.volume = val / 100;
-    });
-    const ToggleVolume = useCallback(() => {
+    }
+    const ToggleVolume = () => {
         audio.volume = volumeEnable ? 0 : volume / 100;
         setVolumeEnable(!volumeEnable);
-    })
-    const Play = useCallback(() => {
+    }
+    const Play = () => {
         setPlaying(true);
         audio.play();
-    });
-    const Stop = useCallback(() => {
+    }
+    const Stop = () => {
         setPlaying(false);
         audio.pause();
-    });
-    const LoadPrevSong = useCallback(async() => {
+    }
+    const LoadPrevSong = async() => {
         Stop();
         // if (queue.length == 0)
         try {
@@ -59,21 +59,21 @@ export const usePlayer = () => {
         } catch (e) {
             await PlaySong(currentSong.playlist, 0);
         }
-    });
-    const LoadNextSong = useCallback(async() => {
+    }
+    const LoadNextSong = async() => {
         Stop();
         try {
             await PlaySong(currentSong.playlist, currentSong.order + 1);
         } catch (e) {
             await PlaySong(currentSong.playlist, 0);
         }
-    })
-    const PlaySong = useCallback(async(playlist, order) => {
+    }
+    const PlaySong = async(playlist, order) => {
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
         audio.src = song.data;
         setCurrentSong({playlist, order, song});
         Play();
-    });
+    }
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
         TogglePlayer, ToggleVolume, SetVolume, volumeEnable, volume, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
