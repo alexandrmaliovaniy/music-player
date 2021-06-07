@@ -25,6 +25,11 @@ router.get("/popular", async(req, res) => {
             }
         },
         {
+            $addFields: {
+                author: {$arrayElemAt: ["$author", 0]}
+            }
+        },
+        {
             $project: {
                 "songs": 0
             }
@@ -49,6 +54,11 @@ router.get("/:id", async(req, res) => {
                 localField: 'author',
                 foreignField: '_id',
                 as: 'author'
+            }
+        },
+        {
+            $addFields: {
+                author: {$arrayElemAt: ["$author", 0]}
             }
         },
         {

@@ -23,7 +23,7 @@ const CatalogueItem = ({_id, name, author, image}) => {
                 width="200"
                 height="200"
                 src={image}
-                alt={`Playlist name: ${name}, Author: ${author}`}
+                alt={`Playlist name: ${name}, Author: ${author.username}`}
                 />
                 <div className="catalogueItemButton" onClick={Play}>
                     <FontAwesomeIcon icon={isPlaying && thisPlaying ? faPause: faPlay} />
@@ -36,12 +36,10 @@ const CatalogueItem = ({_id, name, author, image}) => {
                 <div className="catalogueItemAuthor" onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    history.push(`/author/${_id}`);
+                    history.push(`/author/${author._id}`);
                 }}>
                     {
-                    author.map(artist => {
-                        return artist.name
-                    })
+                    author.username
                     }
                 </div>
             </div>
@@ -52,10 +50,10 @@ const CatalogueItem = ({_id, name, author, image}) => {
 CatalogueItem.propTypes = {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    author: PropTypes.arrayOf(PropTypes.shape({
+    author: PropTypes.shape({
         _id: PropTypes.string,
-        name: PropTypes.string
-    }).isRequired).isRequired,
+        username: PropTypes.string
+    }).isRequired,
     image: PropTypes.string.isRequired
 }
 
