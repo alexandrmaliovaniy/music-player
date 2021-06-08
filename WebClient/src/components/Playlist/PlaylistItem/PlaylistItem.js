@@ -36,11 +36,11 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
             <div className="itemDescription">
                 {originalPlaylist?.image ? <img className="itemImage" src={originalPlaylist.image} /> : ""}
             <div className="itemInfo">
-                    <div className="itemName">
-                        {name}
-                    </div>
-                    {author ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.name}</Link> : ""}
+                <div className="itemName">
+                    {name}
                 </div>
+                {author ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.username}</Link> : ""}
+            </div>
                 
             </div>
             <div className="listenCount">

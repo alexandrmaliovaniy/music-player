@@ -10,7 +10,6 @@ export const usePlayer = () => {
     const [loop, setLoop] = useState(false);
     const [volume, setVolume] = useState(100);
     const [volumeEnable, setVolumeEnable] = useState(true);
-
     useEffect(() => {
         if (!audio) return;
         audio.addEventListener("ended", LoadNextSong)
@@ -22,6 +21,13 @@ export const usePlayer = () => {
             audio.removeEventListener("play", Play);
         }
     }, [audio]);
+    useEffect(() => {
+        if (!audio) return;
+        audio.addEventListener("ended", LoadNextSong)
+        return () => {
+            audio.removeEventListener("ended", LoadNextSong);
+        }
+    }, [currentSong]);
 
     const TogglePlayer = () => {
         if (!audio) return;
@@ -51,7 +57,7 @@ export const usePlayer = () => {
         setPlaying(false);
         audio.pause();
     }
-    const LoadPrevSong = async() => {
+    const LoadPrevSong = useCallback(async() => {
         Stop();
         // if (queue.length == 0)
         try {
@@ -59,15 +65,15 @@ export const usePlayer = () => {
         } catch (e) {
             await PlaySong(currentSong.playlist, 0);
         }
-    }
-    const LoadNextSong = async() => {
+    }, [currentSong]);
+    const LoadNextSong = useCallback(async() => {
         Stop();
         try {
             await PlaySong(currentSong.playlist, currentSong.order + 1);
         } catch (e) {
             await PlaySong(currentSong.playlist, 0);
         }
-    }
+    }, [currentSong])
     const PlaySong = async(playlist, order) => {
         let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
         audio.src = song.data;
