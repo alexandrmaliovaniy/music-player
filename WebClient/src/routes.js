@@ -11,6 +11,7 @@ import Header from './components/Header/Header';
 import PlaylistPage from './pages/PlaylistPage';
 import AuthorPage from './pages/AuthorPage';
 import NewPlaylist from './pages/NewPlaylist';
+import FavoritesPage from './pages/FavoritesPage';
 
 export const useRoutes = (isAuth) => {
     if (isAuth) {
@@ -30,6 +31,7 @@ export const useRoutes = (isAuth) => {
                                 <Route path="/playlist/:id" component={PlaylistPage} />
                                 <Route path="/newplaylist" component={NewPlaylist} />
                                 <Route path="/author/:id" component={AuthorPage} />
+                                <Route path="/favorites" component={FavoritesPage} />
                                 <Route path="/404" component={NotFound} />
                                 <Redirect to="/404"/>
                             </Switch>

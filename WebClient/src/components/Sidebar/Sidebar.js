@@ -53,7 +53,7 @@ const SideBar = () => {
                     <FontAwesomeIcon icon={faPlus} className="userOptionIcon" />
                     create new playlist
                 </Link>
-                <Link to="/" className="userOptionItem">
+                <Link to="/favorites" className="userOptionItem">
                     <FontAwesomeIcon icon={faHeart} className="userOptionIcon" />
                     favorite songs
                 </Link>
