@@ -40,9 +40,11 @@ router.get("/popular", async(req, res) => {
 
 // /api/playlist/:id
 // returns all data for playlist page
-router.get("/:id", async(req, res) => {
+router.get("/:id", auth, async(req, res) => {
     const playlistId = req.params.id;
-    const playlist = await Playlist.aggregate([
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+    let playlist = await Playlist.aggregate([
         {
             $match: {
                 "_id": {$eq: Types.ObjectId(playlistId)}
@@ -74,25 +76,15 @@ router.get("/:id", async(req, res) => {
                 "songs.data": 0,
                 "author.image": 0
             }
-        },
-        {
-            $addFields: {
-                songs: {
-                    $function: {
-                        body: function (songs) {
-                            return  songs.map(el => {
-                                el.length = new Date(el.length * 1000 || 0).toISOString().substr(14, 5);
-                                return el;
-                            });
-                        },
-                        args: ["$songs"],
-                        lang: "js"
-                    }
-                }
-            }
-        },
+        }
     ]);
-    res.json(playlist);
+    const out = playlist[0];
+    out.songs = out.songs.map(el => {
+        el.length = new Date(el.length * 1000 || 0).toISOString().substr(14, 5);
+        el.favorite = user.favorites.includes(el._id);
+        return el;
+    })
+    res.json(out);
 })
 router.post("/", auth, async(req, res) => {
     const {id} = req.user;

@@ -64,7 +64,7 @@
     transition: .2s;
     cursor: pointer;
 }
-.PlaylistItem .followed {
+.PlaylistItem .favorite {
     color: var(--red);
 }
 .PlaylistItem .listenCount,

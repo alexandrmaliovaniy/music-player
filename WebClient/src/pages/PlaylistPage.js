@@ -9,7 +9,7 @@ import CataloguePlay from '../components/Catalogue/CataloguePlay';
 
 const PlaylistPage = () => {
 
-    const {request} = useHttp();
+    const {request, GetAuth} = useHttp();
     const [playlist, setPlaylist] = useState({
         name: "",
         image: "",
@@ -18,11 +18,10 @@ const PlaylistPage = () => {
     });
     const playlistId = useParams().id;
     const {setCurrentPage} = useContext(CurrentPageContext);
-
     const requestPlaylist = useCallback(async() => {
         try {
-            const playlistData = await request(`/api/playlist/${playlistId}`, "GET", null);
-            setPlaylist(playlistData[0]);
+            const playlistData = await request(`/api/playlist/${playlistId}`, "GET", null, GetAuth());
+            setPlaylist(playlistData);
         } catch (e) {
             console.log(e);
         }
