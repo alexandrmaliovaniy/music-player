@@ -5,6 +5,7 @@ import {useHttp} from '../hooks/http.hook';
 import { useHistory } from 'react-router-dom';
 import {useFormError} from '../hooks/formError.hook';
 import {CurrentPageContext} from '../context/CurrentPageContext';
+import {UserPlaylistsContext} from '../context/UserPlaylistsContext';
 import Playlist from '../components/Playlist/Playlist';
 import UploadSong from '../components/Modal/Song/UploadSong.modal';
 import './NewPlaylist.css';
@@ -14,6 +15,7 @@ const NewPlaylist = () => {
     const history = useHistory();
     const {request, GetAuth} = useHttp();
     const [modal, setModal] = useState(false);
+    const {userPlaylists, setUserPlaylists} = useContext(UserPlaylistsContext)
     const [id, setId] = useState(null);
     const [formInput, setFormInput] = useState({
         image: null,
@@ -21,6 +23,25 @@ const NewPlaylist = () => {
         songs: []
     });
 
+
+    useEffect(() => {
+        setCurrentPage(2);
+    }, [setCurrentPage])
+
+    useEffect(() => {
+        CreatePlaylist();
+    }, [request]);
+
+    useEffect(() => {
+        if (!id) return;
+        setUserPlaylists([
+            ...userPlaylists,
+            {
+                _id: id,
+                name: "New Playlist"
+            }
+        ])
+    }, [id]);
 
     // const {Validate, fieldStatus, setFieldStatus, IsComplete, GetError, GetAuth} = useFormError({
     //     image: {},
@@ -82,10 +103,6 @@ const NewPlaylist = () => {
         }
     }
 
-    useEffect(() => {
-        setCurrentPage(2);
-    }, [setCurrentPage])
-
     const CreatePlaylist = useCallback(async() => {
         try {
             
@@ -96,9 +113,6 @@ const NewPlaylist = () => {
         }
     }, [request])
     
-    useEffect(() => {
-        CreatePlaylist();
-    }, [request]);
 
     return (
         <div className="NewPlaylist">

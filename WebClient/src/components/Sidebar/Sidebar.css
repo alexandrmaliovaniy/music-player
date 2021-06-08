@@ -82,8 +82,11 @@
 
 .Sidebar .playlists {
     margin-top: 50px;
+    width: 100%;
 }
 .Sidebar .playlists .playlist {
+    float: left;
+    width: 100%;
     padding-left: 20px;
     height: 30px;
     line-height: 30px;
@@ -93,6 +96,7 @@
 }
 .Sidebar .playlists .playlist:hover .playlistIcon {
     opacity: 1;
+    float: right;
 }
 .Sidebar .playlists .playlist .playlistIcon {
     opacity: 0;
