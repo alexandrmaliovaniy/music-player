@@ -43,16 +43,19 @@ router.get("/playlists/:id", async(req, res) => {
     ])
     res.json(data[0].playlists);
 })
-router.update("/favorite/:songId/:del", auth, async(req, res) => {
+router.get("/favorite/:songId/:setFav", auth, async(req, res) => {
     const userId = req.user.id;
     const songId = req.params.songId;
-    const del = Boolean(req.params.delete);
-    const param =  {"fovorites": songId};
+    const setFav = req.params.setFav;
     try {
-        if (del) {
-            await User.updateOne({_id: userId}, {$pull: param})
+        if (setFav == "false") {
+            await User.findByIdAndUpdate(userId, {$pull: {
+                "favorites": songId
+            }})
         } else {
-            await User.updateOne({_id: userId}, {$push: param})
+            await User.findByIdAndUpdate(userId, {$push: {
+                "favorites": songId
+            }})
         }
         res.json({message: "success"})
     } catch(e) {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faHeart } from "@fortawesome/free-solid-svg-icons";
 import {Link} from 'react-router-dom';
+import {useHttp} from '../../../hooks/http.hook';
 import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
@@ -10,10 +11,24 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
 
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
 
+    const {request, GetAuth} = useHttp();
+
     const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
     const thisPlaying = songId === _id && _playlistId === playlistId;
+
+    const ToggleFavorite = async() => {
+        try {
+            const newState = !isFavorite;
+            await request(`/api/artist/favorite/${_id}/${newState}`, 'GET', null, GetAuth());
+            setFavorite(newState);
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+
     return (
         <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
             <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId, order)}>
@@ -33,7 +48,7 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
             <div className="listenCount">
                 {String(listenCount).replace(/(.)(?=(\d{3})+$)/g,'$1 ')}
             </div>
-            <div className={`heart ${isFavorite ? "favorite" : ""}`}>
+            <div className={`heart ${isFavorite ? "favorite" : ""}`} onClick={ToggleFavorite}>
                 <FontAwesomeIcon icon={faHeart} />
             </div>
             <div className="itemLength">
