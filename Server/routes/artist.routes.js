@@ -18,7 +18,6 @@ router.get("/info/:id", async(req, res) => {
 })
 router.get("/playlists/:id", async(req, res) => {
     const userId = req.params.id;
-    console.log(userId);
     const data = await User.aggregate([
         {
             $match: {
@@ -44,7 +43,23 @@ router.get("/playlists/:id", async(req, res) => {
     ])
     res.json(data[0].playlists);
 })
-
+router.update("/favorite/:songId/:del", auth, async(req, res) => {
+    const userId = req.user.id;
+    const songId = req.params.songId;
+    const del = Boolean(req.params.delete);
+    const param =  {"fovorites": songId};
+    try {
+        if (del) {
+            await User.updateOne({_id: userId}, {$pull: param})
+        } else {
+            await User.updateOne({_id: userId}, {$push: param})
+        }
+        res.json({message: "success"})
+    } catch(e) {
+        console.log(e);
+        res.status(404).json({message: "Can't follow"});
+    }
+})
 
 
 module.exports = router;
