@@ -64,11 +64,11 @@ const SideBar = () => {
                 {
                     userPlaylists.map(el => {
                         return (
-                        <Link to="/" className="playlist">
-                            {el.name}
-                            <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
-                        </Link>
-                    )
+                            <Link to={`/playlist/${el._id}`} key={el._id} className="playlist">
+                                {el.name}
+                                <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
+                            </Link>
+                        )
                     })
                 }
             </div>

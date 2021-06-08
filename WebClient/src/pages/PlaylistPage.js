@@ -29,9 +29,10 @@ const PlaylistPage = () => {
     })
 
     useEffect(() => {
+        if (!playlistId) return;
         setCurrentPage(null);
         requestPlaylist();
-    }, [])
+    }, [playlistId])
 
 
     return (

@@ -97,7 +97,7 @@ router.get("/:id", async(req, res) => {
 router.post("/", auth, async(req, res) => {
     const {id} = req.user;
     const playlist = new Playlist({
-        name: "",
+        name: "New Playlist",
         image: "",
         author: id,
         songs: []
