@@ -1,18 +1,36 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, Router, BrowserRouter} from 'react-router-dom'
 import { CurrentPageContext } from '../../context/CurrentPageContext';
+import { UserPlaylistsContext } from '../../context/UserPlaylistsContext';
 import { faDownload, faHeart, faHome, faPlus, faSearch, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from '../../context/AuthContext';
+import { useHttp } from '../../hooks/http.hook';
 import './Sidebar.css';
 
 
 const SideBar = () => {
 
     const {currentPage} = useContext(CurrentPageContext);
-
-    function IsActive(id) {
+    const {userPlaylists, setUserPlaylists} = useContext(UserPlaylistsContext);
+    const {id} = useContext(AuthContext);
+    const {request, GetAuth} = useHttp()
+    const IsActive = (id) => {
         return id === currentPage ? "menuItem activeMenuItem" : "menuItem";
     }
+
+    const GetPlaylists = async() => {
+        try {
+            const data = await request(`/api/artist/playlists/${id}`, "GET", null, GetAuth());
+            setUserPlaylists(data);
+        } catch(e) {
+            console.log(e)            
+        }
+    }
+
+    useEffect(() => {
+        GetPlaylists();
+    }, [])
 
 
     return (
@@ -43,10 +61,16 @@ const SideBar = () => {
                 </Link>
             </div>
             <div className="playlists">
-                <Link to="/" className="playlist">
-                    Play list
-                    <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
-                </Link>
+                {
+                    userPlaylists.map(el => {
+                        return (
+                        <Link to="/" className="playlist">
+                            {el.name}
+                            <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
+                        </Link>
+                    )
+                    })
+                }
             </div>
         </div>
     )

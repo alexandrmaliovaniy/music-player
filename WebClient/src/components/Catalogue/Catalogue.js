@@ -2,7 +2,6 @@ import CatalogueItem from './CatalogueItem/CatalogueItem';
 import PropTypes from 'prop-types';
 import './Catalogue.css';
 const Catalogue = ({name, list}) => {
-    console.log(list)
     return (
         <div className="CatalogueContainer">
             <div className="catalogueTitle">

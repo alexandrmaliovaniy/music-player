@@ -6,7 +6,6 @@ import './Playlist.css';
 import { useState } from 'react';
 
 const Playlist = ({_id, list}) => {
-    console.log(list)
     return (
         <div className="Playlist">
             <div className="playlistTableHead">
