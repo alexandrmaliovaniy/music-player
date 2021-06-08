@@ -5,6 +5,7 @@ import { CurrentPageContext } from '../../context/CurrentPageContext';
 import { UserPlaylistsContext } from '../../context/UserPlaylistsContext';
 import { faDownload, faHeart, faHome, faPlus, faSearch, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from '../../context/AuthContext';
+import { PlayerContext } from '../../context/PlayerContext';
 import { useHttp } from '../../hooks/http.hook';
 import './Sidebar.css';
 
@@ -13,6 +14,7 @@ const SideBar = () => {
 
     const {currentPage} = useContext(CurrentPageContext);
     const {userPlaylists, setUserPlaylists} = useContext(UserPlaylistsContext);
+    const {currentSong} = useContext(PlayerContext);
     const {id} = useContext(AuthContext);
     const {request, GetAuth} = useHttp()
     const IsActive = (id) => {
@@ -64,7 +66,7 @@ const SideBar = () => {
                 {
                     userPlaylists.map(el => {
                         return (
-                            <Link to={`/playlist/${el._id}`} key={el._id} className="playlist">
+                            <Link to={`/playlist/${el._id}`} key={el._id} className={`playlist ${currentSong?.playlist == el._id ? "activePlaylist" : ""}`}>
                                 {el.name}
                                 <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
                             </Link>

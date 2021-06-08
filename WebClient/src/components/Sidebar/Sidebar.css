@@ -106,3 +106,10 @@
     margin-top: 5px;
     transition: .5s;
 }
+.Sidebar .playlists .activePlaylist {
+    color: var(--sky-blue);
+}
+.Sidebar .playlists .activePlaylist .playlistIcon {
+    opacity: 1;
+    color: var(--sky-blue);
+}
