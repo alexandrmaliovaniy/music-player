@@ -1,15 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faHeart } from "@fortawesome/free-solid-svg-icons";
 import {Link} from 'react-router-dom';
 import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, image}) => {
+const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, image, favorite}) => {
 
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
 
+    const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
     const thisPlaying = songId === _id && _playlistId === playlistId;
@@ -31,6 +32,9 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
             </div>
             <div className="listenCount">
                 {String(listenCount).replace(/(.)(?=(\d{3})+$)/g,'$1 ')}
+            </div>
+            <div className={`heart ${isFavorite ? "favorite" : ""}`}>
+                <FontAwesomeIcon icon={faHeart} />
             </div>
             <div className="itemLength">
                 {length}
