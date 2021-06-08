@@ -7,7 +7,7 @@ import {useHttp} from '../../../hooks/http.hook';
 import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, image, favorite}) => {
+const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
 
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
 
@@ -16,7 +16,7 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
     const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
-    const thisPlaying = songId === _id && _playlistId === playlistId;
+    const thisPlaying = songId === _id && (_playlistId === playlistId || playlistId == originalPlaylist._id);
 
     const ToggleFavorite = async() => {
         try {
@@ -27,16 +27,14 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
             console.log(e);
         }
     }
-
-
     return (
         <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
-            <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId, order)}>
+            <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId || originalPlaylist._id, order)}>
                 <div className="itemOrderIndex">{order + 1}</div>
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />
             </div>
             <div className="itemDescription">
-                {image ? <img className="itemImage" src={image} /> : ""}
+                {originalPlaylist?.image ? <img className="itemImage" src={originalPlaylist.image} /> : ""}
             <div className="itemInfo">
                     <div className="itemName">
                         {name}
@@ -64,6 +62,10 @@ PlaylistItem.protoTypes = {
     order: PropTypes.number.isRequired,
     name: PropTypes.string,
     image: PropTypes.string,
+    originalPlaylist: PropTypes.shape({
+        _id: PropTypes.string,
+        image: PropTypes.string
+    }),
     author: {
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

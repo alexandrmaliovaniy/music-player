@@ -4,6 +4,7 @@ const config = require('config');
 const { Types } = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Playlist = require("../models/Playlist");
 const auth = require('../middleware/auth.middleware');
 const router = Router();
 
@@ -63,6 +64,39 @@ router.get("/favorite/:songId/:setFav", auth, async(req, res) => {
         res.status(404).json({message: "Can't follow"});
     }
 })
+router.get("/favorites", auth, async(req, res) => {
+    const userId = req.user.id;
+    const data = await User.aggregate([
+        {
+            $match: {
+                "_id": { $eq: Types.ObjectId(userId) }
+            }
+        },
+        {
+            $lookup: {
+                from: 'songs',
+                localField: 'favorites',
+                foreignField: '_id',
+                as: 'favorites'
+            }
+        },
+        {
+            $project: {
+                favorites: {
+                    data: 0
+                }
+            }
+        }
+    ]);
+    const out = data[0].favorites;
+    for (let i = 0; i < out.length; i++) {
+        out[i].author = await User.findById(out[i].author, {_id: 1, username: 1});
+        out[i].originalPlaylist = await Playlist.findById(out[i].originalPlaylist, {image: 1, name: 1, _id: 1});
+        out[i].length = new Date(out[i].length * 1000 || 0).toISOString().substr(14, 5);
+        out[i].favorite = true;
+    }
+    res.json(out);
+});
 
 
 module.exports = router;
