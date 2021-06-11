@@ -12,73 +12,41 @@ const AuthorPage = () => {
 
     const artistId = useParams().id;
 
-    const {request} = useHttp();
+    const {request, GetAuth} = useHttp();
+    const [artist, setArtist] = useState({
+        _id: "",
+        image: "",
+        username: "",
+        description: ""
+    });
 
+    const [popular, setPopular] = useState([]);
 
-    const requestArtist = useCallback(async() => {
+    const requestArtistInfo = useCallback(async() => {
         try {
-            // const artist = await request(`/api/artist/${artistId}`, "GET", null);
-            // console.log(artist);
-
+            const artistData = await request(`/api/artist/info/${artistId}`, "GET", null);
+            setArtist({...artist, ...artistData, name: artistData.username});
         } catch (e) {
             console.log(e);
         }
-    }, [])
+    }, [artistId, request, artist])
 
+    const requestArtistSongs = useCallback(async() => {
+        try {
+            const songs = await request(`/api/artist/popular/${artistId}`, "GET", null, GetAuth());
+            setPopular(songs);
+        } catch (e) {
+            console.log(e);
+        }
+    }, [request, artistId])
 
     const {setCurrentPage} = useContext(CurrentPageContext);
 
     useEffect(() => {
         setCurrentPage(null);
-        requestArtist();
+        requestArtistInfo();
+        requestArtistSongs();
     }, [])
-
-    const [artist] = useState({
-        id: '0',
-        image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F79%2Fec%2F14%2F79ec145d48cbc5a5de09c69bd5fbc118.jpg&f=1&nofb=1",
-        name: "Artist name",
-        description: "some description"
-    })
-
-
-    const [popular] = useState([
-        {
-            id: "0",
-            name: "Burn",
-            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcovers3.img-themusic-world.info%2F000%2F13%2F13748.jpg&f=1&nofb=1",
-            listenCount: 110000,
-            length: "4:27"
-        },
-        {
-            id: "1",
-            name: "Just Like You",
-            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.laut.de%2FThree-Days-Grace%2FAlben%2FHuman-95994%2Fthree-days-grace-human-160698.jpg&f=1&nofb=1",
-            listenCount: 3310000,
-            length: "3:06"
-        },
-        {
-            id: "2",
-            name: "I hate everythink about you",
-            image: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.laut.de%2FThree-Days-Grace%2FAlben%2FHuman-95994%2Fthree-days-grace-human-160698.jpg&f=1&nofb=1",
-            listenCount: 110000,
-            length: "0:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F8%2F8a%2FOutsider.jpg&f=1&nofb=1",
-            listenCount: 120,
-            length: "44:27"
-        },
-        {
-            id: "3",
-            name: "Some name",
-            image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F8%2F8a%2FOutsider.jpg&f=1&nofb=1",
-            listenCount: 120,
-            length: "44:27"
-        }
-    ]);
-
 
     const [catalogue] = useState({
         name: "Three Days Grace albums",
@@ -108,9 +76,9 @@ const AuthorPage = () => {
     return (
         <div className="AuthorPage">
             <div className="authorBanner">
-                <CatalogueBanner {...artist} />
+                <CatalogueBanner {...artist}/>
             </div>
-            <CataloguePlay artistId={artist.id} />
+            <CataloguePlay artistId={artist._id} />
             <div className="authorPopular">
                 <div className="authorPopularTitle">
                     Popular Songs

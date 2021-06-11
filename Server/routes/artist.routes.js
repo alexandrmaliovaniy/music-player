@@ -5,6 +5,7 @@ const { Types } = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Playlist = require("../models/Playlist");
+const Song = require('../models/Song');
 const auth = require('../middleware/auth.middleware');
 const router = Router();
 
@@ -13,9 +14,9 @@ const router = Router();
 
 router.get("/info/:id", async(req, res) => {
     const artistId = req.params.id;
-    const artist = await User.findById(artistId);
-    if (!artist) return res.status(404).json({message: "Artist not found"});
-    req.json(artist);
+    const {_id, username, image} = await User.findById(artistId);
+    if (!_id) return res.status(404).json({message: "Artist not found"});
+    res.json({_id, username, image});
 })
 router.get("/playlists/:id", async(req, res) => {
     const userId = req.params.id;
@@ -97,6 +98,34 @@ router.get("/favorites", auth, async(req, res) => {
     }
     res.json(out);
 });
-
+router.get("/popular/:id", auth, async(req, res) => {
+    const artistId = req.params.id;
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+    const songs = await Song.aggregate([
+        {
+            $match: {
+                "author": {$eq: Types.ObjectId(artistId)}
+            }
+        },
+        {
+            $sort: {listenCount: 1}
+        },
+        {
+            $limit: 5
+        },
+        {
+            $project: {
+                data: 0
+            }
+        }
+    ]);
+    for (let i = 0; i < songs.length; i++) {
+        songs[i].originalPlaylist = await Playlist.findById(songs[i].originalPlaylist, {image: 1, name: 1, _id: 1});
+        songs[i].length = new Date(songs[i].length * 1000 || 0).toISOString().substr(14, 5);
+        songs[i].favorite = user.favorites.includes(songs[i]._id);
+    }
+    res.json(songs);
+});
 
 module.exports = router;

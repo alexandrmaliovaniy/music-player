@@ -21,7 +21,6 @@ const PlaylistPage = () => {
     const requestPlaylist = useCallback(async() => {
         try {
             const playlistData = await request(`/api/playlist/${playlistId}`, "GET", null, GetAuth());
-            console.log(playlistData)
             setPlaylist(playlistData);
         } catch (e) {
             console.log(e);
