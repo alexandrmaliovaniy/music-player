@@ -18,7 +18,7 @@ router.get("/info/:id", async(req, res) => {
     if (!_id) return res.status(404).json({message: "Artist not found"});
     res.json({_id, username, image});
 })
-router.get("/playlists/:id", async(req, res) => {
+router.get("/subPlaylists/:id", async(req, res) => {
     const userId = req.params.id;
     const data = await User.aggregate([
         {
@@ -127,5 +127,40 @@ router.get("/popular/:id", auth, async(req, res) => {
     }
     res.json(songs);
 });
-
+router.get("/playlists", auth, async(req, res) => {
+    const userId = req.user.id;
+    const playlists = await Playlist.aggregate([
+        {
+            $match: {
+                "author": {$eq: Types.ObjectId(userId)}
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'author',
+                foreignField: '_id',
+                as: 'author'
+            }
+        },
+        {
+            $addFields: {
+                author: {$arrayElemAt: ["$author", 0]}
+            }
+        },
+        {
+            $project: {
+                songs: 0,
+                author: {
+                    email: 0,
+                    favorites: 0,
+                    password: 0,
+                    playlists: 0,
+                    image: 0
+                }
+            }
+        }
+    ]);
+    res.json(playlists);
+});
 module.exports = router;

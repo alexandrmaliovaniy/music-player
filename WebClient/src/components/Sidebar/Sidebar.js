@@ -23,7 +23,7 @@ const SideBar = () => {
 
     const GetPlaylists = async() => {
         try {
-            const data = await request(`/api/artist/playlists/${id}`, "GET", null, GetAuth());
+            const data = await request(`/api/artist/subplaylists/${id}`, "GET", null, GetAuth());
             setUserPlaylists(data);
         } catch(e) {
             console.log(e)            

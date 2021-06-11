@@ -21,6 +21,7 @@ const AuthorPage = () => {
     });
 
     const [popular, setPopular] = useState([]);
+    const [catalogue, setCatalogue] = useState([]);
 
     const requestArtistInfo = useCallback(async() => {
         try {
@@ -40,39 +41,24 @@ const AuthorPage = () => {
         }
     }, [request, artistId])
 
+    const requestArtistWorks = useCallback(async() => {
+        try {
+            const playlists = await request(`/api/artist/playlists/`, "GET", null, GetAuth());
+            setCatalogue(playlists);
+        } catch (e) {
+            console.log(e);
+        }
+    }, [request, artistId])
+
+
     const {setCurrentPage} = useContext(CurrentPageContext);
 
     useEffect(() => {
         setCurrentPage(null);
         requestArtistInfo();
         requestArtistSongs();
+        requestArtistWorks();
     }, [])
-
-    const [catalogue] = useState({
-        name: "Three Days Grace albums",
-        list: [
-            {
-                id: "1",
-                name: "Three Days Grace",
-                author: [{
-                    id: "1",
-                    name: "Three Days Grace"
-                }],
-                image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.vinylcollective.com%2Fwp-content%2Fuploads%2F2016%2F09%2Fthreedays.jpg&f=1&nofb=1"
-            },
-            {
-                id: "2",
-                name: "Outsider",
-                author: [{
-                    id: "1",
-                    name: "Three Days Grace"
-                }],
-                image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.smehost.net%2Frcarecordscom-usrcaprod%2Fwp-content%2Fuploads%2F2018%2F01%2FTDG-OUTSIDER-album-artwork-561x561.jpg&f=1&nofb=1"
-            }
-        ]
-    })
-
-
     return (
         <div className="AuthorPage">
             <div className="authorBanner">
@@ -86,7 +72,7 @@ const AuthorPage = () => {
                 <Playlist list={popular} />
             </div>
             <div className="authorWorks">
-                <Catalogue {...catalogue} />
+                <Catalogue list={catalogue} name={artist?.username + " playlists" || "User's playlists"} />
             </div>
         </div>
     )
