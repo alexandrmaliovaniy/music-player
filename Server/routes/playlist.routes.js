@@ -31,7 +31,14 @@ router.get("/popular", async(req, res) => {
         },
         {
             $project: {
-                "songs": 0
+                songs: 0,
+                author: {
+                    email: 0,
+                    favorites: 0,
+                    password: 0,
+                    playlists: 0,
+                    image: 0
+                }
             }
         }
     ])
