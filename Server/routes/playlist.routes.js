@@ -80,8 +80,16 @@ router.get("/:id", auth, async(req, res) => {
         },
         {
             $project: {
-                "songs.data": 0,
-                "author.image": 0
+                songs: {
+                    data: 0
+                },
+                author: {
+                    email: 0,
+                    favorites: 0,
+                    password: 0,
+                    playlists: 0,
+                    image: 0
+                }
             }
         }
     ]);

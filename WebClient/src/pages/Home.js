@@ -12,7 +12,6 @@ const Home = () => {
     const reqestPopular = useCallback(async() => {
         try {
             const popular = await request('/api/playlist/popular', "GET", null);
-            console.log(popular)
             setPopular(popular);
         } catch (e) {
             console.log(e);
