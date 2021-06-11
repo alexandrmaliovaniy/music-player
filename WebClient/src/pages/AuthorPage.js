@@ -40,7 +40,7 @@ const AuthorPage = () => {
             console.log(e);
         }
     }, [request, artistId])
-
+    console.log(popular)
     const requestArtistWorks = useCallback(async() => {
         try {
             const playlists = await request(`/api/artist/playlists/`, "GET", null, GetAuth());

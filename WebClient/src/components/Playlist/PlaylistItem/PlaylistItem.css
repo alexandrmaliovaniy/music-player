@@ -66,6 +66,7 @@
 }
 .PlaylistItem .favorite {
     color: var(--red);
+    opacity: 1;
 }
 .PlaylistItem .listenCount,
 .PlaylistItem .itemLength {
