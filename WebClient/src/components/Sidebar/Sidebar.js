@@ -66,10 +66,12 @@ const SideBar = () => {
                 {
                     userPlaylists.map(el => {
                         return (
-                            <Link to={`/playlist/${el._id}`} key={el._id} className={`playlist ${currentSong?.playlist == el._id ? "activePlaylist" : ""}`}>
-                                {el.name}
+                            <div className={`playlist ${currentSong?.playlist == el._id ? "activePlaylist" : ""}`}>
+                                <Link to={`/playlist/${el._id}`} key={el._id} className="playlistLink" >
+                                    {el.name}
+                                </Link>
                                 <FontAwesomeIcon icon={faVolumeUp} className="playlistIcon" />
-                            </Link>
+                            </div>
                         )
                     })
                 }

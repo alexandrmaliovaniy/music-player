@@ -30,6 +30,7 @@ const UploadSong = ({setModal, saveSong}) => {
                 ...formInput,
                 time: a.duration
             }
+            console.log(a.duration)
             setFormInput(newVal);
             saveSong(newVal);
             setModal(false);

@@ -93,6 +93,13 @@
     cursor: pointer;
     text-decoration: none;
     color: #ddd;
+    overflow: hidden;
+}
+.Sidebar .playlists .playlist .playlistLink {
+    float: left;
+    width: calc(100% - 20px);
+    color: #fff;
+    text-decoration: none;
 }
 .Sidebar .playlists .playlist:hover .playlistIcon {
     opacity: 1;
