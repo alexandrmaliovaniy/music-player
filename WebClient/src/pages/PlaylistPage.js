@@ -19,19 +19,18 @@ const PlaylistPage = () => {
     const playlistId = useParams().id;
     const {setCurrentPage} = useContext(CurrentPageContext);
     const requestPlaylist = useCallback(async() => {
+        if (!playlistId) return;
         try {
             const playlistData = await request(`/api/playlist/${playlistId}`, "GET", null, GetAuth());
             setPlaylist(playlistData);
         } catch (e) {
             console.log(e);
         }
-    })
-
+    }, [playlistId]);
     useEffect(() => {
-        if (!playlistId) return;
         setCurrentPage(null);
         requestPlaylist();
-    }, [playlistId])
+    }, [requestPlaylist])
 
 
     return (

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -8,17 +8,13 @@ import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
 const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
-
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
-
     const {request, GetAuth} = useHttp();
-
     const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
     const thisPlaying = songId === _id && (_playlistId === playlistId || playlistId == originalPlaylist._id);
-
-    const ToggleFavorite = async() => {
+    const ToggleFavorite = useCallback(async() => {
         try {
             const newState = !isFavorite;
             await request(`/api/artist/favorite/${_id}/${newState}`, 'GET', null, GetAuth());
@@ -26,7 +22,8 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
         } catch(e) {
             console.log(e);
         }
-    }
+    }, [isFavorite])
+
     return (
         <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
             <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId || originalPlaylist._id, order)}>
@@ -59,6 +56,7 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
 PlaylistItem.protoTypes = {
     _playlistId: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
+    favorite: PropTypes.bool,
     order: PropTypes.number.isRequired,
     name: PropTypes.string,
     image: PropTypes.string,

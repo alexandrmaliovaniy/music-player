@@ -98,7 +98,7 @@
 .Sidebar .playlists .playlist .playlistLink {
     float: left;
     width: calc(100% - 20px);
-    color: #fff;
+    color: inherit;
     text-decoration: none;
 }
 .Sidebar .playlists .playlist:hover .playlistIcon {

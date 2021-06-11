@@ -16,7 +16,7 @@ const Playlist = ({_id, list = []}) => {
                 <div className="alignRight"><FontAwesomeIcon icon={faClock} /></div>
             </div>
             {list.map((el, index) => {
-                return <PlaylistItem {...el} _playlistId={_id} key={index} order={index} />
+                return <PlaylistItem {...el} _playlistId={_id} key={el._id} order={index} />
             })}
         </div>
     )

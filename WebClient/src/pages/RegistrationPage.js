@@ -36,7 +36,7 @@ const RegistrationPage = () => {
         Validate.Username(e.target.name, e.target.value, (valid) => {
             return valid ? 
             "Well, at least you can remember that" : 
-            "Error: make sure you use A-z 0-9 - symbols"
+            "Error: make sure you use A-zА-я 0-9 - symbols"
         });
     }
     const ValidatePassword = (e) => {
