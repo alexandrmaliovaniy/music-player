@@ -24,18 +24,18 @@ const UploadSong = ({setModal, saveSong}) => {
     }
 
     const SaveSong = () => {
-        const a = new Audio();
-        a.onloadedmetadata = () => {
+        const a = new Audio(formInput.song);
+        const durationCheck = setInterval(() => {
+            if (!Number.isFinite(a.duration) || Number.isNaN(a.duration)) return;
+            clearInterval(durationCheck);
             const newVal = {
                 ...formInput,
                 time: a.duration
             }
-            console.log(a.duration)
             setFormInput(newVal);
             saveSong(newVal);
             setModal(false);
-        }
-        a.src = formInput.song;
+        }, 100)
     }
     const Input = (e) => {
         setFormInput({
