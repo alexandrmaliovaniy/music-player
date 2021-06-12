@@ -33,8 +33,6 @@ const SideBar = () => {
     useEffect(() => {
         GetPlaylists();
     }, [])
-
-    console.log(currentPage)
     return (
         <div className="Sidebar">
             <div className="navBar">

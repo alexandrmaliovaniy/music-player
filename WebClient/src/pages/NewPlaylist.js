@@ -67,7 +67,7 @@ const NewPlaylist = () => {
             id: "",
             name: song.name,
             data: song.song,
-            length: song.time,
+            length: new Date(song.time * 1000 || 0).toISOString().substr(14, 5),
             listenCount: 0
         }
         const newSongs = [...formInput.songs];
