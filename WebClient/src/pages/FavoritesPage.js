@@ -1,10 +1,12 @@
 import Playlist from '../components/Playlist/Playlist';
 import { useHttp } from "../hooks/http.hook";
-import {useEffect, useState} from 'react';
+import {CurrentPageContext} from '../context/CurrentPageContext';
+import {useEffect, useState, useContext} from 'react';
 
 const FavoritePage = () => {
 
     const {request, GetAuth} = useHttp();
+    const {setCurrentPage} = useContext(CurrentPageContext)
     const [list, setList] = useState([]);
     const loadFavorites = async() => {
         try {
@@ -16,6 +18,7 @@ const FavoritePage = () => {
     }
 
     useEffect(() => {
+        setCurrentPage(3);
         loadFavorites();
     }, []);
 

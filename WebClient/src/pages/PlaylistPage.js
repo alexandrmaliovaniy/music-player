@@ -32,10 +32,12 @@ const PlaylistPage = () => {
             console.log(e);
         }
     }, [playlistId]);
+
     useEffect(() => {
-        setCurrentPage(null);
+        setCurrentPage(playlistId);
         requestPlaylist();
     }, [requestPlaylist])
+
     return (
         <div className="PlaylistPage">
             <div className="bannerPlaceholder">

@@ -18,7 +18,7 @@ const SideBar = () => {
     const {id} = useContext(AuthContext);
     const {request, GetAuth} = useHttp()
     const IsActive = (id) => {
-        return id === currentPage ? "menuItem activeMenuItem" : "menuItem";
+        return id === currentPage ? "activeMenuItem" : "";
     }
 
     const GetPlaylists = async() => {
@@ -34,15 +34,15 @@ const SideBar = () => {
         GetPlaylists();
     }, [])
 
-
+    console.log(currentPage)
     return (
         <div className="Sidebar">
             <div className="navBar">
-                <Link to="/home" className={IsActive(0)}>
+                <Link to="/home" className={`menuItem ${IsActive(0)}`}>
                     <FontAwesomeIcon icon={faHome} className="menuIcon" />
                     Home
                 </Link>
-                <Link to="/search" className={IsActive(1)}>
+                <Link to="/search" className={`menuItem ${IsActive(1)}`}>
                     <FontAwesomeIcon icon={faSearch} className="menuIcon" />
                     Search
                 </Link>
@@ -53,7 +53,7 @@ const SideBar = () => {
                     <FontAwesomeIcon icon={faPlus} className="userOptionIcon" />
                     create new playlist
                 </Link>
-                <Link to="/favorites" className="userOptionItem">
+                <Link to="/favorites" className={`userOptionItem ${IsActive(3)}`}>
                     <FontAwesomeIcon icon={faHeart} className="userOptionIcon" />
                     favorite songs
                 </Link>
@@ -66,7 +66,9 @@ const SideBar = () => {
                 {
                     userPlaylists.map(el => {
                         return (
-                            <div key={el._id} className={`playlist ${currentSong?.playlist == el._id ? "activePlaylist" : ""}`}>
+                            <div 
+                            key={el._id}
+                            className={`playlist ${IsActive(el._id)} ${currentSong?.playlist == el._id ? "activePlaylist" : ""}`}>
                                 <Link to={`/playlist/${el._id}`} className="playlistLink" >
                                     {el.name}
                                 </Link>
