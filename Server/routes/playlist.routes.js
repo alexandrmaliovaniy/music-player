@@ -126,6 +126,13 @@ router.post("/data", auth, async(req, res) => {
         res.json(e);
     }
 })
+router.get("/list/:listId", async(req, res) => {
+    const listId = req.params.listId;
+    const playlist = await Playlist.findById(listId);
+    if (!playlist) return res.status(404).json({message: "Playlist not found"});
+    console.log(playlist.songs)
+    res.json(playlist.songs);
+});
 router.post("/song", auth, async(req, res) => {
     const {playlistId, song} = req.body;
     const {id} = req.user;

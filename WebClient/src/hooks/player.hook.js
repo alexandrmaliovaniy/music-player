@@ -5,6 +5,7 @@ export const usePlayer = () => {
     const { request } = useHttp();
     const [isPlaying, setPlaying] = useState(false);
     const [currentSong, setCurrentSong] = useState(null);
+    const [currentList, setCurrentList] = useState(null);
     const [queue, setQueue] = useState([]);
     const [audio, setAudio] = useState(new Audio());
     const [loop, setLoop] = useState(false);
@@ -60,28 +61,29 @@ export const usePlayer = () => {
     const LoadPrevSong = useCallback(async() => {
         Stop();
         // if (queue.length == 0)
-        try {
-            await PlaySong(currentSong.playlist, currentSong.order - 1);
-        } catch (e) {
-            await PlaySong(currentSong.playlist, 0);
-        }
+        let newSongIndex = currentList.indexOf(currentSong.song._id) - 1;
+        if (newSongIndex > currentList.length - 1 || newSongIndex < 0 ) newSongIndex = currentList.length - 1;
+        PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
     }, [currentSong]);
     const LoadNextSong = useCallback(async() => {
         Stop();
-        try {
-            await PlaySong(currentSong.playlist, currentSong.order + 1);
-        } catch (e) {
-            await PlaySong(currentSong.playlist, 0);
-        }
+        let newSongIndex = currentList.indexOf(currentSong.song._id) + 1;
+        if (newSongIndex > currentList.length - 1 || newSongIndex < 0 ) newSongIndex = 0;
+        PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
     }, [currentSong])
-    const PlaySong = async(playlist, order) => {
-        let song = await request(`/api/song/${playlist}/${order}`, "GET", null);
+    const PlaySong = async(songList, playlist, songId) => {
+        let song = await request(`/api/song/${songId}`, "GET", null);
         audio.src = song.data;
-        setCurrentSong({playlist, order, song});
+        setCurrentList(songList);
+        setCurrentSong({playlist, song});
         Play();
     }
+    const PlayPlaylist = async(playlistId) => {
+        const playlist = await request(`/api/playlist/list/${playlistId}`, "GET", null);
+        PlaySong(playlist, playlistId, playlist[0]);
+    }
     return {
-        isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue,
+        isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue, PlayPlaylist,
         TogglePlayer, ToggleVolume, SetVolume, volumeEnable, volume, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
     }
 }

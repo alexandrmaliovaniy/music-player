@@ -9,12 +9,12 @@ const Song = require('../models/Song');
 const router = Router();
 
 
-router.get('/:playlistId/:order', async (req, res) => {
-    const { playlistId, order } = req.params;
+router.get('/:songId', async (req, res) => {
+    const songId = req.params.songId;
     const songs = await Song.aggregate([
         {
             $match: {
-                "originalPlaylist": { $eq: Types.ObjectId(playlistId) }
+                "_id": { $eq: Types.ObjectId(songId) }
             }
         },
         {
@@ -56,10 +56,9 @@ router.get('/:playlistId/:order', async (req, res) => {
                 }
             }
         }
-
     ]);
-    if (!songs[order]) return res.status(404).json({ message: "song not found" });
-    res.json(songs[order]);
+    if (!songs[0]) return res.status(404).json({ message: "song not found" });
+    res.json(songs[0]);
 })
 
 

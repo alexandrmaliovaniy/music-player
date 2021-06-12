@@ -6,13 +6,13 @@ import {useContext} from 'react';
 import { PlayerContext } from "../../../context/PlayerContext";
 import './CatalogueItem.css';
 const CatalogueItem = ({_id, name, author, image}) => {
-    const {isPlaying, currentSong, TogglePlayer, PlaySong} = useContext(PlayerContext);
+    const {isPlaying, currentSong, TogglePlayer, PlayPlaylist} = useContext(PlayerContext);
     const thisPlaying = currentSong?.playlist === _id;
     const history = useHistory();
     
     const Play = (e) => {
         e.preventDefault();
-        thisPlaying ? TogglePlayer() : PlaySong(_id, 0)
+        thisPlaying ? TogglePlayer() : PlayPlaylist(_id)
     }
     return (
         <Link to={`/playlist/${_id}`} className="CatalogueItem">

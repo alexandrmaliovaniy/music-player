@@ -68,7 +68,7 @@ const AuthorPage = () => {
                 <div className="authorPopularTitle">
                     Popular Songs
                 </div>
-                <Playlist list={popular} />
+                <Playlist list={popular} _id={"Author Page"} />
             </div>
             <div className="authorWorks">
                 <Catalogue list={catalogue} name={artist?.username + " playlists" || "User's playlists"} />

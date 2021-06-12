@@ -6,6 +6,7 @@ import './Playlist.css';
 import { useState } from 'react';
 
 const Playlist = ({_id, list = []}) => {
+    const songList = list.map(el => el._id);
     return (
         <div className="Playlist">
             <div className="playlistTableHead">
@@ -16,7 +17,7 @@ const Playlist = ({_id, list = []}) => {
                 <div className="alignRight"><FontAwesomeIcon icon={faClock} /></div>
             </div>
             {list.map((el, index) => {
-                return <PlaylistItem {...el} _playlistId={_id} key={el._id || index} order={index} />
+                return <PlaylistItem {...el} songList={songList} _playlistId={_id} key={el._id || index} order={index} />
             })}
         </div>
     )

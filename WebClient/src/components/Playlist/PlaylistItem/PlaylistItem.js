@@ -7,13 +7,13 @@ import {useHttp} from '../../../hooks/http.hook';
 import './PlaylistItem.css';
 import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
+const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
     const {request, GetAuth} = useHttp();
     const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
-    const thisPlaying = songId === _id && (_playlistId === playlistId || playlistId == originalPlaylist._id);
+    const thisPlaying = songId === _id && _playlistId === playlistId;
     const ToggleFavorite = useCallback(async() => {
         try {
             const newState = !isFavorite;
@@ -23,10 +23,9 @@ const PlaylistItem = ({_playlistId, _id, order, name, author, listenCount, lengt
             console.log(e);
         }
     }, [isFavorite])
-
     return (
         <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
-            <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(_playlistId || originalPlaylist._id, order)}>
+            <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(songList, _playlistId, _id)}>
                 <div className="itemOrderIndex">{order + 1}</div>
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />
             </div>
