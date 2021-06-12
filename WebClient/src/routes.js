@@ -35,6 +35,7 @@ export const useRoutes = (isAuth) => {
                                 <Route path="/404" component={NotFound} />
                                 <Redirect to="/404"/>
                             </Switch>
+                            <div className="mainContentFooter"></div>
                         </div>
                     </div>
                 </div>

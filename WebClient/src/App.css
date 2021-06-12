@@ -35,11 +35,14 @@ body {
 }
 .App .wrapper .userInterface .mainContainer .mainContent {
     width: 100%;
-    height: 100%;
     float: left;
     padding-top: 60px;
 }
-
+.App .wrapper .userInterface .mainContainer .mainContent .mainContentFooter {
+    float: left;
+    width: 100%;
+    height: 40px;
+}
 .App .wrapper .musicPlayerContainer {
     float: left;
     width: 100%;
