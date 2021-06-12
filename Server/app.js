@@ -7,7 +7,7 @@ const http = require('http');
 const app = express();
 const io = socketIO(http.createServer(app));
 
-app.use(express.json({extended: true, limit: '10mb'}));
+app.use(express.json({extended: true, limit: '20mb'}));
 app.use("/api/auth/", require('./routes/auth.routes'));
 app.use("/api/artist/", require('./routes/artist.routes'));
 app.use("/api/playlist/", require('./routes/playlist.routes'));
