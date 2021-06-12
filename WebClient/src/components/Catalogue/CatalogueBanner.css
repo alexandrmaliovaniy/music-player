@@ -38,3 +38,6 @@ background: linear-gradient(to top, #080808, #111111);
     float: left;
     font-size: 18px;
 }
+.CatalogueBanner .CatalogueBannerInfo .CatalogueBannerDescription .CatalogueBannerDetails a {
+    color: inherit;
+}

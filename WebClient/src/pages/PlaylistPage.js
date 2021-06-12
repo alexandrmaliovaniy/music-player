@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import CatalogueBanner from '../components/Catalogue/CatalogueBanner';
 import {CurrentPageContext} from '../context/CurrentPageContext';
 import {useHttp} from '../hooks/http.hook';
+import {Link} from 'react-router-dom';
 import './PlaylistPage.css';
 import CataloguePlay from '../components/Catalogue/CataloguePlay';
 
@@ -14,7 +15,11 @@ const PlaylistPage = () => {
         name: "",
         image: "",
         _id: "",
-        songs: []
+        songs: [],
+        author: {
+            username: "",
+            _id: ""
+        }
     });
     const playlistId = useParams().id;
     const {setCurrentPage} = useContext(CurrentPageContext);
@@ -31,12 +36,15 @@ const PlaylistPage = () => {
         setCurrentPage(null);
         requestPlaylist();
     }, [requestPlaylist])
-
-
     return (
         <div className="PlaylistPage">
             <div className="bannerPlaceholder">
-                <CatalogueBanner _id={playlist._id} name={playlist.name} image={playlist.image} />
+                <CatalogueBanner 
+                _id={playlist._id} 
+                name={playlist.name} 
+                image={playlist.image} 
+                description={<Link to={`/author/${playlist.author._id}`}>{playlist.author.username}</Link>}
+                />
             </div>
             <CataloguePlay playlistId={playlist._id} />
             <div className="songsList">
