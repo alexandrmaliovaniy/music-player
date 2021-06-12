@@ -40,10 +40,9 @@ const AuthorPage = () => {
             console.log(e);
         }
     }, [request, artistId])
-    console.log(popular)
     const requestArtistWorks = useCallback(async() => {
         try {
-            const playlists = await request(`/api/artist/playlists/`, "GET", null, GetAuth());
+            const playlists = await request(`/api/artist/playlists/${artistId}`, "GET", null);
             setCatalogue(playlists);
         } catch (e) {
             console.log(e);

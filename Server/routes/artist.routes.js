@@ -128,8 +128,8 @@ router.get("/popular/:id", auth, async(req, res) => {
     }
     res.json(songs);
 });
-router.get("/playlists", auth, async(req, res) => {
-    const userId = req.user.id;
+router.get("/playlists/:id", async(req, res) => {
+    const userId = req.params.id;
     const playlists = await Playlist.aggregate([
         {
             $match: {
