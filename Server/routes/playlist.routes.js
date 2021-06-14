@@ -94,7 +94,7 @@ router.get("/:id", auth, async(req, res) => {
         }
     ]);
     const out = playlist[0];
-    out.songs = out.songs.map(el => {
+    out.songs = out?.songs.map(el => {
         el.length = new Date(el.length * 1000 || 0).toISOString().substr(14, 5);
         el.favorite = user.favorites.includes(el._id);
         return el;
@@ -130,7 +130,6 @@ router.get("/list/:listId", async(req, res) => {
     const listId = req.params.listId;
     const playlist = await Playlist.findById(listId);
     if (!playlist) return res.status(404).json({message: "Playlist not found"});
-    console.log(playlist.songs)
     res.json(playlist.songs);
 });
 router.post("/song", auth, async(req, res) => {

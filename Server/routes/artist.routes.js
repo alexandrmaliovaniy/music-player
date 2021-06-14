@@ -123,7 +123,6 @@ router.get("/popular/:id", auth, async(req, res) => {
     for (let i = 0; i < songs.length; i++) {
         songs[i].originalPlaylist = await Playlist.findById(songs[i].originalPlaylist, {image: 1, name: 1, _id: 1});
         songs[i].length = new Date(songs[i].length * 1000 || 0).toISOString().substr(14, 5);
-        console.log(user.favorites, songs[i]._id)
         songs[i].favorite = user.favorites.includes(songs[i]._id);
     }
     res.json(songs);

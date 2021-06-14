@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListUl, faVolumeMute, faPause, faPlay, faRandom, faStepBackward, faStepForward, faSyncAlt, faVolumeDown } from "@fortawesome/free-solid-svg-icons";
 import {PlayerContext} from '../../context/PlayerContext';
+import { Link } from 'react-router-dom';
 import {useContext, useEffect, useState, useCallback} from 'react';
 import './MusicPlayer.css';
 
@@ -30,15 +31,13 @@ const MusicPlayer = () => {
     const ChangeVolume = (e) => {
         SetVolume(e.target.value);
     }
-
-
     return (
         <div className="MusicPlayer">
             <div className="audioInfo">
                 <img className="audioImage" width="56" height="56" src={currentSong?.song.originalPlaylist.image || ""}  alt=""  />
                 <div className="audioData">
-                    <a href="/" className="audioName" >{currentSong?.song?.name || "Song name"}</a>
-                    <a href="/" className="audioAuthor">{currentSong?.song?.author?.name || "Author name"}</a>
+                    <Link to={currentSong ? `/playlist/${currentSong.playlist}` : '/'} className="audioName" >{currentSong?.song?.name || "Song name"}</Link>
+                    <Link to={currentSong ? `/author/${currentSong.song.author._id}` : '/'} className="audioAuthor">{currentSong?.song?.author?.username || "Author name"}</Link>
                 </div>
             </div>
             <div className="playerControl">
