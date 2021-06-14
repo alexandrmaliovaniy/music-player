@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-
+import {useHistory} from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEye, faEyeSlash, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormError } from '../hooks/formError.hook';
@@ -10,6 +10,8 @@ import './RegistrationPage.css';
 import './AuthForm.css';
 const RegistrationPage = () => {
 
+
+    const history = useHistory();
     const {loading, request} = useHttp();
     const {login} = useContext(AuthContext);
     const [formInput, setFormInput] = useState({
@@ -89,6 +91,7 @@ const RegistrationPage = () => {
                 password: formInput.password,
             })
             login(loginData.token, loginData.id, loginData.username);
+            history.push("/");
         } catch(e) {
             setFieldStatus({...fieldStatus, ...e})            
         }
