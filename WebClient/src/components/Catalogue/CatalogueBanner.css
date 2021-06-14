@@ -17,7 +17,11 @@ background: linear-gradient(to top, #080808, #111111);
     display: flex;
     align-items: flex-end;
 }
+.CatalogueBanner .CatalogueBannerInfo .CatalogueBannerPreviev[src = ""] {
+    opacity: 0;
+}
 .CatalogueBanner .CatalogueBannerInfo .CatalogueBannerPreviev {
+    opacity: 1;
     float: left;
     max-width: 200px;
     height: auto;

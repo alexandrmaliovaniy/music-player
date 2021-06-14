@@ -8,7 +8,7 @@ const CatalogueBanner = ({_id, image, name, description}) => {
                 width="200"
                 height="200"
                 className="CatalogueBannerPreviev"
-                src={image} 
+                src={image}
                 alt=""/>
                 <div className="CatalogueBannerDescription">
                     <div className="CatalogueBannerName">
