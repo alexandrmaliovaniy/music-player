@@ -31,8 +31,9 @@ const SideBar = () => {
     }
 
     useEffect(() => {
+        if (!id) return;
         GetPlaylists();
-    }, [])
+    }, [id])
     return (
         <div className="Sidebar">
             <div className="navBar">
