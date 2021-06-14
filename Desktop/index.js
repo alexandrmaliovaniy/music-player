@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
 function createWindow() {
     // Create the browser window.
@@ -6,9 +7,12 @@ function createWindow() {
         width: 1024,
         height: 768,
         center: true,
-        autoHideMenuBar: true,
+        frame: false,
         webPreferences: {
-            nodeIntegration: true
+            contextIsolation: false,
+            enableRemoteModule: true,
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
         }
     })
 

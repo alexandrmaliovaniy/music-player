@@ -12,5 +12,8 @@
     "electron": "^13.1.2",
     "electron-builder": "^22.11.7",
     "wait-on": "^5.3.0"
+  },
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.7"
   }
 }
