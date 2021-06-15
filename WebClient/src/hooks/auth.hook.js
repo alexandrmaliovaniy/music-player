@@ -24,6 +24,10 @@ export function useAuth() {
         setReady(true);
     }, [])
     const logout = useCallback(() => {
+        request('/api/auth/logout', "POST", {
+            id,
+            refreshToken
+        })
         setToken(null);
         setRefreshToken(null);
         setUserId(null);

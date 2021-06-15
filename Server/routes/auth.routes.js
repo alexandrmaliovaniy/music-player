@@ -60,13 +60,18 @@ router.post("/registration", async(req, res) => {
 });
 router.post("/refresh", async(req, res) => {
     const {id, refreshToken} = req.body;
-    const session = await Session.findOne({id: id, refreshToken});
+    const session = await Session.findOne({id, refreshToken});
     if (!session) return res.status(400).json({message: "Unvalid refresh token"});
     jwt.verify(refreshToken, config.get("jwtSecretRefresh"), (err, user) => {
         if (err) return res.status(400).json({message: "Unvalid refresh token"});
         const token = SignToken(user.id, user.username, "jwtSecret", '15s');
         res.json({token});
     })
+});
+router.post("/logout", async(req, res) => {
+    const {id, refreshToken} = req.body;
+    Session.findOneAndRemove({id, refreshToken});
+    res.json({message: "success"});
 });
 const AuthIn = (id, username) => {
     const token = SignToken(id, username, "jwtSecret", '15m');
