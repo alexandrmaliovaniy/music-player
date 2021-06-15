@@ -4,7 +4,7 @@ import {AuthContext} from '../context/AuthContext';
 export const useHttp = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {token} = useContext(AuthContext);
+    const {token, refreshToken, setToken, login, logout, id} = useContext(AuthContext);
     const request = useCallback(async (url, method = "GET", body = 'null', headers = {}) => {
         setLoading(true);
 
@@ -20,6 +20,20 @@ export const useHttp = () => {
                 headers
             });
             const data = await response.json();
+            if (data?.message === "Authorization error") {
+                try {
+                    const {token} = await request('/api/auth/refresh', "POST", {
+                        id,
+                        refreshToken
+                    });
+                    setToken(token);
+                    const out = await request(url, method, body, {Authorization: `Bearer ${token}`});
+                    return out;
+                } catch(e) {
+                    console.log(e);
+                    logout();
+                }
+            }
             if (!response.ok) {
                 throw data;
             }

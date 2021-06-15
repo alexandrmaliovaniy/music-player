@@ -12,18 +12,16 @@ import { UserPlaylistsContext } from './context/UserPlaylistsContext';
 
 
 function App() {
-	const {token, id, username, login, logout, ready} = useAuth();
-	const isAuth = !!token;
+	const auth = useAuth();
+	const isAuth = !!auth.token;
 	const routes = useRoutes(isAuth);
 
 	const [currentPage, setCurrentPage] = useState(null);
 	const [userPlaylists, setUserPlaylists] = useState([]);
 	const player = usePlayer();
-	if (!ready) return (<Preloader />);
+	if (!auth.ready) return (<Preloader />);
 	return (
-		<AuthContext.Provider value={{
-			token,id,username,login,logout,isAuth
-		}}>
+		<AuthContext.Provider value={auth}>
 			<UserPlaylistsContext.Provider value={{userPlaylists,setUserPlaylists}}>
 				<PlayerContext.Provider value={player}>
 					<Router>

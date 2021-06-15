@@ -90,7 +90,7 @@ const RegistrationPage = () => {
                 username: formInput.username,
                 password: formInput.password,
             })
-            login(loginData.token, loginData.id, loginData.username);
+            login(loginData.token, loginData.refreshToken, loginData.id, loginData.username);
             history.push("/");
         } catch(e) {
             setFieldStatus({...fieldStatus, ...e})            
