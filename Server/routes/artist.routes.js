@@ -38,7 +38,8 @@ router.get("/subPlaylists/:id", async(req, res) => {
             $project: {
                 playlists: {
                   _id: 1,
-                  name: 1
+                  name: 1,
+                  author: 1,
                 }
             }
         }

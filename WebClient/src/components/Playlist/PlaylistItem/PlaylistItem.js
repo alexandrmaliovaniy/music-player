@@ -5,11 +5,17 @@ import { faPlay, faPause, faHeart } from "@fortawesome/free-solid-svg-icons";
 import {Link} from 'react-router-dom';
 import {useHttp} from '../../../hooks/http.hook';
 import './PlaylistItem.css';
+import {UserPlaylistsContext} from '../../../context/UserPlaylistsContext';
+import {AuthContext} from '../../../context/AuthContext';
+import ContextMenu from '../../Modal/ContextMenu/ContextMenu';
 import { PlayerContext } from '../../../context/PlayerContext';
 
 const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
     const {request, GetAuth} = useHttp();
+    const [contextMenu, setContextMenu] = useState(null);
+    const {id} = useContext(AuthContext);
+    const {userPlaylists} = useContext(UserPlaylistsContext);
     const [isFavorite, setFavorite] = useState(favorite);
     const songId = currentSong?.song._id;
     const playlistId = currentSong?.playlist;
@@ -23,8 +29,34 @@ const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCo
             console.log(e);
         }
     }, [isFavorite])
+
+    const OnContextMenu = e => {
+        e.preventDefault();
+        setContextMenu({
+            x: e.clientX,
+            y: e.clientY
+        });
+    }
+    const contextMenuDisplay = contextMenu ?
+    <ContextMenu title="Add to playlist" 
+    options={ userPlaylists.filter(el => el.author === id) } 
+    offset={contextMenu} 
+    click={async(targetPlaylist) => {
+        if (targetPlaylist == playlistId) return;
+        try {
+            await request(`/api/playlist/add`, "POST", {
+                playlist: targetPlaylist,
+                song: _id
+            }, GetAuth())
+        } catch(e) {
+            console.log(e)
+        }
+    }}
+    /> :
+    "";
+
     return (
-        <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`}>
+        <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`} onContextMenu={OnContextMenu} onClick={()=>setContextMenu(null)}  >
             <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(songList, _playlistId, _id)}>
                 <div className="itemOrderIndex">{order + 1}</div>
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />
@@ -48,6 +80,7 @@ const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCo
             <div className="itemLength">
                 {length}
             </div>
+            {contextMenuDisplay}
         </div>
     )
 }

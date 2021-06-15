@@ -126,6 +126,15 @@ router.post("/data", auth, async(req, res) => {
         res.json(e);
     }
 })
+router.post("/add", auth, async(req, res) => {
+    const {song, playlist} = req.body;
+    await Playlist.findByIdAndUpdate(playlist, {
+        $push: {
+            songs: song
+        }
+    });
+    res.json({message: "success"});
+});
 router.get("/list/:listId", async(req, res) => {
     const listId = req.params.listId;
     const playlist = await Playlist.findById(listId);

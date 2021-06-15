@@ -29,7 +29,6 @@ const SideBar = () => {
             console.log(e)            
         }
     }
-
     useEffect(() => {
         if (!id) return;
         GetPlaylists();
