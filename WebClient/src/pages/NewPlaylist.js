@@ -5,6 +5,7 @@ import {useHttp} from '../hooks/http.hook';
 import { useHistory } from 'react-router-dom';
 import {useFormError} from '../hooks/formError.hook';
 import {CurrentPageContext} from '../context/CurrentPageContext';
+import {AuthContext} from '../context/AuthContext';
 import {UserPlaylistsContext} from '../context/UserPlaylistsContext';
 import Playlist from '../components/Playlist/Playlist';
 import UploadSong from '../components/Modal/Song/UploadSong.modal';
@@ -14,6 +15,7 @@ const NewPlaylist = () => {
     const {setCurrentPage} = useContext(CurrentPageContext);
     const history = useHistory();
     const {request, GetAuth} = useHttp();
+    const auth = useContext(AuthContext);
     const [modal, setModal] = useState(false);
     const {userPlaylists, setUserPlaylists} = useContext(UserPlaylistsContext)
     const [id, setId] = useState(null);
@@ -38,6 +40,7 @@ const NewPlaylist = () => {
             ...userPlaylists,
             {
                 _id: id,
+                author: auth.id,
                 name: "New Playlist"
             }
         ])
@@ -97,6 +100,11 @@ const NewPlaylist = () => {
                 name: formInput.name,
                 image: formInput.image
             }, GetAuth());
+            setUserPlaylists(userPlaylists.map(el => {
+                if (el._id !== id) return el;
+                el.name = formInput.name;
+                return el;
+            }))
             history.push(`/playlist/${id}`);
         } catch(e) {
             console.log(e)
