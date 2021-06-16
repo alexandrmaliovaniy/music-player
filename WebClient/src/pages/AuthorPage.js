@@ -63,12 +63,12 @@ const AuthorPage = () => {
             <div className="authorBanner">
                 <CatalogueBanner {...artist}/>
             </div>
-            <CataloguePlay artistId={artist._id} />
+            {/* <CataloguePlay artistId={artist._id} playlistId={artist?.username} /> */}
             <div className="authorPopular">
                 <div className="authorPopularTitle">
                     Popular Songs
                 </div>
-                <Playlist list={popular} _id={"Author Page"} />
+                <Playlist list={popular} _id={artist?.username} />
             </div>
             <div className="authorWorks">
                 <Catalogue list={catalogue} name={artist?.username + " playlists" || "User's playlists"} />
