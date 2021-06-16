@@ -36,7 +36,7 @@ const MusicPlayer = () => {
             <div className="audioInfo">
                 <img className="audioImage" width="56" height="56" src={currentSong?.song.originalPlaylist.image || ""}  alt=""  />
                 <div className="audioData">
-                    <Link to={currentSong ? `/playlist/${currentSong.playlist}` : '/'} className="audioName" >{currentSong?.song?.name || "Song name"}</Link>
+                    <Link to={currentSong ? `/playlist/${currentSong.song.originalPlaylist._id}` : '/'} className="audioName" >{currentSong?.song?.name || "Song name"}</Link>
                     <Link to={currentSong ? `/author/${currentSong.song.author._id}` : '/'} className="audioAuthor">{currentSong?.song?.author?.username || "Author name"}</Link>
                 </div>
             </div>

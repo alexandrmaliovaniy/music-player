@@ -103,7 +103,7 @@ router.get("/popular/:id", auth, async(req, res) => {
     const artistId = req.params.id;
     const userId = req.user.id;
     const user = await User.findById(userId);
-    const songs = await Song.aggregate([
+    const songs = await Song.aggregate([ // ununique data
         {
             $match: {
                 "author": {$eq: Types.ObjectId(artistId)}
