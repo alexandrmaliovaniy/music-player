@@ -38,6 +38,8 @@ const PlaylistPage = () => {
         requestPlaylist();
     }, [requestPlaylist])
 
+    console.log(playlist);
+
     return (
         <div className="PlaylistPage">
             <div className="bannerPlaceholder">

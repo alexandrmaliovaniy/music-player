@@ -10,7 +10,7 @@ import {AuthContext} from '../../../context/AuthContext';
 import ContextMenu from '../../Modal/ContextMenu/ContextMenu';
 import { PlayerContext } from '../../../context/PlayerContext';
 
-const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCount, length, originalPlaylist, favorite}) => {
+const PlaylistItem = ({_playlistId, _id, songList, order, name, author, originalAuthor, originalImage, listenCount, length, originalPlaylist, favorite}) => {
     const { PlaySong, isPlaying, currentSong, TogglePlayer } = useContext(PlayerContext);
     const {request, GetAuth} = useHttp();
     const [contextMenu, setContextMenu] = useState(null);
@@ -62,12 +62,12 @@ const PlaylistItem = ({_playlistId, _id, songList, order, name, author, listenCo
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />
             </div>
             <div className="itemDescription">
-                {originalPlaylist?.image ? <img className="itemImage" src={originalPlaylist.image} /> : ""}
+                {originalPlaylist?.image || originalImage ? <img className="itemImage" src={originalPlaylist.image || originalImage} /> : ""}
             <div className="itemInfo">
                 <div className="itemName">
                     {name}
                 </div>
-                {author ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.username}</Link> : ""}
+                {author || originalAuthor ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.username || originalAuthor.username}</Link> : ""}
             </div>
                 
             </div>

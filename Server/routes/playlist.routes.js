@@ -88,19 +88,30 @@ router.get("/:id", auth, async(req, res) => {
                     favorites: 0,
                     password: 0,
                     playlists: 0,
-                    image: 0
+                    image: 0,
                 }
             }
-        }
+        },
     ]);
     const out = playlist[0];
-    out.songs = out?.songs.map(el => {
+    const songs = out?.songs;
+    for (let i = 0; i < songs.length; i++) {
+        const el = songs[i];
+        const isOrig = el.originalPlaylist == playlistId;
+        el.originalImage = !isOrig && (await Playlist.findById(el.originalPlaylist)).image;
+        el.originalAuthor = !isOrig && (await User.findById(el.author, {_id: 1, username: 1}));
         el.length = new Date(el.length * 1000 || 0).toISOString().substr(14, 5);
         el.favorite = user.favorites.includes(el._id);
-        return el;
-    })
+    }
+    out.songs = songs;
     res.json(out);
 })
+router.get("/list/:listId", async(req, res) => {
+    const listId = req.params.listId;
+    const playlist = await Playlist.findById(listId);
+    if (!playlist) return res.status(404).json({message: "Playlist not found"});
+    res.json(playlist.songs);
+});
 router.post("/", auth, async(req, res) => {
     const {id} = req.user;
     const playlist = new Playlist({
@@ -134,12 +145,6 @@ router.post("/add", auth, async(req, res) => {
         }
     });
     res.json({message: "success"});
-});
-router.get("/list/:listId", async(req, res) => {
-    const listId = req.params.listId;
-    const playlist = await Playlist.findById(listId);
-    if (!playlist) return res.status(404).json({message: "Playlist not found"});
-    res.json(playlist.songs);
 });
 router.post("/song", auth, async(req, res) => {
     const {playlistId, song} = req.body;
