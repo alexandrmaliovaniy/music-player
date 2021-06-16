@@ -31,7 +31,9 @@ export const useHttp = () => {
                     return out;
                 } catch(e) {
                     console.log(e);
-                    logout();
+                    if (e.message == "Unvalid refresh token") {
+                        logout();
+                    }
                 }
             }
             if (!response.ok) {
