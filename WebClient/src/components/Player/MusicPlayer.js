@@ -62,7 +62,14 @@ const MusicPlayer = () => {
                     <div className="currentTime">
                         {new Date(audio.duration * time * 10 || 0).toISOString().substr(14, 5)}
                     </div>
-                    <input type="range" className="timelineContainer inputRange" min="0" max="100" value={time} onMouseDown={()=>setDragging(true)} onMouseUp={EndDragging}  onChange={ChangeTime}/>
+                    <input type="range" className="timelineContainer inputRange" 
+                    min="0"
+                    max="100"
+                    value={time}
+                    disabled={!currentSong}
+                    onMouseDown={()=>setDragging(true)} 
+                    onMouseUp={EndDragging}  
+                    onChange={ChangeTime}/>
                     {/* <div className="timelineContainer">
                         <div className="timeProgression">
                             <div className="progressLine" style={{width: `${(100 * time / audio?.duration) || 0}%`}}>
