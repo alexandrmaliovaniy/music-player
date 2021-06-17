@@ -4,11 +4,11 @@ import {AuthContext} from '../context/AuthContext';
 export const useHttp = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {token, refreshToken, setToken, login, logout, id} = useContext(AuthContext);
+    const {token, refreshToken, setToken, login, logout, id, username} = useContext(AuthContext);
     const request = useCallback(async (url, method = "GET", body = 'null', headers = {}) => {
         setLoading(true);
 
-        if (body) {
+        if (body && typeof body == "object") {
             body = JSON.stringify(body);
             headers['Content-Type'] = 'application/json';
         }
@@ -21,20 +21,15 @@ export const useHttp = () => {
             });
             const data = await response.json();
             if (data?.message === "Authorization error") {
-                try {
-                    const {token} = await request('/api/auth/refresh', "POST", {
-                        id,
-                        refreshToken
-                    });
-                    setToken(token);
-                    const out = await request(url, method, body, {Authorization: `Bearer ${token}`});
-                    return out;
-                } catch(e) {
-                    console.log(e);
-                    if (e.message == "Unvalid refresh token") {
-                        logout();
-                    }
-                }
+                const {token} = await request('/api/auth/refresh', "POST", {
+                    id,
+                    refreshToken
+                });
+                if (!token) return logout();
+                login(token, refreshToken, id, username);
+                headers["Authorization"] = `Bearer ${token}`;
+                const out = await request(url, method, body, headers);
+                return out;
             }
             if (!response.ok) {
                 throw data;
