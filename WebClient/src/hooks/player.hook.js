@@ -24,9 +24,9 @@ export const usePlayer = () => {
     }, [audio]);
     useEffect(() => {
         if (!audio) return;
-        audio.addEventListener("ended", LoadNextSong)
+        audio.addEventListener("ended", MusicEnd)
         return () => {
-            audio.removeEventListener("ended", LoadNextSong);
+            audio.removeEventListener("ended", MusicEnd);
         }
     }, [currentSong]);
 
@@ -58,6 +58,10 @@ export const usePlayer = () => {
         setPlaying(false);
         audio.pause();
     }
+    const MusicEnd = useCallback(async() => {
+        await request('/api/song/listen', "POST", {_id: currentSong.song._id});
+        LoadNextSong();
+    }, [currentSong])
     const LoadPrevSong = useCallback(async() => {
         Stop();
         // if (queue.length == 0)
@@ -66,11 +70,12 @@ export const usePlayer = () => {
         PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
     }, [currentSong]);
     const LoadNextSong = useCallback(async() => {
+        if (!currentList) return;
         Stop();
         let newSongIndex = currentList.indexOf(currentSong.song._id) + 1;
         if (newSongIndex > currentList.length - 1 || newSongIndex < 0 ) newSongIndex = 0;
         PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
-    }, [currentSong])
+    }, [currentSong, currentList])
     const PlaySong = async(songList, playlist, songId) => {
         let song = await request(`/api/song/${songId}`, "GET", null);
         audio.src = song.data;

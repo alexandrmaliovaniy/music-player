@@ -61,5 +61,16 @@ router.get('/:songId', async (req, res) => {
     res.json(songs[0]);
 })
 
+router.post('/listen', async (req, res) => {
+    try {
+    const {_id} = req.body;
+    const song = await Song.findById(_id);
+    song.listenCount++;
+    song.save();
+    res.json({message: "success"});
+    } catch(e) {
+        console.log(e);
+    }
+});
 
 module.exports = router;
