@@ -88,7 +88,7 @@
 .MusicPlayer .playerControl .controllButtons .play {
     background: #fff;
     border-radius: 50%;
-    padding-left: 4px;
+    padding-left: 2px;
     color: var(--player-bg);
 }
 .MusicPlayer .playerControl .controllButtons .play:hover {
