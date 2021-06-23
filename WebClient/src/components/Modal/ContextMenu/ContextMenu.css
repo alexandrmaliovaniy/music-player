@@ -1,7 +1,7 @@
 .ContextMenu {
     position: absolute;
     width: 200px;
-    max-height: 300px;
+    max-height: 250px;
     left: 0;
     top: 0;
     border-radius: 5px;
@@ -25,6 +25,8 @@
     float: left;
     list-style: none;
     margin-bottom: 15px;
+    max-height: 210px;
+    overflow: auto;
 }
 .ContextMenu .options .option {
     float: left;

@@ -67,7 +67,7 @@ const PlaylistItem = ({_playlistId, _id, songList, order, name, author, original
                 <div className="itemName">
                     {name}
                 </div>
-                {author || originalAuthor ? <Link to={`/author/${author._id}`} className="itemAuthor">{author.username || originalAuthor.username}</Link> : ""}
+                {author || originalAuthor ? <Link to={`/author/${author._id}`} className="itemAuthor">{author?.username || originalAuthor?.username}</Link> : ""}
             </div>
                 
             </div>

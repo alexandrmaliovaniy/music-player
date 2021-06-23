@@ -6,7 +6,7 @@ import {useContext, useEffect, useState, useCallback} from 'react';
 import './MusicPlayer.css';
 
 const MusicPlayer = () => {
-    const {isPlaying, TogglePlayer, ToggleVolume, volumeEnable, volume, SetVolume, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
+    const {isPlaying, TogglePlayer, ToggleShuffle, shuffle, ToggleVolume, volumeEnable, volume, SetVolume, ToggleLoop, loop, currentSong, audio, LoadNextSong, LoadPrevSong} = useContext(PlayerContext);
     const [time, setTime] = useState(0);
     const [dragging, setDragging] = useState(false);
 
@@ -42,8 +42,8 @@ const MusicPlayer = () => {
             </div>
             <div className="playerControl">
                 <div className="controllButtons">
-                    <div className="shuffleButton">
-                        <FontAwesomeIcon icon={faRandom} />
+                    <div className={`shuffleButton ${shuffle && "shuffle"}`}>
+                        <FontAwesomeIcon icon={faRandom} onClick={ToggleShuffle} />
                     </div>
                     <div className="backButton" onClick={LoadPrevSong}>
                         <FontAwesomeIcon icon={faStepBackward} />
@@ -54,7 +54,7 @@ const MusicPlayer = () => {
                     <div className="forwardButton" onClick={LoadNextSong}>
                         <FontAwesomeIcon icon={faStepForward} />
                     </div>
-                    <div className={`repeatButton ${loop ? "loop" : ""}`} onClick={ToggleLoop}>
+                    <div className={`repeatButton ${loop && "loop"}`} onClick={ToggleLoop}>
                         <FontAwesomeIcon icon={faSyncAlt} />
                     </div>
                 </div>

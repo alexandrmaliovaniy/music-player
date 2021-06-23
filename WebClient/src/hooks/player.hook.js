@@ -8,6 +8,7 @@ export const usePlayer = () => {
     const [currentList, setCurrentList] = useState(null);
     const [queue, setQueue] = useState([]);
     const [audio, setAudio] = useState(new Audio());
+    const [shuffle, setShuffle] = useState(false);
     const [loop, setLoop] = useState(false);
     const [volume, setVolume] = useState(100);
     const [volumeEnable, setVolumeEnable] = useState(true);
@@ -38,6 +39,10 @@ export const usePlayer = () => {
             Play();
         }
     }
+    const ToggleShuffle = () => {
+        setShuffle(!shuffle);
+        if (!shuffle) setQueue([]);
+    }
     const ToggleLoop = () => {
         setLoop(!loop);
         audio.loop = !loop;
@@ -49,6 +54,16 @@ export const usePlayer = () => {
     const ToggleVolume = () => {
         audio.volume = volumeEnable ? 0 : volume / 100;
         setVolumeEnable(!volumeEnable);
+    }
+    const Shuffle = (arr) => {
+        var j, temp;
+        for(var i = arr.length - 1; i > 0; i--){
+            j = Math.floor(Math.random()*(i + 1));
+            temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        }
+        return arr;
     }
     const Play = () => {
         setPlaying(true);
@@ -62,9 +77,16 @@ export const usePlayer = () => {
         await request('/api/song/listen', "POST", {_id: currentSong.song._id});
         LoadNextSong();
     }, [currentSong])
+    const PlayQueue = useCallback(async() => {
+        let q = queue;
+        if (q.length == 0 && !shuffle) LoadNextSong();
+        if (q.length == 0 && shuffle) q = Shuffle(currentList);
+        const [song, ...rest] = q;
+        setQueue(rest);
+        PlaySong(currentList, currentSong.playlist, song);
+    }, [queue, currentList, Shuffle]);
     const LoadPrevSong = useCallback(async() => {
         Stop();
-        // if (queue.length == 0)
         let newSongIndex = currentList.indexOf(currentSong.song._id) - 1;
         if (newSongIndex > currentList.length - 1 || newSongIndex < 0 ) newSongIndex = currentList.length - 1;
         PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
@@ -72,10 +94,11 @@ export const usePlayer = () => {
     const LoadNextSong = useCallback(async() => {
         if (!currentList) return;
         Stop();
+        if (shuffle) return PlayQueue();
         let newSongIndex = currentList.indexOf(currentSong.song._id) + 1;
         if (newSongIndex > currentList.length - 1 || newSongIndex < 0 ) newSongIndex = 0;
         PlaySong(currentList, currentSong.playlist, currentList[newSongIndex]);
-    }, [currentSong, currentList])
+    }, [currentSong, currentList, shuffle])
     const PlaySong = async(songList, playlist, songId) => {
         let song = await request(`/api/song/${songId}`, "GET", null);
         audio.src = song.data;
@@ -89,6 +112,7 @@ export const usePlayer = () => {
     }
     return {
         isPlaying, setPlaying, currentSong, setCurrentSong, queue, setQueue, PlayPlaylist,
-        TogglePlayer, ToggleVolume, SetVolume, volumeEnable, volume, Play, Stop, loop, PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong
+        TogglePlayer, ToggleVolume, SetVolume, volumeEnable, volume, Play, Stop, loop,
+        PlaySong, audio, ToggleLoop, LoadPrevSong, LoadNextSong, ToggleShuffle, shuffle
     }
 }
