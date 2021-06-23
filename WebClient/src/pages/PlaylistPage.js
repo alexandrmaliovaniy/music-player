@@ -48,7 +48,7 @@ const PlaylistPage = () => {
                 description={<Link to={`/author/${playlist.author._id}`}>{playlist.author.username}</Link>}
                 />
             </div>
-            <CataloguePlay playlistId={playlist._id} />
+            <CataloguePlay playlistId={playlist._id} authorId={playlist.author._id} playlistName={playlist.name} />
             <div className="songsList">
                 <Playlist list={playlist.songs} _id={playlist._id} />
             </div>

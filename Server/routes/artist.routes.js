@@ -46,6 +46,19 @@ router.get("/subPlaylists/:id", async(req, res) => {
     ])
     res.json(data[0].playlists);
 })
+router.post("/subscribe", auth, async(req, res) => {
+    const {playlistId, subscribe} = req.body;
+    if (subscribe) {
+        await User.findByIdAndUpdate(req.user.id, {$push: {
+            "playlists": playlistId
+        }})
+    } else {
+        await User.findByIdAndUpdate(req.user.id, {$pull: {
+            "playlists": playlistId
+        }})
+    }
+    res.json({message: "success"});
+});
 router.get("/favorite/:songId/:setFav", auth, async(req, res) => {
     const userId = req.user.id;
     const songId = req.params.songId;
