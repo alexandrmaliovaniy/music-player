@@ -43,22 +43,11 @@ router.get('/:songId', async (req, res) => {
                 author: { $arrayElemAt: ["$author", 0] }
             }
         },
-        {
-            $addFields: {
-                length: {
-                    $function: {
-                        body: function (length) {
-                            return new Date(length * 1000 || 0).toISOString().substr(14, 5)
-                        },
-                        args: ["$length"],
-                        lang: "js"
-                    }
-                }
-            }
-        }
     ]);
     if (!songs[0]) return res.status(404).json({ message: "song not found" });
-    res.json(songs[0]);
+    const out = songs[0];
+    out.length = new Date(out.length * 1000 || 0).toISOString().substr(14, 5)
+    res.json(out);
 })
 
 router.post('/listen', async (req, res) => {

@@ -3,5 +3,6 @@ Server/data/
 Server/node_modules/
 Server/config/
 WebClient/node_modules/
+WebClient/build/
 Desktop/node_modules/
 Desktop/dist
