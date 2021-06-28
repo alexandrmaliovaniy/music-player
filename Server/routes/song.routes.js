@@ -6,6 +6,7 @@ const mongodb = require('mongodb');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Song = require('../models/Song');
+const SongPaylaod = require('../models/SongPayload');
 const router = Router();
 
 
@@ -46,7 +47,8 @@ router.get('/:songId', async (req, res) => {
     ]);
     if (!songs[0]) return res.status(404).json({ message: "song not found" });
     const out = songs[0];
-    out.length = new Date(out.length * 1000 || 0).toISOString().substr(14, 5)
+    out.payload = (await SongPaylaod.findById(out.payload)).payload;
+    out.length = new Date(out.length * 1000 || 0).toISOString().substr(14, 5);
     res.json(out);
 })
 

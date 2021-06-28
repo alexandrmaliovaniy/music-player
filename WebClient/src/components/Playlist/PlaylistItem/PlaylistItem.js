@@ -56,7 +56,7 @@ const PlaylistItem = ({_playlistId, _id, songList, order, name, author, original
     "";
 
     return (
-        <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`} onContextMenu={OnContextMenu} onClick={()=>setContextMenu(null)}  >
+        <div className={`PlaylistItem ${thisPlaying ? "itemPlaying" : ""}`} onContextMenu={OnContextMenu} onClick={()=>setContextMenu(null)} onMouseLeave={()=>setContextMenu(null)} >
             <div className="itemOrder" onClick={()=> thisPlaying ? TogglePlayer() : PlaySong(songList, _playlistId, _id)}>
                 <div className="itemOrderIndex">{order + 1}</div>
                 <FontAwesomeIcon icon={thisPlaying && isPlaying ? faPause : faPlay} className="playItem" />

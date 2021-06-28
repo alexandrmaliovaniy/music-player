@@ -6,7 +6,7 @@ const schema = new Schema({
     author: {type: Types.ObjectId},
     length: {type: Number},
     listenCount: {type: Number},
-    data: {type: String, required: true}
+    payload: {type: Types.ObjectId, required: true}
 });
 
 module.exports = model("Song", schema);

@@ -7,6 +7,7 @@ const Post = require('../models/Playlist');
 const Playlist = require('../models/Playlist');
 const auth = require('../middleware/auth.middleware');
 const Song = require('../models/Song');
+const SongPayload = require('../models/SongPayload');
 const {Types} = require('mongoose');
 const router = Router();
 
@@ -45,8 +46,6 @@ router.get("/popular", async(req, res) => {
     res.json(playlists);
 })
 
-// /api/playlist/:id
-// returns all data for playlist page
 router.get("/:id", auth, async(req, res) => {
     const playlistId = req.params.id;
     const userId = req.user.id;
@@ -81,7 +80,7 @@ router.get("/:id", auth, async(req, res) => {
         {
             $project: {
                 songs: {
-                    data: 0
+                    payload: 0
                 },
                 author: {
                     email: 0,
@@ -149,13 +148,17 @@ router.post("/add", auth, async(req, res) => {
 router.post("/song", auth, async(req, res) => {
     const {playlistId, song} = req.body;
     const {id} = req.user;
+    const songPayload = new SongPayload({
+        payload: song.song
+    });
+    await songPayload.save();
     const newSong = new Song({
         name: song.name,
         originalPlaylist: playlistId,
         author: id,
         length: song.time,
         listenCount: 0,
-        data: song.song
+        payload: songPayload._id
     })
     newSong.save();
     await Playlist.updateOne({_id: playlistId}, {$push: {

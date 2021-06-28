@@ -60,7 +60,7 @@ const MusicPlayer = () => {
                 </div>
                 <div className="timeline">
                     <div className="currentTime">
-                        {new Date(audio.duration * time * 10 || 0).toISOString().substr(14, 5)}
+                        {new Date(audio?.duration * time * 10 || 0).toISOString().substr(14, 5)}
                     </div>
                     <input type="range" className="timelineContainer inputRange" 
                     min="0"

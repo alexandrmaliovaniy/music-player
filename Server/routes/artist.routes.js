@@ -18,7 +18,7 @@ router.get("/info/:id", async(req, res) => {
     if (!_id) return res.status(404).json({message: "Artist not found"});
     res.json({_id, username, image});
 })
-router.get("/subPlaylists/:id", async(req, res) => {
+router.get("/subPlaylists/:id", auth, async(req, res) => {
     const userId = req.params.id;
     const data = await User.aggregate([
         {
@@ -43,7 +43,8 @@ router.get("/subPlaylists/:id", async(req, res) => {
                 }
             }
         }
-    ])
+    ]);
+    if (!data[0]?.playlists) return res.status(404).json({message: "Playlists not defined"});
     res.json(data[0].playlists);
 })
 router.post("/subscribe", auth, async(req, res) => {

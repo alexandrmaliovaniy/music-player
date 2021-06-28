@@ -1,6 +1,5 @@
 import './ContextMenu.css';
 const ContextMenu = ({title, options, offset, click}) => {
-    console.log(options);
     return (
         <div className="ContextMenu" style={{left: `${offset.x}px`, top: `${offset.y}px`}}>
             <div className="title">{title}</div>

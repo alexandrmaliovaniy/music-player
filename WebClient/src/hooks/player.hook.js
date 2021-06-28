@@ -101,7 +101,8 @@ export const usePlayer = () => {
     }, [currentSong, currentList, shuffle])
     const PlaySong = async(songList, playlist, songId) => {
         let song = await request(`/api/song/${songId}`, "GET", null);
-        audio.src = song.data;
+        console.log(song);
+        audio.src = song.payload;
         setCurrentList(songList);
         setCurrentSong({playlist, song});
         Play();
